@@ -12,7 +12,7 @@ root.render(
       appId="cm1x2dy38048b3iwyq71m2q4i"
       config={{
         appearance: {
-          theme: "light",
+          theme: "dark",
         },
       }}
     >
