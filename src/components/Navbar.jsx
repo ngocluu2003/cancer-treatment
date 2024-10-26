@@ -33,7 +33,7 @@ const Navbar = () => {
         <input
           type="text"
           placeholder="search for records"
-          className="flex w-full bg-transparent font-epilogue text-[14px] font-normal text-white outline-none placeholder:text-[#4b5264]"
+          className="flex w-full bg-transparent font-epilogue text-[14px] font-normal outline-none dark:text-white dark:placeholder:text-[#4b5264]"
         />
         <div className="flex h-full w-[72px] cursor-pointer items-center justify-center rounded-[20px] bg-[#4acd8d]">
           <img

@@ -32,7 +32,7 @@ const ThemeSwitch = ({ className }) => {
 
   return (
     <button
-      className={`flex items-center justify-center rounded-full border border-opacity-40 bg-white bg-opacity-80 shadow-2xl transition-all hover:scale-[1.15] active:scale-105 ${className}`}
+      className={`flex items-center justify-center rounded-full border border-none border-opacity-40 bg-white bg-opacity-80 shadow-2xl transition-all hover:scale-[1.15] active:scale-105 dark:bg-[#2c2f32] dark:text-white ${className}`}
       onClick={toggleTheme}
     >
       {theme === "light" ? <BsSun size={24} /> : <BsMoon size={24} />}

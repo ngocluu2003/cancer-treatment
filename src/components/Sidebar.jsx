@@ -17,13 +17,13 @@ const Sidebar = () => {
           <IconHeartHandshake size={40} color="#1ec070" />
         </div>
       </Link>
-      <div className="mt-12 flex w-[76px] flex-1 flex-col items-center justify-between rounded-[20px] bg-[#e3e3db] py-4 dark:bg-[#1c1c24]">
+      <div className="mt-12 flex w-[76px] flex-1 flex-col items-center justify-between rounded-[20px] bg-[#e9e9e9] py-4 dark:bg-[#1c1c24]">
         <div className="flex flex-col items-center justify-center gap-3">
           {navLinks.map((item) => (
             <Icon
               key={item.name}
               {...item}
-              style={`cursor-pointer ${isActive === item.name ? 'text-green-500' : 'text-gray-600'} dark:text-gray-300`}
+              style={"cursor-pointer"}
               isActive={isActive}
               handleClick={() => {
                 setIsActive(item.name);
@@ -32,7 +32,7 @@ const Sidebar = () => {
             />
           ))}
         </div>
-        {/* ThemeSwitch with the same styling */}
+        {/* Replace the sun icon with the ThemeSwitch component */}
         <ThemeSwitch className="mt-3 flex h-10 w-10 items-center justify-center" />
       </div>
     </div>
