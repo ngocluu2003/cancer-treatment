@@ -12,7 +12,7 @@ const Onboarding = () => {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-[#f5f5f5] dark:bg-[#13131a]">
-      <div className="w-full max-w-md rounded-2xl bg-[#e9e9e9] dark:bg-[#1c1c24] p-8 shadow-md">
+      <div className="w-full max-w-md rounded-2xl bg-[#e9e9e9] dark:bg-[#1c1c24] p-8 shadow-lg">
         <h2 className="mb-2 text-center text-5xl font-bold text-[#1ec070] dark:text-[#1dc071]">👋</h2>
         <h2 className="mb-6 text-center text-2xl font-bold text-[#13131a] dark:text-white">
           Welcome! Let's get started
