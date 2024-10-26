@@ -22,7 +22,11 @@ const DisplayInfo = () => {
           <MetricsCard key={metric.title} {...metric} />
         ))}
       </div>
-      <div></div>
+      <div className="mt-[9px] grid w-full gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
+        {metricsData.slice(2).map((metric) => (
+          <MetricsCard key={metric.title} {...metric} />
+        ))}
+      </div>
     </div>
   );
 };
