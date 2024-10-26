@@ -55,7 +55,7 @@ const Navbar = () => {
             handleClick={handleLoginLogout}
           />
         ) : (
-          <div className="h-6 w-6 animate-spin rounded-full border-4 border-t-4 border-white border-t-[#1dc071]"></div>
+          <div className="h-6 w-6 mt-4 animate-spin rounded-full border-4 border-t-4 border-white border-t-[#1dc071]"></div>
         )}
       </div>
       {/* mobile version */}
