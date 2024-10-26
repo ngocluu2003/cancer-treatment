@@ -5,6 +5,9 @@ import { usePrivy } from "@privy-io/react-auth";
 import { IconHeartHandshake } from "@tabler/icons-react";
 import { navLinks } from "../constants";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignInAlt, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+
 const Navbar = () => {
   const [toggleDrawer, setToggleDrawer] = useState(false);
   const [isActive, setIsActive] = useState("dashboard");
@@ -40,26 +43,55 @@ const Navbar = () => {
         </div>
       </div>
       <div className="hidden flex-row justify-end gap-2 sm:flex">
-        <CustomButton
-          styles={authenticated ? "bg-[#1dc071]" : "bg-[#8c6dfd]"}
-          btnType={"button"}
-          title={authenticated ? "Logout" : "Login"}
-          handleClick={handleLoginLogout}
-        />
+        {ready ? (
+          <CustomButton
+            styles={
+              authenticated
+                ? "bg-[#1dc071] text-white hover:bg-[#1abc70] border border-[#1dc071]"
+                : "bg-red-500 text-white hover:bg-red-600 border border-red-300"
+            }
+            btnType="button"
+            title={authenticated ? "Logout" : "Login"}
+            handleClick={handleLoginLogout}
+          />
+        ) : (
+          <div className="h-6 w-6 animate-spin rounded-full border-4 border-t-4 border-white border-t-[#1dc071]"></div>
+        )}
       </div>
       {/* mobile version */}
       <div className="relative flex items-center justify-between sm:hidden">
         <div className="flex h-[40px] cursor-pointer items-center justify-center rounded-[10px] bg-[#2c2f32]">
           <IconHeartHandshake size={40} color="#1ec070" className="p-2" />
         </div>
-        <img
-          src={menu}
-          alt="menu"
-          className="h-[34px] w-[34px] cursor-pointer object-contain"
-          onClick={() => {
-            setToggleDrawer((prev) => !prev);
-          }}
-        />
+
+        <div className="flex items-center">
+          <img
+            src={menu}
+            alt="menu"
+            className="h-[34px] w-[34px] cursor-pointer object-contain"
+            onClick={() => {
+              setToggleDrawer((prev) => !prev);
+            }}
+          />
+          {ready ? (
+            <button
+              className={`ml-2 flex items-center rounded px-2 py-1 transition duration-200 ${
+                authenticated
+                  ? "border border-[#1dc071] bg-[#1dc071] text-white hover:bg-[#1abc70]"
+                  : "border border-red-300 bg-red-500 text-white hover:bg-red-600"
+              }`}
+              onClick={handleLoginLogout}
+            >
+              <FontAwesomeIcon
+                icon={authenticated ? faSignOutAlt : faSignInAlt}
+                className="mr-1"
+              />
+            </button>
+          ) : (
+            <div className="ml-1 h-6 w-6 animate-spin rounded-full border-4 border-t-4 border-white border-t-[#1dc071]"></div>
+          )}
+        </div>
+        {/* toggle menu sidebar */}
         <div
           className={`absolute left-0 right-0 top-[60px] z-10 bg-[#1c1c24] py-4 shadow-secondary ${!toggleDrawer ? "-translate-y-[100vh]" : "translate-y-0"} transition-all duration-700`}
         >
