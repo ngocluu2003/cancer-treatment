@@ -31,7 +31,7 @@ const Navbar = () => {
   return (
     <div className="mb-[35px] flex flex-col-reverse justify-between gap-6 sm:flex-row">
       {/* Search bar component */}
-      <div className="flex h-[52px] max-w-[458px] flex-row rounded-[100px] bg-[#e9e9e9] dark:bg-[#1c1c24] py-2 pl-4 pr-2 lg:flex-1">
+      <div className="flex h-[52px] max-w-[458px] flex-row rounded-[100px] bg-[#e9e9e9] py-2 pl-4 pr-2 lg:flex-1 dark:bg-[#1c1c24]">
         <input
           type="text"
           placeholder="search for records"
@@ -45,7 +45,7 @@ const Navbar = () => {
           />
         </div>
       </div>
-      
+
       {/* Authentication button */}
       <div className="hidden flex-row justify-end gap-2 sm:flex">
         {ready ? (
@@ -102,7 +102,7 @@ const Navbar = () => {
 
         {/* Toggle menu sidebar */}
         <div
-          className={`absolute left-0 right-0 top-[60px] z-10 bg-[#f5f5f5] dark:bg-[#13131a] py-4 shadow-secondary ${
+          className={`absolute left-0 right-0 top-[60px] z-10 bg-[#f5f5f5] py-4 shadow-secondary dark:bg-[#13131a] ${
             !toggleDrawer ? "-translate-y-[100vh]" : "translate-y-0"
           } transition-all duration-700`}
         >
