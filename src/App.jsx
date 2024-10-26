@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar";
 import { Home } from "./pages";
 const App = () => {
   return (
-    <div className="relative flex min-h-screen flex-row bg-[#13131a] p-4">
+    <div className="relative flex min-h-screen flex-row bg-[#f5f5f5] p-4 dark:bg-[#13131a]">
       <div className="relative mr-10 hidden sm:flex">
         <Sidebar />
       </div>
