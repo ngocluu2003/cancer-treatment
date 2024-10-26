@@ -8,7 +8,7 @@ const App = () => {
       <div className="relative mr-10 hidden sm:flex">
         <Sidebar />
       </div>
-      <div className="mx-auto max-w-[1280px] flex-1 max-sm:w-full sm:pr-5">
+      <div className="mx-auto max-w-[1280px] flex-1 max-sm:w-full sm:pr-3">
         <Navbar />
         <Routes>
           <Route path="/" element={<div>Home Page</div>} />
