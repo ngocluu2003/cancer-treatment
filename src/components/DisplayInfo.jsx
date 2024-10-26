@@ -8,8 +8,9 @@ const DisplayInfo = () => {
     aiPersonalizedTreatment: 0,
     totalScreenings: 0,
     personalScreenings: 0,
-    pendingScreening: 0,
+    pendingScreenings: 0,
     overdueScreenings: 0,
+    completedScreenings: 0,
   });
 
   const metricsData = useMetricsData(metrics);
