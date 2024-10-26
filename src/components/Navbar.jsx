@@ -7,6 +7,7 @@ import { navLinks } from "../constants";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import ThemeSwitch from "./ThemeSwitch";
 
 const Navbar = () => {
   const [toggleDrawer, setToggleDrawer] = useState(false);
@@ -26,7 +27,7 @@ const Navbar = () => {
   }, [authenticated, user, login, logout]);
   console.log(user);
   return (
-    <div className="mb-[35px] flex flex-col-reverse justify-between gap-6 md:flex-row">
+    <div className="mb-[35px] flex flex-col-reverse justify-between gap-6 sm:flex-row">
       {/* search bar component */}
       <div className="flex h-[52px] max-w-[458px] flex-row rounded-[100px] bg-[#1c1c24] py-2 pl-4 pr-2 lg:flex-1">
         <input
@@ -55,7 +56,7 @@ const Navbar = () => {
             handleClick={handleLoginLogout}
           />
         ) : (
-          <div className="h-6 w-6 mt-4 animate-spin rounded-full border-4 border-t-4 border-white border-t-[#1dc071]"></div>
+          <div className="mt-4 h-6 w-6 animate-spin rounded-full border-4 border-t-4 border-white border-t-[#1dc071]"></div>
         )}
       </div>
       {/* mobile version */}
@@ -65,6 +66,8 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center">
+          {/* Place ThemeSwitch Component here with custom styles */}
+
           <img
             src={menu}
             alt="menu"
@@ -73,6 +76,8 @@ const Navbar = () => {
               setToggleDrawer((prev) => !prev);
             }}
           />
+          <ThemeSwitch className="m-2 flex h-8 w-8 items-center justify-center rounded-full" />
+
           {ready ? (
             <button
               className={`ml-2 flex items-center rounded px-2 py-1 transition duration-200 ${
@@ -91,6 +96,7 @@ const Navbar = () => {
             <div className="ml-1 h-6 w-6 animate-spin rounded-full border-4 border-t-4 border-white border-t-[#1dc071]"></div>
           )}
         </div>
+
         {/* toggle menu sidebar */}
         <div
           className={`absolute left-0 right-0 top-[60px] z-10 bg-[#1c1c24] py-4 shadow-secondary ${!toggleDrawer ? "-translate-y-[100vh]" : "translate-y-0"} transition-all duration-700`}

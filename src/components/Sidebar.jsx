@@ -1,14 +1,15 @@
 import React from "react";
 import { useState } from "react";
 import { navLinks } from "../constants";
-import { sun } from "../assets";
 import { Link, useNavigate } from "react-router-dom";
 import { IconHeartHandshake } from "@tabler/icons-react";
 import Icon from "./Icon";
+import ThemeSwitch from "./ThemeSwitch";
 
 const Sidebar = () => {
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState("dashboard");
+
   return (
     <div className="sticky top-5 flex h-[93vh] flex-col items-center justify-between">
       <Link to={"/"}>
@@ -18,22 +19,21 @@ const Sidebar = () => {
       </Link>
       <div className="mt-12 flex w-[76px] flex-1 flex-col items-center justify-between rounded-[20px] bg-[#1c1c24] py-4">
         <div className="flex flex-col items-center justify-center gap-3">
-          {navLinks.map((item) => {
-            return (
-              <Icon
-                key={item.name}
-                {...item}
-                style={"cursor-pointer"}
-                isActive={isActive}
-                handleClick={() => {
-                  setIsActive(item.name);
-                  navigate(item.link);
-                }}
-              />
-            );
-          })}
+          {navLinks.map((item) => (
+            <Icon
+              key={item.name}
+              {...item}
+              style={"cursor-pointer"}
+              isActive={isActive}
+              handleClick={() => {
+                setIsActive(item.name);
+                navigate(item.link);
+              }}
+            />
+          ))}
         </div>
-        <Icon styles={"bg-[#1c1c24] shawdow-secondary"} imageUrl={sun} />
+        {/* Replace the sun icon with the ThemeSwitch component */}
+        <ThemeSwitch className="mt-3 flex h-10 w-10 items-center justify-center" />
       </div>
     </div>
   );
