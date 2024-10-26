@@ -49,16 +49,18 @@ const Navbar = () => {
       {/* Authentication button */}
       <div className="hidden flex-row justify-end gap-2 sm:flex">
         {ready ? (
-          <CustomButton
-            styles={
-              authenticated
-                ? "bg-[#1dc071] text-white hover:bg-[#1abc70] border border-[#1dc071]"
-                : "bg-red-500 text-white hover:bg-red-600 border border-red-300"
-            }
-            btnType="button"
-            title={authenticated ? "Logout" : "Login"}
-            handleClick={handleLoginLogout}
-          />
+          <>
+            <CustomButton
+              styles={
+                authenticated
+                  ? "bg-[#1dc071] text-white hover:bg-[#1abc70] border border-[#1dc071]"
+                  : "bg-red-500 text-white hover:bg-red-600 border border-red-300"
+              }
+              btnType="button"
+              title={authenticated ? "Logout" : "Login"}
+              handleClick={handleLoginLogout}
+            />
+          </>
         ) : (
           <div className="mt-4 h-6 w-6 animate-spin rounded-full border-4 border-t-4 border-white border-t-[#1dc071]"></div>
         )}

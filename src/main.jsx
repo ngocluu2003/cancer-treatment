@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 import "./index.css";
 import { PrivyProvider } from "@privy-io/react-auth";
-import { ThemeContext, ThemeContextProvider } from "./context/ThemeContext";
+import { ThemeContextProvider } from "./context/ThemeContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
