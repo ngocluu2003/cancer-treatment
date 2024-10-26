@@ -14,6 +14,7 @@ const Navbar = () => {
   const [isActive, setIsActive] = useState("dashboard");
   const navigate = useNavigate();
   const { ready, authenticated, login, logout, user } = usePrivy();
+
   const handleLoginLogout = useCallback(() => {
     if (authenticated) {
       logout();
@@ -26,16 +27,17 @@ const Navbar = () => {
     }
   }, [authenticated, user, login, logout]);
   console.log(user);
+
   return (
     <div className="mb-[35px] flex flex-col-reverse justify-between gap-6 sm:flex-row">
-      {/* search bar component */}
-      <div className="flex h-[52px] max-w-[458px] flex-row rounded-[100px] bg-[#1c1c24] py-2 pl-4 pr-2 lg:flex-1">
+      {/* Search bar component */}
+      <div className="flex h-[52px] max-w-[458px] flex-row rounded-[100px] bg-[#e9e9e9] dark:bg-[#1c1c24] py-2 pl-4 pr-2 lg:flex-1">
         <input
           type="text"
           placeholder="search for records"
-          className="flex w-full bg-transparent font-epilogue text-[14px] font-normal outline-none dark:text-white dark:placeholder:text-[#4b5264]"
+          className="flex w-full bg-transparent font-epilogue text-[14px] font-normal text-[#13131a] placeholder-gray-500 outline-none dark:text-white dark:placeholder:text-[#4b5264]"
         />
-        <div className="flex h-full w-[72px] cursor-pointer items-center justify-center rounded-[20px] bg-[#4acd8d]">
+        <div className="flex h-full w-[72px] cursor-pointer items-center justify-center rounded-[20px] bg-[#1ec070] dark:bg-[#1dc071]">
           <img
             src={search}
             alt="search"
@@ -43,6 +45,8 @@ const Navbar = () => {
           />
         </div>
       </div>
+      
+      {/* Authentication button */}
       <div className="hidden flex-row justify-end gap-2 sm:flex">
         {ready ? (
           <CustomButton
@@ -59,15 +63,14 @@ const Navbar = () => {
           <div className="mt-4 h-6 w-6 animate-spin rounded-full border-4 border-t-4 border-white border-t-[#1dc071]"></div>
         )}
       </div>
-      {/* mobile version */}
+
+      {/* Mobile view */}
       <div className="relative flex items-center justify-between sm:hidden">
-        <div className="flex h-[40px] cursor-pointer items-center justify-center rounded-[10px] bg-[#2c2f32]">
+        <div className="flex h-[40px] cursor-pointer items-center justify-center rounded-[10px] bg-[#e3e3db] dark:bg-[#2c2f32]">
           <IconHeartHandshake size={40} color="#1ec070" className="p-2" />
         </div>
 
         <div className="flex items-center">
-          {/* Place ThemeSwitch Component here with custom styles */}
-
           <img
             src={menu}
             alt="menu"
@@ -97,16 +100,20 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* toggle menu sidebar */}
+        {/* Toggle menu sidebar */}
         <div
-          className={`absolute left-0 right-0 top-[60px] z-10 bg-[#1c1c24] py-4 shadow-secondary ${!toggleDrawer ? "-translate-y-[100vh]" : "translate-y-0"} transition-all duration-700`}
+          className={`absolute left-0 right-0 top-[60px] z-10 bg-[#f5f5f5] dark:bg-[#13131a] py-4 shadow-secondary ${
+            !toggleDrawer ? "-translate-y-[100vh]" : "translate-y-0"
+          } transition-all duration-700`}
         >
           <ul className="mb-4">
             {navLinks.map((item) => {
               return (
                 <li
                   key={item.name}
-                  className={`flex p-4 ${isActive === item.name && "bg-[#3a3a43]"} cursor-pointer`}
+                  className={`flex p-4 ${
+                    isActive === item.name && "bg-[#e3e3db] dark:bg-[#3a3a43]"
+                  } cursor-pointer`}
                   onClick={() => {
                     setIsActive(item.name);
                     setToggleDrawer(false);
@@ -133,7 +140,6 @@ const Navbar = () => {
               );
             })}
           </ul>
-          <div className="mx-4 flex"></div>
         </div>
       </div>
     </div>

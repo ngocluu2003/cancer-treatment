@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { navLinks } from "../constants";
 import { Link, useNavigate } from "react-router-dom";
 import { IconHeartHandshake } from "@tabler/icons-react";
@@ -23,7 +22,9 @@ const Sidebar = () => {
             <Icon
               key={item.name}
               {...item}
-              style={"cursor-pointer"}
+              style={`cursor-pointer ${
+                isActive === item.name ? "text-[#1dc071]" : "text-[#808191]"
+              }`}
               isActive={isActive}
               handleClick={() => {
                 setIsActive(item.name);
@@ -32,8 +33,7 @@ const Sidebar = () => {
             />
           ))}
         </div>
-        {/* Replace the sun icon with the ThemeSwitch component */}
-        <ThemeSwitch className="mt-3 flex h-10 w-10 items-center justify-center" />
+        <ThemeSwitch className="mt-3 flex h-10 w-10 items-center justify-center rounded-full transition-colors duration-200" />
       </div>
     </div>
   );
