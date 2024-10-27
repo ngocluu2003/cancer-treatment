@@ -5,8 +5,7 @@ import { usePrivy } from "@privy-io/react-auth";
 import { IconHeartHandshake } from "@tabler/icons-react";
 import { navLinks } from "../constants";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignInAlt, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { IconLogin, IconLogout } from "@tabler/icons-react";
 import ThemeSwitch from "./ThemeSwitch";
 
 const Navbar = () => {
@@ -31,7 +30,7 @@ const Navbar = () => {
   return (
     <div className="mb-[35px] flex flex-col-reverse justify-between gap-6 sm:flex-row">
       {/* Search bar component */}
-      <div className="flex h-[52px] max-w-[458px] flex-row rounded-[100px] bg-[#e9e9e9] py-2 pl-4 pr-2 lg:flex-1 dark:bg-[#1c1c24]">
+      <div className="flex h-[52px] max-w-[458px] flex-row rounded-[100px] bg-[#e9e9e9] py-2 pl-4 pr-2 dark:bg-[#1c1c24] lg:flex-1">
         <input
           type="text"
           placeholder="search for records"
@@ -92,13 +91,14 @@ const Navbar = () => {
               }`}
               onClick={handleLoginLogout}
             >
-              <FontAwesomeIcon
-                icon={authenticated ? faSignOutAlt : faSignInAlt}
-                className="mr-1"
-              />
+              {authenticated ? (
+                <IconLogout size={20} />
+              ) : (
+                <IconLogin size={20} />
+              )}
             </button>
           ) : (
-            <div className="ml-1 h-6 w-6 animate-spin rounded-full border-4 border-t-4 border-white border-t-[#1dc071]"></div>
+            <div className="ml-1 h-6 w-6 animate-spin rounded-full border-4 border-t-4 border-[#e9e9e9] border-t-[#1ec070] dark:border-[#2c2f32] dark:border-t-[#1dc071]"></div>
           )}
         </div>
 
