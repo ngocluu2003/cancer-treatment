@@ -42,6 +42,9 @@
     "remark-math": "^6.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.25.9",
     "@vitejs/plugin-react": "^2",
     "autoprefixer": "^10.4.13",
     "drizzle-kit": "^0.23.0",
