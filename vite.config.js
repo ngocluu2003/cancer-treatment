@@ -10,4 +10,9 @@ export default defineConfig({
     },
   },
   base: "./",
+  build: {
+    rollupOptions: {
+      external: ["@fortawesome/fontawesome-svg-core", "@fortawesome/free-solid-svg-icons", "@fortawesome/react-fontawesome"],
+    },
+  },
 });
