@@ -30,7 +30,7 @@ const Navbar = () => {
   return (
     <div className="mb-[35px] flex flex-col-reverse justify-between gap-6 sm:flex-row">
       {/* Search bar component */}
-      <div className="flex h-[52px] max-w-[458px] flex-row rounded-[100px] bg-[#e9e9e9] py-2 pl-4 pr-2 dark:bg-[#1c1c24] lg:flex-1">
+      <div className="flex h-[52px] w-full flex-row rounded-[100px] bg-[#e9e9e9] py-2 pl-4 pr-2 dark:bg-[#1c1c24] sm:max-w-[498px] lg:flex-1">
         <input
           type="text"
           placeholder="search for records"
