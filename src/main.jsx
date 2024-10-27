@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <PrivyProvider
-      appId="cm1x2dy38048b3iwyq71m2q4i"
+      appId={import.meta.env.VITE_PRIVY_APP_ID}
       config={{
         appearance: {
           theme: "dark",
@@ -23,5 +23,5 @@ root.render(
         </ThemeContextProvider>
       </Router>
     </PrivyProvider>
-  </React.StrictMode>,
+  </React.StrictMode>
 );

@@ -22,9 +22,7 @@ const Sidebar = () => {
             <Icon
               key={item.name}
               {...item}
-              style={`cursor-pointer ${
-                isActive === item.name ? "text-[#1dc071]" : "text-[#808191]"
-              }`}
+              style={`cursor-pointer`}
               isActive={isActive}
               handleClick={() => {
                 setIsActive(item.name);
