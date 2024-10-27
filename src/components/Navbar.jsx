@@ -58,6 +58,9 @@ const Navbar = () => {
               btnType="button"
               title={authenticated ? "Logout" : "Login"}
               handleClick={handleLoginLogout}
+              icon={authenticated ? IconLogout : IconLogin}
+              iconSize={20}
+              iconStyle={"mr-1"}
             />
           </>
         ) : (
