@@ -5,6 +5,8 @@ import App from "./App";
 import "./index.css";
 import { PrivyProvider } from "@privy-io/react-auth";
 import { ThemeContextProvider } from "./context/ThemeContext";
+import { Buffer } from "buffer";
+window.Buffer = Buffer;
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -23,5 +25,5 @@ root.render(
         </ThemeContextProvider>
       </Router>
     </PrivyProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
