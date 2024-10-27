@@ -16,15 +16,42 @@ const Navbar = () => {
 
   const handleLoginLogout = useCallback(() => {
     if (authenticated) {
-      logout();
+      logout().catch((error) => {});
     } else {
-      login().then(() => {
-        if (user) {
-          // fetch user from the database
-        }
-      });
+      // Call login function
+      login()
+        .then(() => {
+          if (user) {
+            // If user is already available, no need to fetch from the database
+            console.log("User is already available:", user);
+          } else {
+            // Fetch user from the database after login
+            // fetchUserFromDatabase().catch((error) => {
+            //   console.error("Error fetching user:", error); // Error handling for fetching user
+            // });
+          }
+        })
+        .catch((error) => {
+          console.error("Login failed:", error); // Error handling for login
+        });
     }
   }, [authenticated, user, login, logout]);
+
+  // Fetch user from the database function
+  const fetchUserFromDatabase = async () => {
+    try {
+      const response = await fetch("/api/user"); // Example API endpoint
+      if (!response.ok) {
+        throw new Error("Failed to fetch user data");
+      }
+      const userData = await response.json();
+      console.log("Fetched user data:", userData);
+      // Set user state or handle user data as needed
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
   console.log(user);
 
   return (
