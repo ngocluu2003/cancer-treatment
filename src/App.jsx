@@ -6,6 +6,7 @@ import { Home, Profile } from "./pages";
 import { Onboarding } from "./pages";
 import { useUserStateContext } from "./context/User";
 import { usePrivy } from "@privy-io/react-auth";
+import MedicalRecord from "./pages/records";
 
 const App = () => {
   const { currentUser } = useUserStateContext();
@@ -18,7 +19,7 @@ const App = () => {
       console.log(currentUser);
       navigate("/onboarding");
     }
-  }, [ready,currentUser, navigate]);
+  }, [ready, currentUser, navigate]);
   return (
     <div className="relative flex min-h-screen flex-row bg-[#f5f5f5] p-4 transition-colors duration-300 dark:bg-[#13131a] dark:text-white">
       <div className="relative mr-10 hidden sm:flex">
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/medical-records" element={<MedicalRecord />} />
         </Routes>
       </div>
     </div>
