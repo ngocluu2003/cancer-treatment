@@ -1,13 +1,30 @@
 import React, { useState } from "react";
+import { useUserStateContext } from "../context/User";
+import { usePrivy } from "@privy-io/react-auth";
+import { useNavigate } from "react-router-dom";
 
 const Onboarding = () => {
   const [username, setUsername] = useState("");
   const [age, setAge] = useState("");
   const [location, setLocation] = useState("");
+  const { createUser } = useUserStateContext();
+  const { user } = usePrivy();
+  const navigate = useNavigate();
 
   const handleOnboarding = async (e) => {
     e.preventDefault();
-    console.log(username, age, location);
+    // console.log(username, age, location);
+    const userData = {
+      username,
+      age: parseInt(age, 10),
+      location,
+      createdBy: user.email.address,
+    };
+    const newUser = await createUser(userData);
+    if (newUser) {
+      navigate("/profile");
+    }
+    console.log(newUser);
   };
 
   return (

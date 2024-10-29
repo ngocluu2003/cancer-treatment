@@ -7,15 +7,6 @@ export const Users = pgTable("users", {
   username: varchar("username").notNull(),
   age: integer("age").notNull(),
   location: varchar("location").notNull(),
-  folders: text("folders")
-    .array()
-    .notNull()
-    .default(sql`ARRAY[]::text[]`),
-  treatmentCounts: integer("treatment_counts").notNull(),
-  folder: text("folder")
-    .array()
-    .notNull()
-    .default(sql`ARRAY[]::text[]`),
   createdBy: varchar("created_by").notNull(),
 });
 

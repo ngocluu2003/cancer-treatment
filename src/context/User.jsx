@@ -4,9 +4,9 @@ import { db } from "../utils/dbConfig";
 import { Users, Records } from "../utils/schema";
 import { eq } from "drizzle-orm";
 
-const StateContext = createContext();
+const UserStateContext = createContext();
 
-export const StateContextProvider = ({ children }) => {
+export const UserStateContextProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
   const [records, setRecords] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
@@ -27,7 +27,7 @@ export const StateContextProvider = ({ children }) => {
         .from(Users)
         .where(eq(Users.createdBy, email));
 
-      if (result > 0) {
+      if (result.length > 0) {
         setCurrentUser(result[0]);
       }
     } catch (error) {
@@ -43,6 +43,7 @@ export const StateContextProvider = ({ children }) => {
         .returning()
         .execute();
       setUsers((prevUsers) => [...prevUsers, newUser[0]]);
+      setCurrentUser(newUser);
       return newUser[0];
     } catch (error) {
       console.error("Error creating user", error);
@@ -94,7 +95,7 @@ export const StateContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <StateContext.Provider
+    <UserStateContext.Provider
       value={{
         users,
         records,
@@ -108,8 +109,8 @@ export const StateContextProvider = ({ children }) => {
       }}
     >
       {children}
-    </StateContext.Provider>
+    </UserStateContext.Provider>
   );
 };
 
-export const useStateContext = () => useContext(StateContext);
+export const useUserStateContext = () => useContext(UserStateContext);

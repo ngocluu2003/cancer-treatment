@@ -4,7 +4,7 @@ export default {
   out: "./drizzle",
 
   dbCredentials: {
-    url: process.env.DATABASE_URL,
-    connectionString: process.env.DATABASE_URL,
+    url: import.meta.env.VITE_DATABASE_URL,
+    connectionString: import.meta.env.VITE_DATABASE_URL,
   },
 };
