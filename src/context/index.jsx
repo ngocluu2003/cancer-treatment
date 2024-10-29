@@ -24,7 +24,7 @@ export const StateContextProvide = ({ children }) => {
     try {
       const result = await db
         .select()
-        .from(users)
+        .from(Users)
         .where(eq(Users.createdBy, email));
 
       if (result > 0) {
@@ -50,5 +50,40 @@ export const StateContextProvide = ({ children }) => {
     }
   }, []);
 
-  const fetchUserRecords = useCallback(() => {}, []);
+  const fetchUserRecords = useCallback(async (userEmail) => {
+    try {
+      const result = await db
+        .select()
+        .from(Records)
+        .where(eq(Records.createdBy, userEmail))
+        .execute();
+      setRecords(result);
+    } catch (error) {
+      console.error("Error fetching user record", error);
+    }
+  }, []);
+
+  const createRecord = useCallback(async (recordData) => {
+    try {
+      const newRecord = await db
+        .insert(Records)
+        .values(recordData)
+        .returning({ id: Records.id })
+        .execute();
+      setRecords((prevRecords) => [...prevRecords, newRecord[0]]);
+      return newRecord[0];
+    } catch (error) {
+      console.error("Error creating user record", error);
+      return null;
+    }
+  }, []);
+
+  const updateRecord = useCallback(async (recordData) => {
+    try {
+      const { documentID, ...dateTOUpdate } = recordData;
+      
+    } catch (error) {
+      console.error("Error updating user record", error);
+    }
+  }, []);
 };
