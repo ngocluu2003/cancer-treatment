@@ -43,7 +43,7 @@ export const UserStateContextProvider = ({ children }) => {
         .returning()
         .execute();
       setUsers((prevUsers) => [...prevUsers, newUser[0]]);
-      setCurrentUser(newUser);
+      setCurrentUser(newUser[0]);
       return newUser[0];
     } catch (error) {
       console.error("Error creating user", error);
