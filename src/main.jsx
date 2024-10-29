@@ -6,6 +6,7 @@ import "./index.css";
 import { PrivyProvider } from "@privy-io/react-auth";
 import { ThemeContextProvider } from "./context/ThemeContext";
 import { Buffer } from "buffer";
+import { StateContextProvider } from "./context";
 window.Buffer = Buffer;
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -21,7 +22,9 @@ root.render(
     >
       <Router>
         <ThemeContextProvider>
-          <App />
+          <StateContextProvider>
+            <App />
+          </StateContextProvider>
         </ThemeContextProvider>
       </Router>
     </PrivyProvider>

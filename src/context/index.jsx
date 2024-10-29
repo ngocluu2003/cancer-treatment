@@ -6,7 +6,7 @@ import { eq } from "drizzle-orm";
 
 const StateContext = createContext();
 
-export const StateContextProvide = ({ children }) => {
+export const StateContextProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
   const [records, setRecords] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
@@ -80,10 +80,36 @@ export const StateContextProvide = ({ children }) => {
 
   const updateRecord = useCallback(async (recordData) => {
     try {
-      const { documentID, ...dateTOUpdate } = recordData;
-      
+      const { documentID, ...dataTOUpdate } = recordData;
+      const result = await db
+        .update(Records)
+        .set(dataTOUpdate)
+        .where(Records.id, documentID)
+        .returning();
+      // setRecords((prevRecords) => prevRecords.map((record) => {}));
     } catch (error) {
       console.error("Error updating user record", error);
+      return null;
     }
   }, []);
+
+  return (
+    <StateContext.Provider
+      value={{
+        users,
+        records,
+        fetchUsers,
+        fetchUserByEmail,
+        createUser,
+        fetchUserRecords,
+        createRecord,
+        currentUser,
+        updateRecord,
+      }}
+    >
+      {children}
+    </StateContext.Provider>
+  );
 };
+
+export const useStateContext = () => useContext(StateContext);
