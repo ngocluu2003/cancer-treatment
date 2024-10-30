@@ -20,24 +20,28 @@ const App = () => {
   const { ready, authenticated, login, user } = usePrivy();
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  
   useEffect(() => {
     if (ready) {
       if (!authenticated) {
         login();
-      } else if (user && !currentUser) {
-        fetchUserByEmail(user.email.address);
-      } else if (user && currentUser && !currentUser.isOnBoarded) {
-        navigate("/onboarding");
-      } else if (
-        user &&
-        currentUser &&
-        currentUser.isOnBoarded &&
-        pathname === "/onboarding"
-      ) {
-        navigate("/");
+      }
+      if (user) {
+        if (!currentUser) {
+          fetchUserByEmail(user.email?.address);
+        } else if (currentUser === null) {
+          navigate("/onboarding");
+        } else if (!currentUser.isOnBoarded) {
+          navigate("/onboarding");
+        } else {
+          if (pathname === "/onboarding") {
+            navigate("/");
+          }
+        }
       }
     }
-  }, [ready, authenticated, user, currentUser, pathname]);
+  }, [ready, authenticated, user, currentUser, fetchUserByEmail, navigate]);
+  console.log(currentUser);
   return (
     <div className="relative flex min-h-screen flex-row bg-[#f5f5f5] p-4 transition-colors duration-300 dark:bg-[#13131a] dark:text-white">
       <div className="relative mr-10 hidden sm:flex">
