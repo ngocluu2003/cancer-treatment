@@ -11,18 +11,21 @@ const Sidebar = () => {
 
   return (
     <div className="sticky top-5 flex h-[93vh] flex-col items-center justify-between">
+      {/* Logo and Home link */}
       <Link to={"/"}>
-        <div className="rounded-[10px] bg-[#e3e3db] p-2 dark:bg-[#2c2f32]">
+        <div className="rounded-[10px] bg-[#e3e3db] p-2 transition-transform duration-200 hover:scale-105 dark:bg-[#2c2f32]">
           <IconHeartHandshake size={40} color="#1ec070" />
         </div>
       </Link>
-      <div className="mt-12 flex w-[76px] flex-1 flex-col items-center justify-between rounded-[20px] bg-[#e9e9e9] py-4 dark:bg-[#1c1c24]">
+
+      {/* Navigation Links */}
+      <div className="mt-12 flex w-[76px] flex-1 flex-col items-center justify-between rounded-[20px] bg-[#e9e9e9] py-4 shadow-lg transition-colors duration-200 dark:bg-[#1c1c24]">
         <div className="flex flex-col items-center justify-center gap-3">
           {navLinks.map((item) => (
             <Icon
               key={item.name}
               {...item}
-              style={`cursor-pointer`}
+              style={`cursor-pointer ${isActive === item.name ? "text-[#1dc071]" : "text-gray-500 dark:text-neutral-400"}`}
               isActive={isActive}
               handleClick={() => {
                 setIsActive(item.name);
@@ -31,6 +34,8 @@ const Sidebar = () => {
             />
           ))}
         </div>
+
+        {/* Theme Switch */}
         <ThemeSwitch className="mt-3 flex h-10 w-10 items-center justify-center rounded-full transition-colors duration-200" />
       </div>
     </div>

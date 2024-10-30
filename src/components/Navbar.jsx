@@ -16,41 +16,17 @@ const Navbar = () => {
 
   const handleLoginLogout = useCallback(() => {
     if (authenticated) {
-      logout()
-        .then(() => {
-          window.location.reload();
-        })
-        .catch((error) => {});
+      logout().then(() => window.location.reload()).catch((error) => {});
     } else {
-      // Call login function
       login()
         .then(() => {
-          if (user) {
-            console.log("User is already available:", user);
-          } else {
-            
+          if (!user) {
+            console.error("User is not available");
           }
         })
-        .catch((error) => {
-          console.error("Login failed:", error); // Error handling for login
-        });
+        .catch((error) => console.error("Login failed:", error));
     }
   }, [authenticated, user, login, logout]);
-
-  // Fetch user from the database function
-  const fetchUserFromDatabase = async () => {
-    try {
-      const response = await fetch("/api/user"); // Example API endpoint
-      if (!response.ok) {
-        throw new Error("Failed to fetch user data");
-      }
-      const userData = await response.json();
-      console.log("Fetched user data:", userData);
-      // Set user state or handle user data as needed
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  };
 
   return (
     <div className="mb-[35px] flex flex-col-reverse justify-between gap-6 sm:flex-row">
@@ -62,32 +38,26 @@ const Navbar = () => {
           className="flex w-full bg-transparent font-epilogue text-[14px] font-normal text-[#13131a] placeholder-gray-500 outline-none dark:text-white dark:placeholder:text-[#4b5264]"
         />
         <div className="flex h-full w-[72px] cursor-pointer items-center justify-center rounded-[20px] bg-[#1ec070] dark:bg-[#1dc071]">
-          <img
-            src={search}
-            alt="search"
-            className="h-[15px] w-[15px] object-contain"
-          />
+          <img src={search} alt="search" className="h-[15px] w-[15px] object-contain" />
         </div>
       </div>
 
       {/* Authentication button */}
       <div className="hidden flex-row justify-end gap-2 sm:flex">
         {ready ? (
-          <>
-            <CustomButton
-              styles={
-                authenticated
-                  ? "bg-[#1dc071] text-white hover:bg-[#1abc70] border border-[#1dc071]"
-                  : "bg-red-500 text-white hover:bg-red-600 border border-red-300"
-              }
-              btnType="button"
-              title={authenticated ? "Logout" : "Login"}
-              handleClick={handleLoginLogout}
-              icon={authenticated ? IconLogout : IconLogin}
-              iconSize={20}
-              iconStyle={"mr-1"}
-            />
-          </>
+          <CustomButton
+            styles={
+              authenticated
+                ? "bg-[#1dc071] text-white hover:bg-[#1abc70] border border-[#1dc071]"
+                : "bg-red-500 text-white hover:bg-red-600 border border-red-300"
+            }
+            btnType="button"
+            title={authenticated ? "Logout" : "Login"}
+            handleClick={handleLoginLogout}
+            icon={authenticated ? IconLogout : IconLogin}
+            iconSize={20}
+            iconStyle="mr-1"
+          />
         ) : (
           <div className="mt-4 h-6 w-6 animate-spin rounded-full border-4 border-t-4 border-white border-t-[#1dc071]"></div>
         )}
@@ -104,9 +74,7 @@ const Navbar = () => {
             src={menu}
             alt="menu"
             className="h-[34px] w-[34px] cursor-pointer object-contain"
-            onClick={() => {
-              setToggleDrawer((prev) => !prev);
-            }}
+            onClick={() => setToggleDrawer((prev) => !prev)}
           />
           <ThemeSwitch className="m-2 flex h-8 w-8 items-center justify-center rounded-full" />
 
@@ -119,11 +87,7 @@ const Navbar = () => {
               }`}
               onClick={handleLoginLogout}
             >
-              {authenticated ? (
-                <IconLogout size={20} />
-              ) : (
-                <IconLogin size={20} />
-              )}
+              {authenticated ? <IconLogout size={20} /> : <IconLogin size={20} />}
             </button>
           ) : (
             <div className="ml-1 h-6 w-6 animate-spin rounded-full border-4 border-t-4 border-[#e9e9e9] border-t-[#1ec070] dark:border-[#2c2f32] dark:border-t-[#1dc071]"></div>
@@ -137,38 +101,34 @@ const Navbar = () => {
           } transition-all duration-700`}
         >
           <ul className="mb-4">
-            {navLinks.map((item) => {
-              return (
-                <li
-                  key={item.name}
-                  className={`flex p-4 ${
-                    isActive === item.name && "bg-[#e3e3db] dark:bg-[#3a3a43]"
-                  } cursor-pointer`}
-                  onClick={() => {
-                    setIsActive(item.name);
-                    setToggleDrawer(false);
-                    navigate(item.link);
-                  }}
+            {navLinks.map((item) => (
+              <li
+                key={item.name}
+                className={`flex p-4 ${
+                  isActive === item.name && "bg-[#e3e3db] dark:bg-[#3a3a43]"
+                } cursor-pointer`}
+                onClick={() => {
+                  setIsActive(item.name);
+                  setToggleDrawer(false);
+                  navigate(item.link);
+                }}
+              >
+                <img
+                  src={item.imageUrl}
+                  alt={item.name}
+                  className={`h-[24px] w-[24px] object-contain ${
+                    isActive === item.name ? "grayscale-0" : "grayscale"
+                  }`}
+                />
+                <p
+                  className={`ml-[20px] font-epilogue text-[14px] font-semibold ${
+                    isActive === item.name ? "text-[#1dc071]" : "text-[#808191]"
+                  }`}
                 >
-                  <img
-                    src={item.imageUrl}
-                    alt={item.name}
-                    className={`h-[24px] w-[24px] object-contain ${
-                      isActive === item.name ? "grayscale-0" : "grayscale"
-                    }`}
-                  />
-                  <p
-                    className={`ml-[20px] font-epilogue text-[14px] font-semibold ${
-                      isActive === item.name
-                        ? "text-[#1dc071]"
-                        : "text-[#808191]"
-                    }`}
-                  >
-                    {item.name}
-                  </p>
-                </li>
-              );
-            })}
+                  {item.name}
+                </p>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
