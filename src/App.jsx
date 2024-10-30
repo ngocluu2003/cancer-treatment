@@ -8,6 +8,7 @@ import SingleRecordDetails from "./pages/records/SingleRecordDetail";
 import ScreeningSchedule from "./pages/ScreeningSchedule";
 import { Buffer } from "buffer";
 import useAuth from "./hooks/useAuth";
+import LoadingSpinner from "./components/LoadingSpinner";
 
 if (typeof window !== "undefined" && !window.Buffer) {
   window.Buffer = Buffer;
@@ -15,9 +16,8 @@ if (typeof window !== "undefined" && !window.Buffer) {
 
 const App = () => {
   const { loading } = useAuth();
-
   if (loading) {
-    return <div>Loading....</div>;
+    return <LoadingSpinner />;
   }
 
   return (

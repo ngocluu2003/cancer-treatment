@@ -4,7 +4,7 @@ import CustomButton from "./CustomButton";
 import { usePrivy } from "@privy-io/react-auth";
 import { IconHeartHandshake } from "@tabler/icons-react";
 import { navLinks } from "../constants";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { IconLogin, IconLogout } from "@tabler/icons-react";
 import ThemeSwitch from "./ThemeSwitch";
 
@@ -13,10 +13,22 @@ const Navbar = () => {
   const [isActive, setIsActive] = useState("dashboard");
   const navigate = useNavigate();
   const { ready, authenticated, login, logout, user } = usePrivy();
+  const { pathname } = useLocation();
+
+  const refreshPage = () => {
+    console.log("page refreshed");
+    navigate(pathname, {
+      replace: true,
+    });
+  };
 
   const handleLoginLogout = useCallback(() => {
     if (authenticated) {
-      logout().then(() => window.location.reload()).catch((error) => {});
+      logout()
+        .then(() => refreshPage())
+        .catch((error) => {
+          console.error("Logout failed:", error);
+        });
     } else {
       login()
         .then(() => {
@@ -38,7 +50,11 @@ const Navbar = () => {
           className="flex w-full bg-transparent font-epilogue text-[14px] font-normal text-[#13131a] placeholder-gray-500 outline-none dark:text-white dark:placeholder:text-[#4b5264]"
         />
         <div className="flex h-full w-[72px] cursor-pointer items-center justify-center rounded-[20px] bg-[#1ec070] dark:bg-[#1dc071]">
-          <img src={search} alt="search" className="h-[15px] w-[15px] object-contain" />
+          <img
+            src={search}
+            alt="search"
+            className="h-[15px] w-[15px] object-contain"
+          />
         </div>
       </div>
 
@@ -87,7 +103,11 @@ const Navbar = () => {
               }`}
               onClick={handleLoginLogout}
             >
-              {authenticated ? <IconLogout size={20} /> : <IconLogin size={20} />}
+              {authenticated ? (
+                <IconLogout size={20} />
+              ) : (
+                <IconLogin size={20} />
+              )}
             </button>
           ) : (
             <div className="ml-1 h-6 w-6 animate-spin rounded-full border-4 border-t-4 border-[#e9e9e9] border-t-[#1ec070] dark:border-[#2c2f32] dark:border-t-[#1dc071]"></div>
