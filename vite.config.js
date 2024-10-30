@@ -1,19 +1,13 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import path from "path";
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
 
 export default defineConfig({
-  plugins: [
-    react({
-      // Use the automatic JSX runtime
-      babel: {
-        plugins: ['@babel/plugin-transform-runtime'],
-      },
-    }),
-  ],
-  build: {
-    target: 'esnext', // Change to 'es2015' if needed for broader compatibility
+  plugins: [react()],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
   },
-  server: {
-    port: 3000, // You can set your desired port here
-  },
+  base: "./",
 });

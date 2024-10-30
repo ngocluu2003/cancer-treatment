@@ -4,11 +4,11 @@ import { usePrivy } from "@privy-io/react-auth";
 import { useNavigate } from "react-router-dom";
 
 const useAuth = () => {
-  const { currentUser, fetchUserByEmail } = useUserStateContext();
+  const { currentUser, fetchUserByEmail, records } = useUserStateContext();
   const { ready, authenticated, login, user } = usePrivy();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true); // Manage loading state here
-
+  const [loading, setLoading] = useState(true);
+  console.log(user, currentUser, records);
   useEffect(() => {
     const initializeApp = async () => {
       if (ready) {
@@ -18,7 +18,7 @@ const useAuth = () => {
 
         if (user) {
           if (!currentUser) {
-            await fetchUserByEmail(user.email?.address);
+            await fetchUserByEmail(user.email?.address || user.google?.email);
           } else if (
             currentUser === "user-not-found" ||
             !currentUser.isOnBoarded

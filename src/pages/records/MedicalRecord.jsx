@@ -28,7 +28,7 @@ const MedicalRecord = () => {
 
   useEffect(() => {
     if (ready && user) {
-      fetchUserRecords(user.email?.address);
+      fetchUserRecords(user.email?.address || user.google?.email);
     }
   }, [user, fetchUserRecords]);
 
@@ -45,10 +45,10 @@ const MedicalRecord = () => {
           recordName: foldername,
           analysisResults: "test",
           kanbanRecords: "test",
-          createdBy: user.email.address,
+          createdBy: user.email?.address || user.google?.email,
         });
         if (newRecord) {
-          fetchUserRecords(user.email.address);
+          fetchUserRecords(user.email?.address || user.google?.email);
           handleCloseModal();
         }
       }

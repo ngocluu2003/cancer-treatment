@@ -17,7 +17,7 @@ const Onboarding = () => {
       username,
       age: parseInt(age, 10),
       location,
-      createdBy: user.email?.address,
+      createdBy: user.email?.address || user.google?.email,
       isOnBoarded: true,
     };
     const newUser = await createUser(userData);
