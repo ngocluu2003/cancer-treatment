@@ -1,12 +1,12 @@
 module.exports = {
   presets: [
-    "@babel/preset-env",
+    "@babel/preset-env",                    
     [
-      "@babel/preset-react",
+      "@babel/preset-react",                 
       {
-        runtime: "automatic", // This enables JSX transformation
+        runtime: "automatic",               
       },
     ],
-    "@emotion/babel-preset-css-prop", // Add Emotion preset here
+    "@emotion/babel-preset-css-prop",       
   ],
 };
