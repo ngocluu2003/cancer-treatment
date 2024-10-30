@@ -17,8 +17,6 @@ const Sidebar = () => {
     }
   }, [pathname]);
 
-  console.log(pathname, "from navbar");
-
   return (
     <div className="sticky top-5 flex h-[93vh] flex-col items-center justify-between">
       {/* Logo and Home link */}

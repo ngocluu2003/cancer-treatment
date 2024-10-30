@@ -13,19 +13,19 @@ const Navbar = () => {
   const [isActive, setIsActive] = useState("dashboard");
   const navigate = useNavigate();
   const { ready, authenticated, login, logout, user } = usePrivy();
-  const { pathname } = useLocation();
+  
+  // const { pathname } = useLocation();
 
-  const refreshPage = () => {
-    console.log("page refreshed");
-    navigate(pathname, {
-      replace: true,
-    });
-  };
+  // const refreshPage = () => {
+  //   navigate(pathname, {
+  //     replace: true,
+  //   });
+  // };
 
   const handleLoginLogout = useCallback(() => {
     if (authenticated) {
       logout()
-        .then(() => refreshPage())
+        .then(() => window.location.reload())
         .catch((error) => {
           console.error("Logout failed:", error);
         });

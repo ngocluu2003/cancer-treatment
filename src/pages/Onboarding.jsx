@@ -10,7 +10,7 @@ const Onboarding = () => {
   const { createUser } = useUserStateContext();
   const { user } = usePrivy();
   const navigate = useNavigate();
-  
+
   const handleOnboarding = async (e) => {
     e.preventDefault();
     const userData = {
@@ -24,7 +24,6 @@ const Onboarding = () => {
     if (newUser) {
       navigate("/profile");
     }
-    console.log(newUser);
   };
 
   return (

@@ -8,7 +8,7 @@ const useAuth = () => {
   const { ready, authenticated, login, user } = usePrivy();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true); // Manage loading state here
-  console.log(currentUser,user);
+
   useEffect(() => {
     const initializeApp = async () => {
       if (ready) {
@@ -35,7 +35,7 @@ const useAuth = () => {
     };
 
     initializeApp();
-  }, [ready, authenticated, user, currentUser, fetchUserByEmail, navigate]);
+  }, [ready, authenticated, user, currentUser, navigate]);
 
   return { loading };
 };
