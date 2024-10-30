@@ -11,7 +11,7 @@ const Icon = ({ style, name, imageUrl, isActive, disabled, handleClick }) => {
       ) : (
         <img
           src={imageUrl}
-          alt="beat-cancer logo"
+          alt={`${name} logo`}
           className={`h-6 w-6 ${isActive !== name && "grayscale"}`}
         />
       )}
