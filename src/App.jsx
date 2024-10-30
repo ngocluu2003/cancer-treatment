@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
@@ -17,12 +17,14 @@ if (!window.Buffer) {
 
 const App = () => {
   const { currentUser, fetchUserByEmail } = useUserStateContext();
+  const [loading, setLoading] = useState(true);
   const { ready, authenticated, login, user } = usePrivy();
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
   useEffect(() => {
     if (ready) {
+      setLoading(false);
       if (!authenticated) {
         login();
       }
@@ -40,8 +42,11 @@ const App = () => {
         }
       }
     }
-  }, [ready, authenticated, user, currentUser, navigate, fetchUserByEmail]);
-  console.log(currentUser);
+  }, [ready, authenticated, user, currentUser, navigate]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="relative flex min-h-screen flex-row bg-[#f5f5f5] p-4 transition-colors duration-300 dark:bg-[#13131a] dark:text-white">
@@ -54,7 +59,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/medical-records" element={<MedicalRecord />} children />
+          <Route path="/medical-records" element={<MedicalRecord />} />
           <Route
             path="/medical-records/:id"
             element={<SingleRecordDetails />}
