@@ -27,7 +27,7 @@ const MedicalRecord = () => {
   };
 
   useEffect(() => {
-    if (user) {
+    if (ready && user) {
       fetchUserRecords(user.email?.address);
     }
   }, [user, fetchUserRecords]);
