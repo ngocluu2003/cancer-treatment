@@ -11,8 +11,8 @@ const LoadingSpinner = () => {
           <div className="absolute h-16 w-16 rounded-full border-8 border-solid border-[#e3e3db] opacity-25 dark:border-neutral-600"></div>
         </div>
         {/* Loading Text */}
-        <span className="mt-4 text-lg font-semibold text-neutral-800 dark:text-neutral-200">
-          Loading...
+        <span className="mt-4 text-center text-lg font-semibold text-neutral-800 dark:text-neutral-200">
+          We're assessing your medical history for optimal care...
         </span>
       </div>
     </div>
