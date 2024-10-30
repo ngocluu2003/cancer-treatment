@@ -9,7 +9,6 @@ import ScreeningSchedule from "./pages/ScreeningSchedule";
 import { Buffer } from "buffer";
 import useAuth from "./hooks/useAuth";
 import LoadingSpinner from "./components/LoadingSpinner";
-import { css } from "@emotion/react";
 
 if (typeof window !== "undefined" && !window.Buffer) {
   window.Buffer = Buffer;
