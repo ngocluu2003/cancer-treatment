@@ -52,8 +52,6 @@ const Navbar = () => {
     }
   };
 
-  console.log(user);
-
   return (
     <div className="mb-[35px] flex flex-col-reverse justify-between gap-6 sm:flex-row">
       {/* Search bar component */}

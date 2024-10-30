@@ -1,6 +1,5 @@
 import React, { createContext, useCallback, useContext, useState } from "react";
 import { db } from "../utils/dbConfig";
-
 import { Users, Records } from "../utils/schema";
 import { eq } from "drizzle-orm";
 
@@ -25,7 +24,8 @@ export const UserStateContextProvider = ({ children }) => {
       const result = await db
         .select()
         .from(Users)
-        .where(eq(Users.createdBy, email));
+        .where(eq(Users.createdBy, email))
+        .execute(); // Added execute
 
       if (result.length > 0) {
         setCurrentUser(result[0]);
@@ -81,13 +81,23 @@ export const UserStateContextProvider = ({ children }) => {
 
   const updateRecord = useCallback(async (recordData) => {
     try {
-      const { documentID, ...dataTOUpdate } = recordData;
+      const { documentID, ...dataToUpdate } = recordData;
       const result = await db
         .update(Records)
-        .set(dataTOUpdate)
-        .where(Records.id, documentID)
-        .returning();
-      // setRecords((prevRecords) => prevRecords.map((record) => {}));
+        .set(dataToUpdate)
+        .where(eq(Records.id, documentID))
+        .returning()
+        .execute();
+
+      if (result.length > 0) {
+        setRecords((prevRecords) =>
+          prevRecords.map((record) =>
+            record.id === documentID ? { ...record, ...dataToUpdate } : record,
+          ),
+        );
+        return result[0];
+      }
+      return null;
     } catch (error) {
       console.error("Error updating user record", error);
       return null;

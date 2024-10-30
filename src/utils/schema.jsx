@@ -14,7 +14,7 @@ export const Users = pgTable("users", {
   username: varchar("username").notNull(),
   age: integer("age").notNull(),
   location: varchar("location").notNull(),
-  isOnBoarded: boolean("isOnBoarded").default(false),
+  isOnBoarded: boolean("is_onboarded").default(false),
   createdBy: varchar("created_by").notNull(),
 });
 
