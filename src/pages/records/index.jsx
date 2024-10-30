@@ -4,8 +4,7 @@ import RecordCard from "./components/RecordCard";
 import CreateRecordModal from "./components/CreateRecordModal";
 import { usePrivy } from "@privy-io/react-auth";
 import { useNavigate } from "react-router-dom";
-import { useUserStateContext } from "../../context/User";
-
+import { useUserStateContext } from "../../context/UserContext";
 const handleOpenModal = () => {};
 
 const MedicalRecord = () => {
@@ -14,29 +13,61 @@ const MedicalRecord = () => {
   const navigate = useNavigate();
   const { user } = usePrivy();
 
+  const {
+    records,
+    fetchUserRecords,
+    createRecord,
+    fetchUserByEmail,
+    currentUser,
+  } = useUserStateContext();
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
-  const createFolder = () => {};
-
-  const {
-    records,
-    fetchUserRecords,
-    createRecords,
-    fetchUserbyEmail,
-    currentUser,
-  } = useUserStateContext();
 
   useEffect(() => {
     if (user) {
-      fetchUserbyEmail(user.email.address);
+      fetchUserByEmail(user.email.address);
       fetchUserRecords(user.email.address);
     }
-  }, [user, fetchUserbyEmail, fetchUserRecords]);
-  
+  }, [user, fetchUserByEmail, fetchUserRecords]);
+
+  useEffect(() => {
+    setUserRecords(records);
+    localStorage.setItem("userRecords", JSON.stringify(records));
+  }, [records]);
+
+  const createFolder = async (foldername) => {
+    try {
+      if (currentUser) {
+        const newRecord = await createRecord({
+          userId: currentUser.id,
+          recordName: foldername,
+          analysisResults: "test",
+          kanbanRecords: "test",
+          createdBy: user.email.address,
+        });
+        if (newRecord) {
+          fetchUserRecords(user.email.address);
+          handleCloseModal();
+        }
+      }
+    } catch (error) {
+      console.error(error);
+      handleCloseModal();
+    }
+  };
+
+  const handleNavigate = (name) => {
+    const filteredRecords = userRecords.filter(
+      (record) => record.name === name,
+    );
+    navigate(`/medical-records/${name}`, { state: filteredRecords[0] });
+  };
+
   return (
     <div className="flex flex-wrap gap-[26px]">
       <button
@@ -53,7 +84,13 @@ const MedicalRecord = () => {
       />
 
       <div className="grid w-full sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
-        {/* <RecordCard /> */}
+        {userRecords.map((record) => (
+          <RecordCard
+            key={record.recordName}
+            record={record}
+            onNavigate={handleNavigate}
+          />
+        ))}
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import App from "./App";
 import "./index.css";
 import { PrivyProvider } from "@privy-io/react-auth";
 import { ThemeContextProvider } from "./context/ThemeContext";
-import { UserStateContextProvider } from "./context/User";
+import { UserStateContextProvider } from "./context/UserContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

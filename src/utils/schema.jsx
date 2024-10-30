@@ -1,5 +1,12 @@
 import { sql } from "drizzle-orm";
-import { integer, varchar, pgTable, serial, text } from "drizzle-orm/pg-core";
+import {
+  integer,
+  varchar,
+  pgTable,
+  serial,
+  text,
+  boolean,
+} from "drizzle-orm/pg-core";
 
 // users schema
 export const Users = pgTable("users", {
@@ -7,6 +14,7 @@ export const Users = pgTable("users", {
   username: varchar("username").notNull(),
   age: integer("age").notNull(),
   location: varchar("location").notNull(),
+  isOnBoarded: boolean("isOnBoarded").default(false),
   createdBy: varchar("created_by").notNull(),
 });
 
@@ -17,7 +25,7 @@ export const Records = pgTable("records", {
     .references(() => Users.id)
     .notNull(),
   recordName: varchar("record_name").notNull(),
-  analysisResult: varchar("analysis_result").notNull(),
+  analysisResults: varchar("analysis_result"),
   kanbanRecords: varchar("kanban_records").notNull(),
   createdBy: varchar("created_by").notNull(),
 });

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useUserStateContext } from "../context/User";
+import { useUserStateContext } from "../context/UserContext";
 import { usePrivy } from "@privy-io/react-auth";
 import { useNavigate } from "react-router-dom";
 
@@ -19,6 +19,7 @@ const Onboarding = () => {
       age: parseInt(age, 10),
       location,
       createdBy: user.email.address,
+      isOnBoarded: true,
     };
     const newUser = await createUser(userData);
     if (newUser) {

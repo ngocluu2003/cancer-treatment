@@ -4,22 +4,26 @@ import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 import { Home, Profile } from "./pages";
 import { Onboarding } from "./pages";
-import { useUserStateContext } from "./context/User";
+import { useUserStateContext } from "./context/UserContext";
 import { usePrivy } from "@privy-io/react-auth";
 import MedicalRecord from "./pages/records";
 
 const App = () => {
-  const { currentUser } = useUserStateContext();
+  const { currentUser, fetchUserByEmail } = useUserStateContext();
   const { ready, authenticated, login, user } = usePrivy();
   const navigate = useNavigate();
   useEffect(() => {
     if (!authenticated) {
       login();
-    } else if (user && !currentUser) {
+      if (user) {
+        fetchUserByEmail(user.email.address);
+      }
+    } else if (user && !isOnBoarded) {
       console.log(currentUser);
       navigate("/onboarding");
     }
   }, [ready, currentUser, navigate]);
+  console.log(currentUser);
   return (
     <div className="relative flex min-h-screen flex-row bg-[#f5f5f5] p-4 transition-colors duration-300 dark:bg-[#13131a] dark:text-white">
       <div className="relative mr-10 hidden sm:flex">
