@@ -1,14 +1,11 @@
 module.exports = {
   presets: [
-    "@babel/preset-env", // For modern JavaScript
+    "@babel/preset-env",
     [
       "@babel/preset-react",
       {
-        runtime: "automatic", // Enable the new JSX transform
+        runtime: "automatic",
       },
     ],
-  ],
-  plugins: [
-    "@babel/plugin-transform-runtime", // Helps avoid duplication in code
   ],
 };
