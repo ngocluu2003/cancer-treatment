@@ -8,7 +8,7 @@ module.exports = {
         importSource: "@emotion/react", // Use Emotion’s JSX import source
       },
     ],
-    "@emotion/babel-preset-css-prop", // Support Emotion’s `css` prop
+    "@emotion/babel-preset-css-prop", // Support Emotion’s css prop
   ],
   plugins: ["@emotion"],
 };
