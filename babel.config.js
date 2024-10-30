@@ -4,8 +4,11 @@ module.exports = {
     [
       "@babel/preset-react",
       {
-        runtime: "automatic",
+        runtime: "automatic", // Enable automatic JSX transformation
+        importSource: "@emotion/react", // Use Emotion’s JSX import source
       },
     ],
+    "@emotion/babel-preset-css-prop", // Support Emotion’s `css` prop
   ],
+  plugins: ["@emotion"],
 };
