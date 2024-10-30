@@ -20,7 +20,7 @@ const App = () => {
   const { ready, authenticated, login, user } = usePrivy();
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  
+
   useEffect(() => {
     if (ready) {
       if (!authenticated) {
@@ -40,7 +40,7 @@ const App = () => {
         }
       }
     }
-  }, [ready, authenticated, user, currentUser, fetchUserByEmail, navigate]);
+  }, [ready, authenticated, user, currentUser, navigate]);
   console.log(currentUser);
   return (
     <div className="relative flex min-h-screen flex-row bg-[#f5f5f5] p-4 transition-colors duration-300 dark:bg-[#13131a] dark:text-white">
