@@ -64,7 +64,7 @@ export const UserStateContextProvider = ({ children }) => {
     }
   }, []);
 
-  const createRecord = useCallback(async (recordData) => {
+  const createRecords = useCallback(async (recordData) => {
     try {
       const newRecord = await db
         .insert(Records)
@@ -103,7 +103,7 @@ export const UserStateContextProvider = ({ children }) => {
         fetchUserByEmail,
         createUser,
         fetchUserRecords,
-        createRecord,
+        createRecords,
         currentUser,
         updateRecord,
       }}

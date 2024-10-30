@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal from "./Modal";
 
 const CreateRecordModal = ({ isOpen, onClose, onCreate }) => {
-  const [foldername, setFoldername] = useState();
+  const [foldername, setFoldername] = useState("");
 
   const handleCreate = () => {
     onCreate(foldername);
