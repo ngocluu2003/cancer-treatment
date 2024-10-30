@@ -11,7 +11,7 @@ const MedicalRecord = () => {
   const [userRecords, setUserRecords] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-  const { user } = usePrivy();
+  const { user, ready } = usePrivy();
 
   const {
     records,
@@ -30,16 +30,15 @@ const MedicalRecord = () => {
 
   useEffect(() => {
     if (user) {
-      fetchUserByEmail(user.email.address);
-      fetchUserRecords(user.email.address);
+      fetchUserRecords(user.email?.address);
     }
-  }, [user, fetchUserByEmail, fetchUserRecords]);
+  }, [user, fetchUserRecords]);
 
   useEffect(() => {
     setUserRecords(records);
     localStorage.setItem("userRecords", JSON.stringify(records));
   }, [records]);
-
+  console.log(user);
   const createFolder = async (foldername) => {
     try {
       if (currentUser) {
@@ -83,7 +82,7 @@ const MedicalRecord = () => {
         onCreate={createFolder}
       />
 
-      <div className="grid w-full sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
+      <div className="grid gap-4 w-full sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
         {userRecords.map((record) => (
           <RecordCard
             key={record.recordName}

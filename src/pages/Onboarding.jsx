@@ -10,7 +10,7 @@ const Onboarding = () => {
   const { createUser } = useUserStateContext();
   const { user } = usePrivy();
   const navigate = useNavigate();
-
+  console.log(user);
   const handleOnboarding = async (e) => {
     e.preventDefault();
     // console.log(username, age, location);
@@ -18,7 +18,7 @@ const Onboarding = () => {
       username,
       age: parseInt(age, 10),
       location,
-      createdBy: user.email.address,
+      createdBy: user.email?.address,
       isOnBoarded: true,
     };
     const newUser = await createUser(userData);
