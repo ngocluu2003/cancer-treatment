@@ -38,7 +38,6 @@ const MedicalRecord = () => {
     setUserRecords(records);
     localStorage.setItem("userRecords", JSON.stringify(records));
   }, [records]);
-  console.log(user);
   const createFolder = async (foldername) => {
     try {
       if (currentUser) {
@@ -82,13 +81,9 @@ const MedicalRecord = () => {
         onCreate={createFolder}
       />
 
-      <div className="grid gap-4 w-full sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
-        {userRecords.map((record) => (
-          <RecordCard
-            key={record.recordName}
-            record={record}
-            onNavigate={handleNavigate}
-          />
+      <div className="grid w-full gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
+        {userRecords.map((record, index) => (
+          <RecordCard key={index} record={record} onNavigate={handleNavigate} />
         ))}
       </div>
     </div>

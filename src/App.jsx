@@ -6,7 +6,7 @@ import { Home, Profile } from "./pages";
 import { Onboarding } from "./pages";
 import { useUserStateContext } from "./context/UserContext";
 import { usePrivy } from "@privy-io/react-auth";
-import MedicalRecord from "./pages/records";
+import MedicalRecord from "./pages/records/MedicalRecord";
 import SingleRecordDetails from "./pages/records/SingleRecordDetail";
 import ScreeningSchedule from "./pages/ScreeningSchedule";
 import { Buffer } from "buffer";
@@ -29,7 +29,7 @@ const App = () => {
       if (user) {
         if (!currentUser) {
           fetchUserByEmail(user.email?.address);
-        } else if (currentUser === null) {
+        } else if (currentUser === "user-not-found") {
           navigate("/onboarding");
         } else if (!currentUser.isOnBoarded) {
           navigate("/onboarding");
@@ -40,8 +40,9 @@ const App = () => {
         }
       }
     }
-  }, [ready, authenticated, user, currentUser, navigate]);
+  }, [ready, authenticated, user, currentUser, navigate, fetchUserByEmail]);
   console.log(currentUser);
+
   return (
     <div className="relative flex min-h-screen flex-row bg-[#f5f5f5] p-4 transition-colors duration-300 dark:bg-[#13131a] dark:text-white">
       <div className="relative mr-10 hidden sm:flex">

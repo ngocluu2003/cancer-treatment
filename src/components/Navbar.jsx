@@ -16,19 +16,19 @@ const Navbar = () => {
 
   const handleLoginLogout = useCallback(() => {
     if (authenticated) {
-      logout().catch((error) => {});
+      logout()
+        .then(() => {
+          window.location.reload();
+        })
+        .catch((error) => {});
     } else {
       // Call login function
       login()
         .then(() => {
           if (user) {
-            // If user is already available, no need to fetch from the database
             console.log("User is already available:", user);
           } else {
-            // Fetch user from the database after login
-            // fetchUserFromDatabase().catch((error) => {
-            //   console.error("Error fetching user:", error); // Error handling for fetching user
-            // });
+            
           }
         })
         .catch((error) => {

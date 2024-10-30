@@ -29,6 +29,8 @@ export const UserStateContextProvider = ({ children }) => {
 
       if (result.length > 0) {
         setCurrentUser(result[0]);
+      } else {
+        setCurrentUser("user-not-found");
       }
     } catch (error) {
       console.error("Error fetching user by email", error);

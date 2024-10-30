@@ -10,10 +10,9 @@ const Onboarding = () => {
   const { createUser } = useUserStateContext();
   const { user } = usePrivy();
   const navigate = useNavigate();
-  console.log(user);
+  
   const handleOnboarding = async (e) => {
     e.preventDefault();
-    // console.log(username, age, location);
     const userData = {
       username,
       age: parseInt(age, 10),
