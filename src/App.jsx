@@ -15,10 +15,10 @@ if (typeof window !== "undefined" && !window.Buffer) {
 }
 
 const App = () => {
-  const { loading } = useAuth();
-  if (loading) {
-    return <LoadingSpinner />;
-  }
+  // const { loading } = useAuth();
+  // if (loading) {
+  //   return <LoadingSpinner />;
+  // }
 
   return (
     <div className="relative flex min-h-screen flex-row bg-[#f5f5f5] p-4 transition-colors duration-300 dark:bg-[#13131a] dark:text-white">
