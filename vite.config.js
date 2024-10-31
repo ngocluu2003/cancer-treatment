@@ -5,9 +5,7 @@ import path from "path";
 export default defineConfig({
   plugins: [
     react({
-      babel: {
-        plugins: ["@emotion"], // Add Emotion plugin here if needed
-      },
+      jsxRuntime: "automatic",
     }),
   ],
   resolve: {
