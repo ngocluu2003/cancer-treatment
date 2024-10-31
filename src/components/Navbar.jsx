@@ -1,18 +1,23 @@
 import React, { useCallback, useState } from "react";
 import { menu, search } from "../assets";
 import CustomButton from "./CustomButton";
-import { usePrivy } from "@privy-io/react-auth";
 import { IconHeartHandshake } from "@tabler/icons-react";
 import { navLinks } from "../constants";
 import { useNavigate } from "react-router-dom";
 import { IconLogin, IconLogout } from "@tabler/icons-react";
 import ThemeSwitch from "./ThemeSwitch";
+import {
+  SignedIn,
+  SignedOut,
+  SignIn,
+  UserButton,
+  useUser,
+} from "@clerk/clerk-react";
 
 const Navbar = () => {
   const [toggleDrawer, setToggleDrawer] = useState(false);
   const [isActive, setIsActive] = useState("dashboard");
   const navigate = useNavigate();
-  const { ready, authenticated, login, logout, user } = usePrivy();
 
   // const { pathname } = useLocation();
 
@@ -22,25 +27,25 @@ const Navbar = () => {
   //   });
   // };
 
-  const handleLoginLogout = useCallback(() => {
-    if (authenticated) {
-      logout()
-        .then(() => {
-          navigate(location.pathname, { replace: true });
-        })
-        .catch((error) => {
-          console.error("Logout failed:", error);
-        });
-    } else {
-      login()
-        .then(() => {
-          if (!user) {
-            console.error("User is not available");
-          }
-        })
-        .catch((error) => console.error("Login failed:", error));
-    }
-  }, [authenticated, user, login, logout, navigate, location.pathname]);
+  // const handleLoginLogout = useCallback(() => {
+  //   if (authenticated) {
+  //     logout()
+  //       .then(() => {
+  //         navigate(location.pathname, { replace: true });
+  //       })
+  //       .catch((error) => {
+  //         console.error("Logout failed:", error);
+  //       });
+  //   } else {
+  //     login()
+  //       .then(() => {
+  //         if (!user) {
+  //           console.error("User is not available");
+  //         }
+  //       })
+  //       .catch((error) => console.error("Login failed:", error));
+  //   }
+  // }, [authenticated, user, login, logout, navigate, location.pathname]);
 
   return (
     <div className="mb-[35px] flex flex-col-reverse justify-between gap-6 sm:flex-row">
