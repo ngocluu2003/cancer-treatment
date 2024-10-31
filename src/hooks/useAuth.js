@@ -18,16 +18,15 @@ const useAuthentication = () => {
           return;
         }
         const email = user.emailAddresses[0]?.emailAddress;
-        if (email) {
+        if (!currentUser) {
           await fetchUserByEmail(email);
-
-          if (currentUser && currentUser === "user-not-found") {
-            navigate("/onboarding");
-          } else if (currentUser && !currentUser.isOnBoarded) {
-            navigate("/onboarding");
-          } else if (window.location.pathname === "/onboarding") {
-            navigate("/");
-          }
+        } else if (
+          currentUser === "user-not-found" ||
+          !currentUser.isOnBoarded
+        ) {
+          navigate("/onboarding");
+        } else if (pathname === "/onboarding") {
+          navigate("/");
         }
       }
 
