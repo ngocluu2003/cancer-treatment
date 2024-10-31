@@ -2,7 +2,6 @@ import { IconCirclePlus } from "@tabler/icons-react";
 import React, { useEffect, useState } from "react";
 import RecordCard from "./components/RecordCard";
 import CreateRecordModal from "./components/CreateRecordModal";
-
 import { useNavigate } from "react-router-dom";
 import { useUserStateContext } from "../../context/UserContext";
 import { useUser } from "@clerk/clerk-react";
@@ -34,9 +33,6 @@ const MedicalRecord = () => {
   }, [records]);
 
   const createFolder = async (foldername) => {
-    const email = user?.emailAddresses[0]?.emailAddress;
-    console.log(email);
-    console.log("createFolder", foldername, currentUser);
     try {
       if (currentUser) {
         const newRecord = await createRecord({

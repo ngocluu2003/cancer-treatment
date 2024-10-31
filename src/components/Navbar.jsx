@@ -15,7 +15,6 @@ const Navbar = () => {
   const { isLoaded, user } = useUser();
   const [showSignIn, setShowSignIn] = useState(false);
   const [searchParam] = useSearchParams();
-  console.log(user);
   useEffect(() => {
     if (searchParam.get("sign-in") == "true") {
       setShowSignIn(true);
