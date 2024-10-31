@@ -5,6 +5,7 @@ import App from "./App";
 import "./index.css";
 import { ThemeContextProvider } from "./context/ThemeContext";
 import { UserStateContextProvider } from "./context/UserContext";
+import { ClerkProvider } from "@clerk/clerk-react";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -20,7 +21,7 @@ root.render(
         <UserStateContextProvider>
           <ClerkProvider
             appearance={{
-              baseTheme: shadesOfPurple,
+             
             }}
             publishableKey={PUBLISHABLE_KEY}
             afterSignOutUrl="/"

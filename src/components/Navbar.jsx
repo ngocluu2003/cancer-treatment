@@ -12,40 +12,28 @@ import {
   SignIn,
   UserButton,
   useUser,
+  useAuth,
 } from "@clerk/clerk-react";
 
 const Navbar = () => {
   const [toggleDrawer, setToggleDrawer] = useState(false);
   const [isActive, setIsActive] = useState("dashboard");
   const navigate = useNavigate();
+  const { isSignedIn, signOut } = useAuth(); // Using Clerk's authentication hook
+  const [isOpen, setIsOpen] = useState(false); // State to manage SignIn modal
 
-  // const { pathname } = useLocation();
-
-  // const refreshPage = () => {
-  //   navigate(pathname, {
-  //     replace: true,
-  //   });
-  // };
-
-  // const handleLoginLogout = useCallback(() => {
-  //   if (authenticated) {
-  //     logout()
-  //       .then(() => {
-  //         navigate(location.pathname, { replace: true });
-  //       })
-  //       .catch((error) => {
-  //         console.error("Logout failed:", error);
-  //       });
-  //   } else {
-  //     login()
-  //       .then(() => {
-  //         if (!user) {
-  //           console.error("User is not available");
-  //         }
-  //       })
-  //       .catch((error) => console.error("Login failed:", error));
-  //   }
-  // }, [authenticated, user, login, logout, navigate, location.pathname]);
+  const handleLoginLogout = useCallback(async () => {
+    try {
+      if (isSignedIn) {
+        await signOut();
+        navigate("/", { replace: true }); // Redirect to home after logout
+      } else {
+        setIsOpen(true); // Open SignIn modal
+      }
+    } catch (error) {
+      console.error(isSignedIn ? "Logout failed:" : "Login failed:", error);
+    }
+  }, [isSignedIn, navigate, signOut]);
 
   return (
     <div className="mb-[35px] flex flex-col-reverse justify-between gap-6 sm:flex-row">
@@ -53,7 +41,7 @@ const Navbar = () => {
       <div className="flex h-[52px] w-full flex-row rounded-[100px] bg-[#e9e9e9] py-2 pl-4 pr-2 dark:bg-[#1c1c24] sm:max-w-[498px] lg:flex-1">
         <input
           type="text"
-          placeholder="search for records"
+          placeholder="Search for records"
           className="flex w-full bg-transparent font-epilogue text-[14px] font-normal text-[#13131a] placeholder-gray-500 outline-none dark:text-white dark:placeholder:text-[#4b5264]"
         />
         <div className="flex h-full w-[72px] cursor-pointer items-center justify-center rounded-[20px] bg-[#1ec070] dark:bg-[#1dc071]">
@@ -67,23 +55,26 @@ const Navbar = () => {
 
       {/* Authentication button */}
       <div className="hidden flex-row justify-end gap-2 sm:flex">
-        {ready ? (
-          <CustomButton
-            styles={
-              authenticated
-                ? "bg-[#1dc071] text-white hover:bg-[#1abc70] border border-[#1dc071]"
-                : "bg-red-500 text-white hover:bg-red-600 border border-red-300"
-            }
-            btnType="button"
-            title={authenticated ? "Logout" : "Login"}
-            handleClick={handleLoginLogout}
-            icon={authenticated ? IconLogout : IconLogin}
-            iconSize={20}
-            iconStyle="mr-1"
-          />
-        ) : (
-          <div className="mt-4 h-6 w-6 animate-spin rounded-full border-4 border-t-4 border-white border-t-[#1dc071]"></div>
-        )}
+        <button
+          className={`flex items-center rounded px-4 py-2 transition duration-200 ${
+            isSignedIn
+              ? "border border-[#1dc071] bg-[#1dc071] text-white hover:bg-[#1abc70]"
+              : "border border-red-300 bg-red-500 text-white hover:bg-red-600"
+          }`}
+          onClick={handleLoginLogout}
+        >
+          {isSignedIn ? (
+            <>
+              <IconLogout size={20} className="mr-1" />
+              Logout
+            </>
+          ) : (
+            <>
+              <IconLogin size={20} className="mr-1" />
+              Login
+            </>
+          )}
+        </button>
       </div>
 
       {/* Mobile view */}
@@ -101,24 +92,16 @@ const Navbar = () => {
           />
           <ThemeSwitch className="m-2 flex h-8 w-8 items-center justify-center rounded-full" />
 
-          {ready ? (
-            <button
-              className={`ml-2 flex items-center rounded px-2 py-1 transition duration-200 ${
-                authenticated
-                  ? "border border-[#1dc071] bg-[#1dc071] text-white hover:bg-[#1abc70]"
-                  : "border border-red-300 bg-red-500 text-white hover:bg-red-600"
-              }`}
-              onClick={handleLoginLogout}
-            >
-              {authenticated ? (
-                <IconLogout size={20} />
-              ) : (
-                <IconLogin size={20} />
-              )}
-            </button>
-          ) : (
-            <div className="ml-1 h-6 w-6 animate-spin rounded-full border-4 border-t-4 border-[#e9e9e9] border-t-[#1ec070] dark:border-[#2c2f32] dark:border-t-[#1dc071]"></div>
-          )}
+          <button
+            className={`ml-2 flex items-center rounded px-2 py-1 transition duration-200 ${
+              isSignedIn
+                ? "border border-[#1dc071] bg-[#1dc071] text-white hover:bg-[#1abc70]"
+                : "border border-red-300 bg-red-500 text-white hover:bg-red-600"
+            }`}
+            onClick={handleLoginLogout}
+          >
+            {isSignedIn ? <IconLogout size={20} /> : <IconLogin size={20} />}
+          </button>
         </div>
 
         {/* Toggle menu sidebar */}
@@ -159,6 +142,15 @@ const Navbar = () => {
           </ul>
         </div>
       </div>
+
+      {/* SignIn Modal */}
+      <SignedOut>
+        <SignIn
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          afterSignInUrl="/dashboard" // Redirect after sign-in
+        />
+      </SignedOut>
     </div>
   );
 };
