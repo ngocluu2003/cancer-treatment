@@ -12,7 +12,6 @@ const Modal = ({
   loading,
 }) => {
   if (!isOpen) return null;
-
   return (
     <div className="fixed left-0 top-0 z-[80] flex h-full w-full items-center justify-center bg-[#13131a] bg-opacity-90 dark:bg-opacity-80">
       <div className="relative w-11/12 rounded-xl border border-gray-200 bg-white shadow-sm dark:border-neutral-800 dark:bg-[#1c1c24] md:w-1/2 lg:w-1/3">
@@ -23,6 +22,9 @@ const Modal = ({
               {title}
             </h2>
           </div>
+          {loading && (
+            <div className="mt-4 text-center text-green-500">Loading....</div>
+          )}
 
           {error && !loading && (
             <div className="mt-4 text-center text-red-600">{error}</div>
@@ -38,7 +40,7 @@ const Modal = ({
               disabled={loading} // Disable button while loading
               className="inline-flex w-full items-center justify-center gap-x-2 rounded-lg border border-transparent bg-[#1ec070] px-4 py-2 text-sm font-semibold text-white hover:bg-[#1dc060] disabled:pointer-events-none disabled:opacity-50"
             >
-              {loading ? "Creating..." : actionLabel}
+              {loading ? "Creating" : actionLabel}
             </button>
           </div>
         </div>

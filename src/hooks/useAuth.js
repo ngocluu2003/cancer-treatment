@@ -20,21 +20,18 @@ const useAuthentication = () => {
         }
 
         const email = user.emailAddresses[0]?.emailAddress;
-
         try {
           if (!currentUser) {
             await fetchUserByEmail(email);
-          }
-
-          // Check user onboarding status
-          if (currentUser === "user-not-found" || !currentUser?.isOnBoarded) {
+          } else if (currentUser === "user-not-found") {
+            navigate("/onboarding");
+          } else if (!currentUser.isOnBoarded) {
             navigate("/onboarding");
           } else if (location.pathname === "/onboarding") {
             navigate("/");
           }
         } catch (error) {
           console.error("Error initializing app:", error);
-          // Handle error (e.g., navigate to an error page or show a notification)
         } finally {
           setLoading(false);
         }
