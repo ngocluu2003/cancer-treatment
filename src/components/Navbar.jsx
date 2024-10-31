@@ -6,13 +6,7 @@ import { navLinks } from "../constants";
 import { useNavigate } from "react-router-dom";
 import { IconLogin } from "@tabler/icons-react";
 import ThemeSwitch from "./ThemeSwitch";
-import {
-  SignedIn,
-  SignedOut,
-  SignIn,
-  UserButton,
-  useUser,
-} from "@clerk/clerk-react";
+import { SignIn, UserButton, useUser } from "@clerk/clerk-react";
 
 const Navbar = () => {
   const [toggleDrawer, setToggleDrawer] = useState(false);
@@ -50,6 +44,8 @@ const Navbar = () => {
             <UserButton
               appearance={{
                 elements: {
+                  avatarBox: "w-10 h-10",
+
                   userButton: {
                     backgroundColor: "#1ec070",
                     color: "#fff",
@@ -93,6 +89,7 @@ const Navbar = () => {
               <UserButton
                 appearance={{
                   elements: {
+                    avatarBox: "w-8 h-8",
                     userButton: {
                       backgroundColor: "#1ec070", // Customize background
                       color: "#fff", // Customize text color
@@ -155,10 +152,7 @@ const Navbar = () => {
       {/* Clerk SignIn Modal */}
       {showSignIn && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <SignIn
-            signUpForceRedirectUrl="/onboarding"
-            signUpFallbackRedirectUrl="/onboarding"
-          />
+          <SignIn signUpForceRedirectUrl="/" signUpFallbackRedirectUrl="/" />
         </div>
       )}
     </div>
