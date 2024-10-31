@@ -17,14 +17,12 @@ root.render(
       },
     }}
   >
-    <React.StrictMode>
-      <Router>
-        <ThemeContextProvider>
-          <UserStateContextProvider>
-            <App />
-          </UserStateContextProvider>
-        </ThemeContextProvider>
-      </Router>
-    </React.StrictMode>
+    <Router>
+      <ThemeContextProvider>
+        <UserStateContextProvider>
+          <App />
+        </UserStateContextProvider>
+      </ThemeContextProvider>
+    </Router>
   </PrivyProvider>,
 );
