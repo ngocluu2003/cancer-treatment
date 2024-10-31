@@ -4,7 +4,7 @@ import CustomButton from "./CustomButton";
 import { usePrivy } from "@privy-io/react-auth";
 import { IconHeartHandshake } from "@tabler/icons-react";
 import { navLinks } from "../constants";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { IconLogin, IconLogout } from "@tabler/icons-react";
 import ThemeSwitch from "./ThemeSwitch";
 
@@ -13,7 +13,7 @@ const Navbar = () => {
   const [isActive, setIsActive] = useState("dashboard");
   const navigate = useNavigate();
   const { ready, authenticated, login, logout, user } = usePrivy();
-  
+
   // const { pathname } = useLocation();
 
   // const refreshPage = () => {
