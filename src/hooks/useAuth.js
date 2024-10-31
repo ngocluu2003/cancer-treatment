@@ -11,37 +11,30 @@ const useAuthentication = () => {
 
   useEffect(() => {
     const initializeApp = async () => {
-      // Ensure that Clerk's user context is loaded before proceeding
       if (isLoaded) {
         if (!user) {
-          navigate("/?sign-in=true"); // Redirect to sign-in if no user
-          setLoading(false); // Stop loading
-          return; // Exit early
+          navigate("/?sign-in=true");
+          setLoading(false);
+          return;
         }
-
-        // Get user's email address
         const email = user.emailAddresses[0]?.emailAddress;
-
-        // Fetch user details by email
         if (email) {
-          const userDetails = await fetchUserByEmail(email);
-
-          // Handle user state based on the fetched details
-          if (!userDetails || userDetails === "user-not-found") {
-            navigate("/onboarding"); // Redirect if user not found
-          } else if (!userDetails.isOnBoarded) {
-            navigate("/onboarding"); // Redirect if user not onboarded
+          await fetchUserByEmail(email);
+          if (currentUser && currentUser === "user-not-found") {
+            navigate("/onboarding");
+          } else if (currentUser && !currentUser.isOnBoarded) {
+            navigate("/onboarding");
           } else if (window.location.pathname === "/onboarding") {
-            navigate("/"); // Redirect to home if already onboarded
+            navigate("/");
           }
         }
       }
 
-      setLoading(false); // Stop loading once everything is handled
+      setLoading(false);
     };
 
     initializeApp();
-  }, [isLoaded, user, fetchUserByEmail, navigate]); // Removed `currentUser` from dependencies
+  }, [isLoaded, user, fetchUserByEmail, navigate]);
 
   return { loading };
 };
