@@ -12,34 +12,32 @@ const useAuthentication = () => {
 
   useEffect(() => {
     const initializeApp = async () => {
-      if (!isLoaded) {
-        return; // Don't do anything until loaded
-      }
-
-      if (!user) {
-        navigate("/?sign-in=true");
-        setLoading(false);
-        return;
-      }
-
-      const email = user.emailAddresses[0]?.emailAddress;
-
-      try {
-        if (!currentUser) {
-          await fetchUserByEmail(email);
+      if (isLoaded) {
+        if (!user) {
+          navigate("/?sign-in=true");
+          setLoading(false);
+          return;
         }
 
-        // Check user onboarding status
-        if (currentUser === "user-not-found" || !currentUser?.isOnBoarded) {
-          navigate("/onboarding");
-        } else if (location.pathname === "/onboarding") {
-          navigate("/");
+        const email = user.emailAddresses[0]?.emailAddress;
+
+        try {
+          if (!currentUser) {
+            await fetchUserByEmail(email);
+          }
+
+          // Check user onboarding status
+          if (currentUser === "user-not-found" || !currentUser?.isOnBoarded) {
+            navigate("/onboarding");
+          } else if (location.pathname === "/onboarding") {
+            navigate("/");
+          }
+        } catch (error) {
+          console.error("Error initializing app:", error);
+          // Handle error (e.g., navigate to an error page or show a notification)
+        } finally {
+          setLoading(false);
         }
-      } catch (error) {
-        console.error("Error initializing app:", error);
-        // Handle error (e.g., navigate to an error page or show a notification)
-      } finally {
-        setLoading(false);
       }
     };
 
