@@ -34,7 +34,7 @@ const useAuthentication = () => {
     };
 
     initializeApp();
-  }, [isLoaded, user, fetchUserByEmail, navigate, currentUser]);
+  }, [isLoaded, user, navigate, currentUser]);
 
   return { loading };
 };

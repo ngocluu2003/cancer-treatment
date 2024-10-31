@@ -9,17 +9,15 @@ import ScreeningSchedule from "./pages/ScreeningSchedule";
 import { Buffer } from "buffer";
 import useAuth from "./hooks/useAuth";
 import LoadingSpinner from "./components/LoadingSpinner";
-import { useUserStateContext } from "./context/UserContext";
-
+import { useUser } from "@clerk/clerk-react";
 if (typeof window !== "undefined" && !window.Buffer) {
   window.Buffer = Buffer;
 }
 
 const App = () => {
-  const { currentUser, fetchUserByEmail } = useUserStateContext();
-  console.log(currentUser);
+  const { isLoaded } = useUser();
   const { loading } = useAuth();
-  if (loading) {
+  if (loading || !isLoaded) {
     return <LoadingSpinner />;
   }
 
