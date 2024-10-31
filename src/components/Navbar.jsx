@@ -25,7 +25,9 @@ const Navbar = () => {
   const handleLoginLogout = useCallback(() => {
     if (authenticated) {
       logout()
-        .then(() => window.location.reload())
+        .then(() => {
+          navigate(location.pathname, { replace: true });
+        })
         .catch((error) => {
           console.error("Logout failed:", error);
         });
@@ -38,7 +40,7 @@ const Navbar = () => {
         })
         .catch((error) => console.error("Login failed:", error));
     }
-  }, [authenticated, user, login, logout]);
+  }, [authenticated, user, login, logout, navigate, location.pathname]);
 
   return (
     <div className="mb-[35px] flex flex-col-reverse justify-between gap-6 sm:flex-row">

@@ -9,14 +9,14 @@ import { UserStateContextProvider } from "./context/UserContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  // <PrivyProvider
-  //   appId={import.meta.env.VITE_PRIVY_APP_ID}
-  //   config={{
-  //     appearance: {
-  //       theme: "dark",
-  //     },
-  //   }}
-  // >
+  <PrivyProvider
+    appId={import.meta.env.VITE_PRIVY_APP_ID}
+    config={{
+      appearance: {
+        theme: "dark",
+      },
+    }}
+  >
     <Router>
       <ThemeContextProvider>
         <UserStateContextProvider>
@@ -24,5 +24,5 @@ root.render(
         </UserStateContextProvider>
       </ThemeContextProvider>
     </Router>
-  // </PrivyProvider>,
+  </PrivyProvider>,
 );
