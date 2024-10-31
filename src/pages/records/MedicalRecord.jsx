@@ -67,8 +67,12 @@ const MedicalRecord = () => {
   };
 
   const handleNavigate = (name) => {
-    const filteredRecords = userRecords.find((record) => record.name === name);
-    navigate(`/medical-records/${name}`, { state: filteredRecords });
+    const filteredRecords = userRecords.filter(
+      (record) => record.recordName === name,
+    );
+    navigate(`/medical-records/${name}`, {
+      state: filteredRecords[0],
+    });
   };
 
   if (contextLoading) {
@@ -77,12 +81,6 @@ const MedicalRecord = () => {
 
   return (
     <div className="flex flex-wrap gap-[26px] bg-[#f5f5f5] dark:bg-[#13131a]">
-      {/* Global Context Loading and Error Display */}
-
-      {/* {contextError && (
-        <div className="mb-4 text-center text-red-600">{contextError}</div>
-      )} */}
-
       {/* Folder Creation Button */}
       {!contextLoading && (
         <button
