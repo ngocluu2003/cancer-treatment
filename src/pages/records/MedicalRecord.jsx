@@ -34,6 +34,9 @@ const MedicalRecord = () => {
   }, [records]);
 
   const createFolder = async (foldername) => {
+    const email = user?.emailAddresses[0]?.emailAddress;
+    console.log(email);
+    console.log("createFolder", foldername, currentUser);
     try {
       if (currentUser) {
         const newRecord = await createRecord({
@@ -41,10 +44,10 @@ const MedicalRecord = () => {
           recordName: foldername,
           analysisResults: "test",
           kanbanRecords: "test",
-          createdBy: user.email?.address || user.google?.email,
+          createdBy: user.emailAddresses[0].emailAddress,
         });
         if (newRecord) {
-          fetchUserRecords(user.email?.address || user.google?.email);
+          fetchUserRecords(user.emailAddresses[0].emailAddress);
           handleCloseModal();
         }
       }
