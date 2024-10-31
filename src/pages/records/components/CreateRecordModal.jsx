@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
 
-const CreateRecordModal = ({ isOpen, onClose, onCreate }) => {
+const CreateRecordModal = ({ isOpen, onClose, onCreate, error, loading }) => {
   const [foldername, setFoldername] = useState("");
 
   const handleCreate = () => {
@@ -16,6 +16,8 @@ const CreateRecordModal = ({ isOpen, onClose, onCreate }) => {
       onClose={onClose}
       onAction={handleCreate}
       actionLabel="Create Folder"
+      error={error}
+      loading={loading}
     >
       <div className="grid gap-y-4">
         <div>

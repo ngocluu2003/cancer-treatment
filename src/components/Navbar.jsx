@@ -1,10 +1,9 @@
 import React, { useCallback, useState, useEffect } from "react";
 import { menu, search } from "../assets";
 import CustomButton from "./CustomButton";
-import { IconHeartHandshake } from "@tabler/icons-react";
+import { IconHeartHandshake, IconLogin } from "@tabler/icons-react";
 import { navLinks } from "../constants";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { IconLogin } from "@tabler/icons-react";
 import ThemeSwitch from "./ThemeSwitch";
 import { SignIn, UserButton, useUser } from "@clerk/clerk-react";
 
@@ -15,8 +14,9 @@ const Navbar = () => {
   const { isLoaded, user } = useUser();
   const [showSignIn, setShowSignIn] = useState(false);
   const [searchParam] = useSearchParams();
+
   useEffect(() => {
-    if (searchParam.get("sign-in") == "true") {
+    if (searchParam.get("sign-in") === "true") {
       setShowSignIn(true);
     }
   }, [searchParam]);
@@ -25,22 +25,28 @@ const Navbar = () => {
     setShowSignIn(true);
   }, []);
 
+  const handleNavigation = (item) => {
+    setIsActive(item.name);
+    setToggleDrawer(false);
+    navigate(item.link);
+  };
+
   return (
     <div className="mb-[35px] flex flex-col-reverse justify-between gap-6 sm:flex-row">
       {/* Search bar component */}
       <div className="flex h-[52px] w-full flex-row rounded-[100px] bg-[#e9e9e9] py-2 pl-4 pr-2 dark:bg-[#1c1c24] sm:max-w-[498px] lg:flex-1">
         <input
           type="text"
-          placeholder="search for records"
+          placeholder="Search for records"
           className="flex w-full bg-transparent font-epilogue text-[14px] font-normal text-[#13131a] placeholder-gray-500 outline-none dark:text-white dark:placeholder:text-[#4b5264]"
         />
-        <div className="flex h-full w-[72px] cursor-pointer items-center justify-center rounded-[20px] bg-[#1ec070] dark:bg-[#1dc071]">
+        <button className="flex h-full w-[72px] cursor-pointer items-center justify-center rounded-[20px] bg-[#1ec070] dark:bg-[#1dc071]">
           <img
             src={search}
-            alt="search"
+            alt="Search"
             className="h-[15px] w-[15px] object-contain"
           />
-        </div>
+        </button>
       </div>
 
       {/* Authentication button */}
@@ -51,7 +57,6 @@ const Navbar = () => {
               appearance={{
                 elements: {
                   avatarBox: "w-10 h-10",
-
                   userButton: {
                     backgroundColor: "#1ec070",
                     color: "#fff",
@@ -84,7 +89,7 @@ const Navbar = () => {
         <div className="flex items-center">
           <img
             src={menu}
-            alt="menu"
+            alt="Menu"
             className="h-[34px] w-[34px] cursor-pointer object-contain"
             onClick={() => setToggleDrawer((prev) => !prev)}
           />
@@ -97,8 +102,8 @@ const Navbar = () => {
                   elements: {
                     avatarBox: "w-8 h-8",
                     userButton: {
-                      backgroundColor: "#1ec070", // Customize background
-                      color: "#fff", // Customize text color
+                      backgroundColor: "#1ec070",
+                      color: "#fff",
                     },
                   },
                 }}
@@ -126,14 +131,10 @@ const Navbar = () => {
             {navLinks.map((item) => (
               <li
                 key={item.name}
-                className={`flex p-4 ${
-                  isActive === item.name && "bg-[#e3e3db] dark:bg-[#3a3a43]"
-                } cursor-pointer`}
-                onClick={() => {
-                  setIsActive(item.name);
-                  setToggleDrawer(false);
-                  navigate(item.link);
-                }}
+                className={`flex cursor-pointer p-4 ${
+                  isActive === item.name ? "bg-[#e3e3db] dark:bg-[#3a3a43]" : ""
+                }`}
+                onClick={() => handleNavigation(item)}
               >
                 <img
                   src={item.imageUrl}

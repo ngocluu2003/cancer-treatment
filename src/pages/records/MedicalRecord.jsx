@@ -7,32 +7,44 @@ import { useUserStateContext } from "../../context/UserContext";
 import { useUser } from "@clerk/clerk-react";
 
 const MedicalRecord = () => {
-  const [userRecords, setUserRecords] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
   const navigate = useNavigate();
   const { user, isLoaded } = useUser();
-  const { records, fetchUserRecords, createRecord, currentUser } =
-    useUserStateContext();
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
+  const {
+    records,
+    fetchUserRecords,
+    createRecord,
+    currentUser,
+    loading: contextLoading,
+    error: contextError,
+  } = useUserStateContext();
 
   useEffect(() => {
     if (isLoaded && user) {
       fetchUserRecords(user.emailAddresses[0].emailAddress);
     }
-  }, [user, fetchUserRecords]);
+  }, [user, fetchUserRecords, isLoaded]);
 
   useEffect(() => {
-    setUserRecords(records);
     localStorage.setItem("userRecords", JSON.stringify(records));
   }, [records]);
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleOpenModal = () => {
+    setError(""); // Clear any previous errors when reopening the modal
+    setIsModalOpen(true);
+  };
+
   const createFolder = async (foldername) => {
+    setLoading(true);
+    setError("");
+
     try {
       if (currentUser) {
         const newRecord = await createRecord({
@@ -48,37 +60,52 @@ const MedicalRecord = () => {
         }
       }
     } catch (error) {
-      console.error(error);
-      handleCloseModal();
+      setError("Error creating folder. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleNavigate = (name) => {
-    const filteredRecords = userRecords.filter(
-      (record) => record.name === name,
-    );
-    navigate(`/medical-records/${name}`, { state: filteredRecords[0] });
+    const filteredRecords = userRecords.find((record) => record.name === name);
+    navigate(`/medical-records/${name}`, { state: filteredRecords });
   };
 
   return (
     <div className="flex flex-wrap gap-[26px] bg-[#f5f5f5] dark:bg-[#13131a]">
-      <button
-        type="button"
-        className="mt-6 inline-flex items-center gap-x-2 rounded-full border border-gray-300 bg-[#e9e9e9] px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-[#e3e3db] dark:border-neutral-700 dark:bg-[#1c1c24] dark:text-white dark:hover:bg-[#2c2f32]"
-        onClick={handleOpenModal}
-      >
-        <IconCirclePlus className="text-[#1ec070] dark:text-[#1dc071]" />
-        Create Record
-      </button>
+      {/* Global Context Loading and Error Display */}
+      {contextLoading && (
+        <div className="text-center text-[#1ec070]">Loading records...</div>
+      )}
+      {contextError && (
+        <div className="mb-4 text-center text-red-600">{contextError}</div>
+      )}
 
+      {/* Folder Creation Button */}
+      {!contextLoading && (
+        <button
+          type="button"
+          className="mt-6 inline-flex items-center gap-x-2 rounded-full border border-gray-300 bg-[#e9e9e9] px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-[#e3e3db] dark:border-neutral-700 dark:bg-[#1c1c24] dark:text-white dark:hover:bg-[#2c2f32]"
+          onClick={handleOpenModal}
+          disabled={contextLoading}
+        >
+          <IconCirclePlus className="text-[#1ec070] dark:text-[#1dc071]" />
+          Create Record
+        </button>
+      )}
+
+      {/* Folder Creation Modal with Context Loading/Error as Props */}
       <CreateRecordModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onCreate={createFolder}
+        loading={loading}
+        error={error}
       />
 
+      {/* Records List */}
       <div className="grid w-full gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
-        {userRecords.map((record, index) => (
+        {records.map((record, index) => (
           <RecordCard key={index} record={record} onNavigate={handleNavigate} />
         ))}
       </div>
