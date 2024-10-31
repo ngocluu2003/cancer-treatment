@@ -71,15 +71,17 @@ const MedicalRecord = () => {
     navigate(`/medical-records/${name}`, { state: filteredRecords });
   };
 
+  if (contextLoading) {
+    return <div className="text-center text-[#1ec070]">Loading records...</div>;
+  }
+
   return (
     <div className="flex flex-wrap gap-[26px] bg-[#f5f5f5] dark:bg-[#13131a]">
       {/* Global Context Loading and Error Display */}
-      {contextLoading && (
-        <div className="text-center text-[#1ec070]">Loading records...</div>
-      )}
-      {contextError && (
+
+      {/* {contextError && (
         <div className="mb-4 text-center text-red-600">{contextError}</div>
-      )}
+      )} */}
 
       {/* Folder Creation Button */}
       {!contextLoading && (

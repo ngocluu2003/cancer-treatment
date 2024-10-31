@@ -24,10 +24,6 @@ const Modal = ({
             </h2>
           </div>
 
-          {/* Loading and Error Messages */}
-          {loading && (
-            <div className="mt-4 text-center text-[#1ec070]">Loading...</div>
-          )}
           {error && !loading && (
             <div className="mt-4 text-center text-red-600">{error}</div>
           )}
