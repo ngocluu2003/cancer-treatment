@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useUserStateContext } from "../context/UserContext";
-import { usePrivy } from "@privy-io/react-auth";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "@clerk/clerk-react";
 
 const Onboarding = () => {
   const [username, setUsername] = useState("");
   const [age, setAge] = useState("");
   const [location, setLocation] = useState("");
   const { createUser } = useUserStateContext();
-  const { user } = usePrivy();
+  const { user } = useUser();
   const navigate = useNavigate();
 
   const handleOnboarding = async (e) => {
@@ -17,7 +17,7 @@ const Onboarding = () => {
       username,
       age: parseInt(age, 10),
       location,
-      createdBy: user.email?.address || user.google?.email,
+      createdBy: user.emailAddresses[0]?.emailAddress,
       isOnBoarded: true,
     };
     const newUser = await createUser(userData);

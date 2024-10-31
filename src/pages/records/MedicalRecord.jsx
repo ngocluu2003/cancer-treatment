@@ -2,22 +2,18 @@ import { IconCirclePlus } from "@tabler/icons-react";
 import React, { useEffect, useState } from "react";
 import RecordCard from "./components/RecordCard";
 import CreateRecordModal from "./components/CreateRecordModal";
-import { usePrivy } from "@privy-io/react-auth";
+
 import { useNavigate } from "react-router-dom";
 import { useUserStateContext } from "../../context/UserContext";
+import { useUser } from "@clerk/clerk-react";
 
 const MedicalRecord = () => {
   const [userRecords, setUserRecords] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-  const { user, ready } = usePrivy();
-  const {
-    records,
-    fetchUserRecords,
-    createRecord,
-    fetchUserByEmail,
-    currentUser,
-  } = useUserStateContext();
+  const { user, isLoaded } = useUser();
+  const { records, fetchUserRecords, createRecord, currentUser } =
+    useUserStateContext();
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -27,8 +23,8 @@ const MedicalRecord = () => {
   };
 
   useEffect(() => {
-    if (ready && user) {
-      fetchUserRecords(user.email?.address || user.google?.email);
+    if (isLoaded && user) {
+      fetchUserRecords(user.emailAddresses[0].emailAddress);
     }
   }, [user, fetchUserRecords]);
 

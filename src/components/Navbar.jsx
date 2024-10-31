@@ -1,9 +1,9 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState,useEffect } from "react";
 import { menu, search } from "../assets";
 import CustomButton from "./CustomButton";
 import { IconHeartHandshake } from "@tabler/icons-react";
 import { navLinks } from "../constants";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { IconLogin } from "@tabler/icons-react";
 import ThemeSwitch from "./ThemeSwitch";
 import { SignIn, UserButton, useUser } from "@clerk/clerk-react";
@@ -14,6 +14,13 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { isLoaded, user } = useUser();
   const [showSignIn, setShowSignIn] = useState(false);
+  const [searchParam] = useSearchParams();
+  console.log(user);
+  useEffect(() => {
+    if (searchParam.get("sign-in") == "true") {
+      setShowSignIn(true);
+    }
+  }, [searchParam]);
 
   const handleLogin = useCallback(() => {
     setShowSignIn(true);
