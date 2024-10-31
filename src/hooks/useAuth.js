@@ -25,7 +25,7 @@ const useAuthentication = () => {
           !currentUser.isOnBoarded
         ) {
           navigate("/onboarding");
-        } else if (pathname === "/onboarding") {
+        } else if (location.pathname === "/onboarding") {
           navigate("/");
         }
       }
