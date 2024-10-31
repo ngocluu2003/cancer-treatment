@@ -20,6 +20,7 @@ const useAuthentication = () => {
         const email = user.emailAddresses[0]?.emailAddress;
         if (email) {
           await fetchUserByEmail(email);
+
           if (currentUser && currentUser === "user-not-found") {
             navigate("/onboarding");
           } else if (currentUser && !currentUser.isOnBoarded) {
@@ -34,7 +35,7 @@ const useAuthentication = () => {
     };
 
     initializeApp();
-  }, [isLoaded, user, fetchUserByEmail, navigate]);
+  }, [isLoaded, user, fetchUserByEmail, navigate, currentUser]);
 
   return { loading };
 };
