@@ -9,13 +9,13 @@ const RecordCard = ({ record, onNavigate }) => {
           <IconFolder size={70} className="text-[#1ec070]" />
         </div>
       </div>
-      <a
-        href=""
+      <button
+        type="button"
         onClick={() => onNavigate(record.recordName)}
         className="inline-flex cursor-pointer items-center justify-between rounded-b-xl border-t border-neutral-200 px-4 py-3 text-sm text-neutral-700 hover:bg-neutral-100 dark:border-neutral-800 dark:bg-[#13131a] dark:text-neutral-400 dark:hover:bg-neutral-800 md:px-5"
       >
         {record.recordName} <IconChevronRight className="text-[#1ec070]" />
-      </a>
+      </button>
     </div>
   );
 };

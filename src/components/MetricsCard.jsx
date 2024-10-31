@@ -10,7 +10,7 @@ const MetricsCard = ({ title, subtitle, value, icon: Icon, onClick }) => {
             {title}
           </p>
           <div className="mt-1 flex items-center gap-x-2">
-            <h3 className="text-xl font-medium text-neutral-800 sm:text-2xl dark:text-neutral-200">
+            <h3 className="text-xl font-medium text-neutral-800 dark:text-neutral-200 sm:text-2xl">
               {value}
             </h3>
           </div>
@@ -19,14 +19,14 @@ const MetricsCard = ({ title, subtitle, value, icon: Icon, onClick }) => {
           <Icon size={25} className="text-[#1ec070]" />
         </div>
       </div>
-      <a
-        className="inline-flex items-center justify-between rounded-b-xl border-t border-gray-200 px-4 py-3 text-sm text-gray-600 hover:bg-gray-100 md:px-5 dark:border-neutral-800 dark:text-neutral-400 dark:hover:bg-[#2c2f32]"
-        href="#"
+      <button
+        type="button"
+        className="inline-flex items-center justify-between rounded-b-xl border-t border-gray-200 px-4 py-3 text-sm text-gray-600 hover:bg-gray-100 dark:border-neutral-800 dark:text-neutral-400 dark:hover:bg-[#2c2f32] md:px-5"
         onClick={onClick}
       >
         {subtitle}
         <IconChevronRight className="text-neutral-500 dark:text-neutral-400" />
-      </a>
+      </button>
     </div>
   );
 };
