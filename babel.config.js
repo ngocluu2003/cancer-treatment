@@ -4,9 +4,8 @@ module.exports = {
     [
       "@babel/preset-react",
       {
-        runtime: "automatic", // Use the new JSX runtime, required for `_jsx` and `_jsxs` transforms
+        runtime: "automatic",
       },
     ],
   ],
-  plugins: ["@emotion/babel-plugin"], // Ensure the plugin is correctly named
 };
