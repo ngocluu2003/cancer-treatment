@@ -1,25 +1,12 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import NodeGlobalsPolyfillPlugin from "rollup-plugin-polyfill-node";
+import path from "path";
 
 export default defineConfig({
-  plugins: [
-    react(),
-    NodeGlobalsPolyfillPlugin({
-      process: true,
-      buffer: true,
-    }),
-  ],
+  plugins: [react()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-    },
-  },
-  optimizeDeps: {
-    esbuildOptions: {
-      define: {
-        global: "globalThis",
-      },
     },
   },
 });
