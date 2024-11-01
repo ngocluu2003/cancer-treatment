@@ -187,8 +187,7 @@ const SingleRecordDetail = () => {
                     <h2 className="text-lg font-semibold text-white">
                       Analysis Result
                     </h2>
-                    <div className="space-y-2">
-                     {analysisResult}                    </div>
+                    <div className="space-y-2">{analysisResult} </div>
                   </div>
                 </div>
                 {/*  */}
