@@ -36,6 +36,12 @@ const SingleRecordDetail = () => {
     setFileName(file.name);
     setFile(file);
   };
+  const readFileAsBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(".")[1]);
+    });
+  };
   return (
     <div className="flex flex-wrap gap-[26px]">
       <button
