@@ -1,7 +1,10 @@
 import { IconFileUpload } from "@tabler/icons-react";
 import React from "react";
-
+import RecordDetailsHeader from "./components/RecordDetailsHeader";
+import { useLocation } from "react-router-dom";
 const SingleRecordDetail = () => {
+  const { state } = useLocation();
+  console.log(state);
   return (
     <div className="flex flex-wrap gap-[26px]">
       <button
@@ -13,6 +16,33 @@ const SingleRecordDetail = () => {
         Upload Reports
       </button>
       {/* Upload Report Modal */}
+      <RecordDetailsHeader recordName={state.recordName} />
+      <div className="w-full">
+        <div className="flex flex-col">
+          <div className="-m-1.5 overflow-x-auto">
+            <div className="inline-block min-w-full p-1.5 align-middle">
+              <div className="overflow-hidden rounded-xl border-neutral-700 bg-[#13131a] shadow-sm">
+                <div className="border-b border-neutral-700 px-6 py-4">
+                  <h2 className="text-xl font-semibold text-neutral-200">
+                    Personalized AI-Driven Treatment Plan
+                  </h2>
+                  <p className="text-sm text-neutral-400">
+                    A tailored medical strategy leveraging advanced AI insights.
+                  </p>
+                </div>
+                <div className="flex w-full flex-col px-6 py-4 text-white">
+                  <div>
+                    <h2 className="text-lg font-semibold text-white">
+                      Analysis Result
+                    </h2>
+                    <div className="space-y-2">"rendering the results"</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

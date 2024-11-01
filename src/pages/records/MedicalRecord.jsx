@@ -69,8 +69,10 @@ const MedicalRecord = () => {
   };
 
   const handleNavigate = (name) => {
-    const filteredRecords = records.find((record) => record.name === name);
-    navigate(`/medical-records/${name}`, { state: filteredRecords });
+    const filteredRecords = records.filter(
+      (record) => record.recordName === name,
+    );
+    navigate(`/medical-records/${name}`, { state: filteredRecords[0] });
   };
 
   return (
