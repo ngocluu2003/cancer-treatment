@@ -21,7 +21,7 @@ const SingleRecordDetail = () => {
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const [processing, setProcessing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState(
-    state.analysisResult || "",
+    state.analysisResults || "",
   );
   const [fileName, setFileName] = useState("");
   console.log(state);
@@ -78,9 +78,10 @@ const SingleRecordDetail = () => {
       const response = await result.response;
       const text = response.text();
       setAnalysisResult(text);
+      state.analysisResults = text;
       const updatedRecord = await updateRecord({
         documentID: state.id,
-        analysisResult: text,
+        analysisResults: text,
         kanbanRecords: "",
       });
       setUploadSuccess(true);
@@ -147,12 +148,12 @@ const SingleRecordDetail = () => {
                     className="inline-flex items-center gap-x-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800"
                   >
                     View Treatment Plan <IconChevronRight size={20} />
-                    {/* {processing && (
+                    {processing && (
                       <IconProgress
                         size={10}
                         className="mr-3 h-5 w-5 animate-spin"
                       />
-                    )} */}
+                    )}
                   </button>
                 </div>
               </div>
