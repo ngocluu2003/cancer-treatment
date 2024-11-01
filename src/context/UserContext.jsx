@@ -112,22 +112,12 @@ export const UserStateContextProvider = ({ children }) => {
     setLoading(true);
     try {
       const { documentID, ...dataToUpdate } = recordData;
-      const result = await db
+      console.log(documentID, dataToUpdate);
+      const updatedRecords = await db
         .update(Records)
         .set(dataToUpdate)
         .where(eq(Records.id, documentID))
-        .returning()
-        .execute();
-
-      if (result.length > 0) {
-        setRecords((prevRecords) =>
-          prevRecords.map((record) =>
-            record.id === documentID ? { ...record, ...dataToUpdate } : record,
-          ),
-        );
-        return result[0];
-      }
-      return null;
+        .returning();
     } catch (error) {
       setError("Error updating record");
       console.error("Error updating record", error);
