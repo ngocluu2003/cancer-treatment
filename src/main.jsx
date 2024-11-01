@@ -6,7 +6,7 @@ import "./index.css";
 import { ThemeContextProvider } from "./context/ThemeContext";
 import { UserStateContextProvider } from "./context/UserContext";
 import { ClerkProvider } from "@clerk/clerk-react";
-import { shadesOfPurple } from "@clerk/themes";
+import { shadesOfPurple, dark } from "@clerk/themes";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
