@@ -9,7 +9,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import FileUploadModal from "./components/FileUploadModal";
 import { useUserStateContext } from "../../context/UserContext";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import ReactMarkdown from "react-markdown";
+import Markdown from "react-markdown";
 
 const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
@@ -188,7 +188,7 @@ const SingleRecordDetail = () => {
                       Analysis Result
                     </h2>
                     <div className="space-y-2">
-                      <ReactMarkdown>{analysisResult}</ReactMarkdown>
+                      <Markdown>{analysisResult}</Markdown>
                     </div>
                   </div>
                 </div>
