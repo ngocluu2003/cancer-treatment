@@ -1,15 +1,41 @@
 import {
-  IconChevronsUpRight,
-  IconChevronUpRight,
+  IconChevronRight,
   IconFileUpload,
   IconProgress,
 } from "@tabler/icons-react";
-import React from "react";
+import React, { useState } from "react";
 import RecordDetailsHeader from "./components/RecordDetailsHeader";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import FileUploadModal from "./components/FileUploadModal";
+import { useUserStateContext } from "../../context/UserContext";
 const SingleRecordDetail = () => {
   const { state } = useLocation();
+  const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [file, setFile] = useState(null);
+  const [uploading, setUploading] = useState(null);
+  const [uploadSuccess, setUploadSuccess] = useState(false);
+  const [processing, setProcessing] = useState(false);
+  const [analysisResult, setAnalysisResult] = useState(
+    state.analysisResult || "",
+  );
+  const [fileName, setFileName] = useState("");
   console.log(state);
+  const [fileType, setFileType] = useState("");
+  const { updateRecord } = useUserStateContext();
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+  const handleFileChange = () => {
+    const file = e.target.files[0];
+    setFileType(file.type);
+    setFileName(file.name);
+    setFile(file);
+  };
   return (
     <div className="flex flex-wrap gap-[26px]">
       <button
@@ -21,12 +47,13 @@ const SingleRecordDetail = () => {
         Upload Reports
       </button>
       {/* Upload Report Modal */}
+      <FileUploadModal isOpen={isModalOpen} />
       <RecordDetailsHeader recordName={state.recordName} />
       <div className="w-full">
         <div className="flex flex-col">
           <div className="-m-1.5 overflow-x-auto">
             <div className="inline-block min-w-full p-1.5 align-middle">
-              <div className="overflow-hidden rounded-xl border-neutral-700 bg-[#13131a] shadow-sm">
+              <div className="overflow-hidden rounded-xl border border-neutral-700 bg-[#13131a] shadow-sm">
                 <div className="border-b border-neutral-700 px-6 py-4">
                   <h2 className="text-xl font-semibold text-neutral-200">
                     Personalized AI-Driven Treatment Plan
@@ -40,7 +67,7 @@ const SingleRecordDetail = () => {
                     <h2 className="text-lg font-semibold text-white">
                       Analysis Result
                     </h2>
-                    <div className="space-y-2">rendering the results</div>
+                    <div className="space-y-2">{analysisResult}</div>
                   </div>
                 </div>
                 {/*  */}
@@ -50,7 +77,7 @@ const SingleRecordDetail = () => {
                     onClick={() => {}}
                     className="inline-flex items-center gap-x-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800"
                   >
-                    View Treatment Plan <IconChevronsUpRight size={20} />
+                    View Treatment Plan <IconChevronRight size={20} />
                     {/* spinner */}
                     {true && (
                       <IconProgress
