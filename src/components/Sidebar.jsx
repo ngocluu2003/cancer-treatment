@@ -28,9 +28,9 @@ const Sidebar = () => {
       <Link
         to="/"
         className="flex items-center justify-center"
-        onClick={() => setIsActive("Home")}
+        onClick={() => setIsActive("dashboard")}
       >
-        <div className="rounded-[10px] bg-[#e3e3db] p-2 transition-transform duration-200 hover:scale-105 dark:bg-[#2c2f32]">
+        <div className="rounded-full bg-[#e3e3db] p-2 transition-transform duration-200 hover:scale-105 dark:bg-[#2c2f32]">
           <IconHeartHandshake size={40} color="#1ec070" />
         </div>
       </Link>

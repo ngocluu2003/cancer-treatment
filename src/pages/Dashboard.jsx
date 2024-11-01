@@ -1,8 +1,8 @@
 import React from "react";
 import DisplayInfo from "../components/DisplayInfo";
 
-const Home = () => {
+const Dashboard = () => {
   return <DisplayInfo />;
 };
 
-export default Home;
+export default Dashboard;
