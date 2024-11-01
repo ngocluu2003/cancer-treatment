@@ -9,16 +9,14 @@ import ScreeningSchedule from "./pages/ScreeningSchedule";
 import { Buffer } from "buffer";
 import useAuth from "./hooks/useAuth";
 import LoadingSpinner from "./components/LoadingSpinner";
-import { useUser } from "@clerk/clerk-react";
 
 if (typeof window !== "undefined" && !window.Buffer) {
   window.Buffer = Buffer;
 }
 
 const App = () => {
-  const { isLoaded } = useUser();
   const { loading } = useAuth();
-  if (loading || !isLoaded) {
+  if (loading) {
     return <LoadingSpinner />;
   }
 

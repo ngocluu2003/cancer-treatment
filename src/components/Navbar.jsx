@@ -50,13 +50,13 @@ const Navbar = () => {
       </div>
 
       {/* Authentication button */}
-      <div className="hidden flex-row justify-end gap-2 sm:flex">
+      <div className="mr-2 hidden flex-row justify-end sm:flex">
         {isLoaded ? (
           user ? (
             <UserButton
               appearance={{
                 elements: {
-                  avatarBox: "w-10 h-10",
+                  avatarBox: "w-12 h-12",
                   userButton: {
                     backgroundColor: "#1ec070",
                     color: "#fff",
@@ -95,27 +95,19 @@ const Navbar = () => {
           />
           <ThemeSwitch className="m-2 flex h-8 w-8 items-center justify-center rounded-full" />
 
-          {isLoaded ? (
-            user ? (
-              <UserButton
-                appearance={{
-                  elements: {
-                    avatarBox: "w-8 h-8",
-                    userButton: {
-                      backgroundColor: "#1ec070",
-                      color: "#fff",
-                    },
+          {/* optional spinner */}
+          {user ? (
+            <UserButton
+              appearance={{
+                elements: {
+                  avatarBox: "w-8 h-8",
+                  userButton: {
+                    backgroundColor: "#1ec070",
+                    color: "#fff",
                   },
-                }}
-              />
-            ) : (
-              <button
-                className="ml-2 flex items-center rounded border border-[#1dc071] bg-[#1dc071] px-2 py-1 text-white hover:bg-[#1abc70]"
-                onClick={handleLogin}
-              >
-                <IconLogin size={20} />
-              </button>
-            )
+                },
+              }}
+            />
           ) : (
             <div className="ml-1 h-6 w-6 animate-spin rounded-full border-4 border-t-4 border-[#e9e9e9] border-t-[#1dc071] dark:border-[#2c2f32] dark:border-t-[#1dc071]"></div>
           )}

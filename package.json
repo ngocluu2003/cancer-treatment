@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.13.1",
+    "@clerk/themes": "^2.1.40",
     "@dnd-kit/core": "6.0.8",
     "@dnd-kit/sortable": "7.0.2",
     "@emotion/babel-plugin": "^11.0.0",

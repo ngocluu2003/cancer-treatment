@@ -7,7 +7,11 @@ const Onboarding = () => {
   const [username, setUsername] = useState("");
   const [age, setAge] = useState("");
   const [location, setLocation] = useState("");
-  const { createUser, loading: contextLoading, error: contextError } = useUserStateContext();
+  const {
+    createUser,
+    loading: contextLoading,
+    error: contextError,
+  } = useUserStateContext();
   const { user } = useUser();
   const navigate = useNavigate();
   const [formLoading, setFormLoading] = useState(false);
@@ -45,34 +49,30 @@ const Onboarding = () => {
     }
   };
 
-  // If context is loading or has an error, display the corresponding message
-  if (contextLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-[#f5f5f5] dark:bg-[#13131a]">
-        <div className="text-center text-[#1ec070]">Loading...</div>
-      </div>
-    );
-  }
 
-  if (contextError) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-[#f5f5f5] dark:bg-[#13131a]">
-        <div className="mb-4 text-red-600 text-center">{contextError}</div>
-      </div>
-    );
-  }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-[#f5f5f5] dark:bg-[#13131a]">
       <div className="w-full max-w-md rounded-2xl bg-[#e9e9e9] p-8 shadow-lg dark:bg-[#1c1c24]">
-        <h2 className="mb-2 text-center text-5xl font-bold text-[#1ec070] dark:text-[#1dc071]">👋</h2>
-        <h2 className="mb-6 text-center text-2xl font-bold text-[#13131a] dark:text-white">Welcome! Let's get started</h2>
+        <h2 className="mb-2 text-center text-5xl font-bold text-[#1ec070] dark:text-[#1dc071]">
+          👋
+        </h2>
+        <h2 className="mb-6 text-center text-2xl font-bold text-[#13131a] dark:text-white">
+          Welcome! Let's get started
+        </h2>
 
         <form onSubmit={handleOnboarding}>
-          {formError && <div className="mb-4 text-red-600 text-center">{formError}</div>} {/* Display form error message */}
-          
+          {formError && (
+            <div className="mb-4 text-center text-red-600">{formError}</div>
+          )}{" "}
+          {/* Display form error message */}
           <div className="mb-4">
-            <label htmlFor="username" className="mb-2 block text-sm font-medium text-[#4b5264] dark:text-gray-400">Username</label>
+            <label
+              htmlFor="username"
+              className="mb-2 block text-sm font-medium text-[#4b5264] dark:text-gray-400"
+            >
+              Username
+            </label>
             <input
               type="text"
               id="username"
@@ -83,7 +83,12 @@ const Onboarding = () => {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="age" className="mb-2 block text-sm font-medium text-[#4b5264] dark:text-gray-400">Age</label>
+            <label
+              htmlFor="age"
+              className="mb-2 block text-sm font-medium text-[#4b5264] dark:text-gray-400"
+            >
+              Age
+            </label>
             <input
               type="number"
               id="age"
@@ -94,7 +99,12 @@ const Onboarding = () => {
             />
           </div>
           <div className="mb-6">
-            <label htmlFor="location" className="mb-2 block text-sm font-medium text-[#4b5264] dark:text-gray-400">Location</label>
+            <label
+              htmlFor="location"
+              className="mb-2 block text-sm font-medium text-[#4b5264] dark:text-gray-400"
+            >
+              Location
+            </label>
             <input
               type="text"
               id="location"
