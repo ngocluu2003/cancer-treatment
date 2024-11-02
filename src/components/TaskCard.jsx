@@ -53,7 +53,7 @@ function TaskCard({ task, deleteTask, updateTask }) {
         className="relative flex h-[100px] min-h-[100px] cursor-grab items-center rounded-xl bg-mainBackgroundColor p-2.5 text-left hover:ring-2 hover:ring-inset hover:ring-green-500"
       >
         <textarea
-          className="h-[90%] w-full resize-none rounded border-none bg-transparent text-white focus:outline-none"
+          className="scrollable h-[90%] w-full resize-none rounded border-none bg-transparent text-white focus:outline-none"
           value={task.content}
           autoFocus
           placeholder="Task content here"

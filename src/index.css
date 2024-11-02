@@ -27,16 +27,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .dark .text-green-500 {
   color: #1dc071; /* Dark theme color */
 }
-.custom-scroll {
-  overflow-y: scroll;
-}
 
-/* Hide scrollbar */
-.custom-scroll::-webkit-scrollbar {
-  display: none;
-}
-
-.custom-scroll {
-  -ms-overflow-style: none; /* IE and Edge */
+/* Hide scrollbar for all elements */
+.scrollable {
+  overflow-y: auto; /* Enables vertical scrolling */
   scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer and Edge */
+}
+
+/* Chrome, Safari, and Opera */
+.scrollable::-webkit-scrollbar {
+  display: none; /* Hides scrollbar */
 }

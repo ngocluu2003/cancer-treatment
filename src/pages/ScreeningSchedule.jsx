@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 const ScreeningSchedule = () => {
   const state = useLocation();
   return (
-    <div className="w-full custom-scroll">
+    <div className="scrollable w-full">
       <KanbanBoard state={state} />
     </div>
   );

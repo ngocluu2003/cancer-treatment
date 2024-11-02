@@ -92,7 +92,7 @@ function ColumnContainer({
         </button>
       </div>
 
-      <div className="flex flex-grow flex-col gap-4 overflow-y-auto overflow-x-hidden p-2">
+      <div className="flex flex-grow flex-col gap-4 overflow-y-auto overflow-x-hidden p-2 scrollable">
         <SortableContext items={tasksIds}>
           {tasks.map((task) => (
             <TaskCard
