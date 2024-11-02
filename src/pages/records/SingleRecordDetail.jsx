@@ -62,6 +62,7 @@ const SingleRecordDetail = () => {
       const prompt = `You are an expert cancer and any disease diagnosis analyst. Use your knowledge base to answer questions about giving personalized recommended treatments.
       give a detailed treatment plan for me, make it more readable, clear and easy to understand make it paragraphs to make it more readable
       `;
+
       const result = await model.generateContent([prompt, ...imageParts]);
       const response = await result.response;
       const text = response.text();
@@ -87,6 +88,12 @@ const SingleRecordDetail = () => {
   };
 
   const processTreatmentPlan = async () => {
+    if (state.kanbanRecords != "test") {
+      const text = state.kanbanRecords;
+      const parsedResponse = JSON.parse(text);
+      navigate("/screening-schedules", { state: parsedResponse });
+      return;
+    }
     setIsProcessing(true);
     const genAI = new GoogleGenerativeAI(geminiApiKey);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
@@ -98,7 +105,7 @@ const SingleRecordDetail = () => {
 
     Each task should include a brief description. The tasks should be categorized appropriately based on the stage of the treatment process.
 
-    Please provide the results in the following  format for easy front-end display no quotating or what so ever just pure the structure below:
+    Please provide the results in the following  format for easy front-end display no quotating or what so ever just pure the structure below and it must be valid JSON string like below:
 
     {
       "columns": [
@@ -183,6 +190,7 @@ const SingleRecordDetail = () => {
                   <button
                     type="button"
                     onClick={processTreatmentPlan}
+                    disabled={analysisResult === "test"}
                     className="inline-flex items-center gap-x-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 shadow-sm hover:bg-neutral-100 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800"
                   >
                     View Treatment Plan{" "}
