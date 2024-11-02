@@ -4,7 +4,8 @@ import { useUser } from "@clerk/clerk-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const useAuthentication = () => {
-  const { currentUser, fetchUserByEmail } = useUserStateContext();
+  const { currentUser, fetchUserByEmail, fetchUserRecords } =
+    useUserStateContext();
   const { isLoaded, user } = useUser();
   const navigate = useNavigate();
   const location = useLocation();
@@ -33,6 +34,7 @@ const useAuthentication = () => {
         } catch (error) {
           console.error("Error initializing app:", error);
         } finally {
+          fetchUserRecords(email);
           setLoading(false);
         }
       }
