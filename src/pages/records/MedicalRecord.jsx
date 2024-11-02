@@ -42,10 +42,8 @@ const MedicalRecord = () => {
   };
 
   const createFolder = async (foldername) => {
-    console.log(loading);
     setLoading(true);
     setError("");
-    console.log(loading);
 
     try {
       if (currentUser) {
@@ -81,7 +79,7 @@ const MedicalRecord = () => {
       {true && (
         <button
           type="button"
-          className="mt-6 inline-flex items-center gap-x-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-800 shadow-sm  disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-[#1c1c24] dark:text-white dark:hover:bg-neutral-800 hover:bg-neutral-100"
+          className="mt-6 inline-flex items-center gap-x-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-800 shadow-sm hover:bg-neutral-100 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-[#1c1c24] dark:text-white dark:hover:bg-neutral-800"
           onClick={handleOpenModal}
         >
           <IconCirclePlus className="text-[#1ec070] dark:text-[#1dc071]" />

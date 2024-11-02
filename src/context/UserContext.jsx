@@ -112,7 +112,6 @@ export const UserStateContextProvider = ({ children }) => {
     setLoading(true);
     try {
       const { documentID, ...dataToUpdate } = recordData;
-      console.log(documentID, dataToUpdate);
       const updatedRecords = await db
         .update(Records)
         .set(dataToUpdate)
