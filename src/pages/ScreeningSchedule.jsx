@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import KanbanBoard from "./records/components/KanbanBoard";
+import KanbanBoard from "../components/KanbanBoard";
 
 const ScreeningSchedule = () => {
   const { state } = useState();
