@@ -54,7 +54,7 @@ function ColumnContainer({
     <div
       ref={setNodeRef}
       style={style}
-      className="flex h-[500px] max-h-[500px] w-[350px] flex-col rounded-xl bg-[#1c1c24]"
+      className="flex h-[500px] max-h-[500px] w-[350px] flex-col rounded-xl bg-[#e3e3db] bg-opacity-80 dark:bg-[#1c1c24]"
     >
       <div
         {...attributes}
@@ -62,7 +62,7 @@ function ColumnContainer({
         onClick={() => {
           setEditMode(true);
         }}
-        className="text-md m-2 flex h-[60px] cursor-grab items-center justify-between rounded-xl bg-[#13131a] p-3 font-bold"
+        className="text-md m-2 flex h-[60px] cursor-grab items-center justify-between rounded-xl bg-[#f5f5f5] p-3 font-bold text-gray-800 dark:bg-[#13131a] dark:text-white"
       >
         <div className="flex gap-2">
           {!editMode && column.title}
@@ -86,13 +86,13 @@ function ColumnContainer({
           onClick={() => {
             deleteColumn(column.id);
           }}
-          className="rounded stroke-gray-500 px-1 py-2 hover:bg-columnBackgroundColor hover:stroke-white"
+          className="rounded stroke-gray-500 px-1 py-2 hover:bg-[#e3e3db] dark:hover:bg-columnBackgroundColor dark:hover:stroke-white"
         >
           <IconTrash />
         </button>
       </div>
 
-      <div className="flex flex-grow flex-col gap-4 overflow-y-auto overflow-x-hidden p-2 scrollable">
+      <div className="scrollable flex flex-grow flex-col gap-4 overflow-y-auto overflow-x-hidden p-2">
         <SortableContext items={tasksIds}>
           {tasks.map((task) => (
             <TaskCard
@@ -106,7 +106,7 @@ function ColumnContainer({
       </div>
 
       <button
-        className="flex items-center gap-2 rounded-md border-2 border-columnBackgroundColor border-x-columnBackgroundColor p-4 hover:bg-mainBackgroundColor hover:text-green-500 active:bg-black"
+        className="flex items-center gap-2 rounded-md border-2 p-4 text-gray-800 hover:bg-[#f5f5f5] hover:text-gray-900 active:bg-white dark:border-columnBackgroundColor dark:border-x-columnBackgroundColor dark:text-white dark:hover:bg-mainBackgroundColor dark:hover:text-green-500 dark:active:bg-black"
         onClick={() => {
           createTask(column.id);
         }}

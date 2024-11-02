@@ -38,7 +38,7 @@ function TaskCard({ task, deleteTask, updateTask }) {
       <div
         ref={setNodeRef}
         style={style}
-        className="relative flex h-[100px] min-h-[100px] cursor-grab items-center rounded-xl border-2 border-green-500 bg-mainBackgroundColor p-3 text-left opacity-30"
+        className="relative flex h-[100px] min-h-[100px] cursor-grab items-center rounded-xl bg-mainBackgroundColor p-3 text-left opacity-30"
       />
     );
   }
@@ -50,10 +50,10 @@ function TaskCard({ task, deleteTask, updateTask }) {
         style={style}
         {...attributes}
         {...listeners}
-        className="relative flex h-[100px] min-h-[100px] cursor-grab items-center rounded-xl bg-mainBackgroundColor p-2.5 text-left hover:ring-2 hover:ring-inset hover:ring-green-500"
+        className="relative flex h-[100px] min-h-[100px] cursor-grab items-center rounded-xl bg-gray-200 dark:bg-[#13131a] p-2.5 text-left hover:ring-2 hover:ring-inset hover:ring-green-500"
       >
         <textarea
-          className="scrollable h-[90%] w-full resize-none rounded border-none bg-transparent text-white focus:outline-none"
+          className="scrollable h-[90%] w-full resize-none rounded border-none bg-transparent text-black dark:text-white focus:outline-none"
           value={task.content}
           autoFocus
           placeholder="Task content here"
@@ -76,7 +76,7 @@ function TaskCard({ task, deleteTask, updateTask }) {
       {...attributes}
       {...listeners}
       onClick={toggleEditMode}
-      className="task relative flex h-[100px] min-h-[100px] cursor-grab items-center rounded-xl bg-[#13131a] p-2.5 text-left hover:ring-2 hover:ring-inset hover:ring-green-500"
+      className="task relative flex h-[100px] min-h-[100px] cursor-grab items-center rounded-xl bg-[#f5f5f5] dark:bg-[#13131a] p-2.5 text-left hover:ring-2 hover:ring-inset hover:ring-green-500"
       onMouseEnter={() => {
         setMouseIsOver(true);
       }}
@@ -84,7 +84,7 @@ function TaskCard({ task, deleteTask, updateTask }) {
         setMouseIsOver(false);
       }}
     >
-      <p className="my-auto h-[90%] w-full overflow-y-auto overflow-x-hidden whitespace-pre-wrap">
+      <p className="scrollable my-auto h-[90%] w-full overflow-y-auto overflow-x-hidden whitespace-pre-wrap text-black dark:text-white">
         {task.content}
       </p>
 

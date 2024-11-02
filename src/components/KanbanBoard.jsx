@@ -63,7 +63,7 @@ function KanbanBoard({ state }) {
           </div>
           <button
             onClick={() => createNewColumn()}
-            className="flex h-[60px] w-[350px] min-w-[350px] cursor-pointer gap-2 rounded-lg border-2 border-columnBackgroundColor bg-mainBackgroundColor p-4 ring-green-500 hover:ring-2"
+            className="flex h-[60px] w-[350px] min-w-[350px] cursor-pointer gap-2 rounded-lg border-2 bg-[#f5f5f5] p-4 text-black ring-green-500 hover:ring-2 font-medium dark:border-columnBackgroundColor dark:bg-mainBackgroundColor dark:text-white"
           >
             <IconPlus />
             Add Column
