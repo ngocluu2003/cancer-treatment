@@ -18,35 +18,31 @@ const SingleRecordDetail = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [file, setFile] = useState(null);
-  const [uploading, setUploading] = useState(null);
+  const [uploading, setUploading] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState(
     state.analysisResults || "",
   );
   const [fileName, setFileName] = useState("");
-  console.log(state);
   const [fileType, setFileType] = useState("");
   const { updateRecord } = useUserStateContext();
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
+
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    console.log("file", file);
-    setFileType(file.type);
-    setFileName(file.name);
-    setFile(file);
+    const selectedFile = e.target.files[0];
+    setFileType(selectedFile.type);
+    setFileName(selectedFile.name);
+    setFile(selectedFile);
   };
+
   const readFileAsBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => resolve(reader.result.split(",")[1]);
-      reader.onerror = reject;
+      reader.onerror = () => reject(new Error("Failed to read file"));
       reader.readAsDataURL(file);
     });
   };
@@ -59,41 +55,33 @@ const SingleRecordDetail = () => {
 
     try {
       const base64Data = await readFileAsBase64(file);
-
       const imageParts = [
-        {
-          inlineData: {
-            data: base64Data,
-            mimeType: fileType,
-          },
-        },
+        { inlineData: { data: base64Data, mimeType: fileType } },
       ];
-
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
-
       const prompt = `You are an expert cancer and any disease diagnosis analyst. Use your knowledge base to answer questions about giving personalized recommended treatments.
-        give a detailed treatment plan for me, make it more readable, clear and easy to understand make it paragraphs to make it more readable
-        `;
+      give a detailed treatment plan for me, make it more readable, clear and easy to understand make it paragraphs to make it more readable
+      `;
 
       const result = await model.generateContent([prompt, ...imageParts]);
       const response = await result.response;
       const text = response.text();
+
       setAnalysisResult(text);
-      // state.analysisResults = text;
-      const updatedRecord = await updateRecord({
+      await updateRecord({
         documentID: state.id,
         analysisResults: text,
         kanbanRecords: "",
       });
+
       setUploadSuccess(true);
-      setIsModalOpen(false); // Close the modal after a successful upload
+      setIsModalOpen(false);
       setFileName("");
       setFile(null);
       setFileType("");
     } catch (error) {
-      console.error("Error uploading file:", error);
-      setUploadSuccess(false);
-      setIsModalOpen(false);
+      console.error("Error during file upload:", error);
+      alert(`Error: ${error.message}`);
     } finally {
       setUploading(false);
     }
@@ -101,9 +89,7 @@ const SingleRecordDetail = () => {
 
   const processTreatmentPlan = async () => {
     setIsProcessing(true);
-
     const genAI = new GoogleGenerativeAI(geminiApiKey);
-
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
     const prompt = `Your role and goal is to be an that will be using this treatment plan ${analysisResult} to create Columns:
@@ -132,20 +118,25 @@ const SingleRecordDetail = () => {
                             
                 `;
 
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
-    const parsedResponse = JSON.parse(text);
+    try {
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const text = response.text();
 
-    console.log(text);
-    console.log(parsedResponse);
-    const updatedRecord = await updateRecord({
-      documentID: state.id,
-      kanbanRecords: text,
-    });
-    console.log(updatedRecord);
-    navigate("/screening-schedules", { state: parsedResponse });
-    setIsProcessing(false);
+      try {
+        const parsedResponse = JSON.parse(text);
+        await updateRecord({ documentID: state.id, kanbanRecords: text });
+        navigate("/screening-schedules", { state: parsedResponse });
+      } catch (jsonError) {
+        console.error("Failed to parse JSON response:", jsonError);
+        alert("Failed to parse response from the AI. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error processing treatment plan:", error);
+      alert(`Error: ${error.message}`);
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   return (
@@ -158,7 +149,6 @@ const SingleRecordDetail = () => {
         <IconFileUpload />
         Upload Reports
       </button>
-      {/* Upload Report Modal */}
       <FileUploadModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
@@ -192,7 +182,6 @@ const SingleRecordDetail = () => {
                     </div>
                   </div>
                 </div>
-                {/*  */}
                 <div className="mt-5 grid gap-2 sm:flex">
                   <button
                     type="button"
@@ -209,7 +198,6 @@ const SingleRecordDetail = () => {
                   </button>
                 </div>
               </div>
-              {/*  */}
             </div>
           </div>
         </div>
