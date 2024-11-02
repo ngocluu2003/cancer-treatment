@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import KanbanBoard from "../components/KanbanBoard";
+import { useLocation } from "react-router-dom";
 
 const ScreeningSchedule = () => {
-  const { state } = useState();
-
+  const state = useLocation();
   return (
-    <div className="w-full overflow-scroll">
+    <div className="w-full custom-scroll">
       <KanbanBoard state={state} />
     </div>
   );

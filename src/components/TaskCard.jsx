@@ -1,10 +1,9 @@
-import React from "react";
 import { useState } from "react";
-import { CSS } from "@dnd-kit/utilities";
 import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { IconTrash } from "@tabler/icons-react";
 
-const TaskCard = ({ task, deleteTask, updateTask }) => {
+function TaskCard({ task, deleteTask, updateTask }) {
   const [mouseIsOver, setMouseIsOver] = useState(false);
   const [editMode, setEditMode] = useState(true);
 
@@ -23,11 +22,17 @@ const TaskCard = ({ task, deleteTask, updateTask }) => {
     },
     disabled: editMode,
   });
-  const style = { transition, transform: CSS.Transform.toString(transform) };
+
+  const style = {
+    transition,
+    transform: CSS.Transform.toString(transform),
+  };
+
   const toggleEditMode = () => {
-    setEditMode((prevState) => !prevState);
+    setEditMode((prev) => !prev);
     setMouseIsOver(false);
   };
+
   if (isDragging) {
     return (
       <div
@@ -37,6 +42,7 @@ const TaskCard = ({ task, deleteTask, updateTask }) => {
       />
     );
   }
+
   if (editMode) {
     return (
       <div
@@ -62,6 +68,7 @@ const TaskCard = ({ task, deleteTask, updateTask }) => {
       </div>
     );
   }
+
   return (
     <div
       ref={setNodeRef}
@@ -93,6 +100,6 @@ const TaskCard = ({ task, deleteTask, updateTask }) => {
       )}
     </div>
   );
-};
+}
 
 export default TaskCard;
