@@ -62,7 +62,6 @@ const SingleRecordDetail = () => {
       const prompt = `You are an expert cancer and any disease diagnosis analyst. Use your knowledge base to answer questions about giving personalized recommended treatments.
       give a detailed treatment plan for me, make it more readable, clear and easy to understand make it paragraphs to make it more readable
       `;
-
       const result = await model.generateContent([prompt, ...imageParts]);
       const response = await result.response;
       const text = response.text();
@@ -93,30 +92,30 @@ const SingleRecordDetail = () => {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
     const prompt = `Your role and goal is to be an that will be using this treatment plan ${analysisResult} to create Columns:
-                - Todo: Tasks that need to be started
-                - Doing: Tasks that are in progress
-                - Done: Tasks that are completed
-          
-                Each task should include a brief description. The tasks should be categorized appropriately based on the stage of the treatment process.
-          
-                Please provide the results in the following  format for easy front-end display no quotating or what so ever just pure the structure below:
+    - Todo: Tasks that need to be started
+    - Doing: Tasks that are in progress
+    - Done: Tasks that are completed
 
-                {
-                  "columns": [
-                    { "id": "todo", "title": "Todo" },
-                    { "id": "doing", "title": "Work in progress" },
-                    { "id": "done", "title": "Done" }
-                  ],
-                  "tasks": [
-                    { "id": "1", "columnId": "todo", "content": "Example task 1" },
-                    { "id": "2", "columnId": "todo", "content": "Example task 2" },
-                    { "id": "3", "columnId": "doing", "content": "Example task 3" },
-                    { "id": "4", "columnId": "doing", "content": "Example task 4" },
-                    { "id": "5", "columnId": "done", "content": "Example task 5" }
-                  ]
-                }
-                            
-                `;
+    Each task should include a brief description. The tasks should be categorized appropriately based on the stage of the treatment process.
+
+    Please provide the results in the following  format for easy front-end display no quotating or what so ever just pure the structure below:
+
+    {
+      "columns": [
+        { "id": "todo", "title": "Todo" },
+        { "id": "doing", "title": "Work in progress" },
+        { "id": "done", "title": "Done" }
+      ],
+      "tasks": [
+        { "id": "1", "columnId": "todo", "content": "Example task 1" },
+        { "id": "2", "columnId": "todo", "content": "Example task 2" },
+        { "id": "3", "columnId": "doing", "content": "Example task 3" },
+        { "id": "4", "columnId": "doing", "content": "Example task 4" },
+        { "id": "5", "columnId": "done", "content": "Example task 5" }
+      ]
+    }
+                
+    `;
 
     try {
       const result = await model.generateContent(prompt);
@@ -140,13 +139,13 @@ const SingleRecordDetail = () => {
   };
 
   return (
-    <div className="flex flex-wrap gap-[26px]">
+    <div className="flex flex-wrap gap-[26px] bg-[#f5f5f5] dark:bg-[#13131a]">
       <button
         type="button"
         onClick={handleOpenModal}
-        className="mt-6 inline-flex items-center gap-x-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-[#13131a] dark:text-white dark:hover:bg-neutral-800"
+        className="mt-6 inline-flex items-center gap-x-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-800 shadow-sm hover:bg-neutral-100 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-[#1c1c24] dark:text-white dark:hover:bg-neutral-800"
       >
-        <IconFileUpload />
+        <IconFileUpload className="text-[#1ec070] dark:text-[#1dc071]" />
         Upload Reports
       </button>
       <FileUploadModal
@@ -163,20 +162,18 @@ const SingleRecordDetail = () => {
         <div className="flex flex-col">
           <div className="-m-1.5 overflow-x-auto">
             <div className="inline-block min-w-full p-1.5 align-middle">
-              <div className="overflow-hidden rounded-xl border border-neutral-700 bg-[#13131a] shadow-sm">
-                <div className="border-b border-neutral-700 px-6 py-4">
-                  <h2 className="text-xl font-semibold text-neutral-200">
+              <div className="overflow-hidden rounded-xl border border-neutral-300 bg-white shadow-sm dark:border-neutral-700 dark:bg-[#13131a]">
+                <div className="border-b border-neutral-300 px-6 py-4 dark:border-neutral-700">
+                  <h2 className="text-xl font-semibold text-neutral-800 dark:text-neutral-200">
                     Personalized AI-Driven Treatment Plan
                   </h2>
-                  <p className="text-sm text-neutral-400">
+                  <p className="text-sm text-neutral-500 dark:text-neutral-400">
                     A tailored medical strategy leveraging advanced AI insights.
                   </p>
                 </div>
-                <div className="flex w-full flex-col px-6 py-4 text-white">
+                <div className="flex w-full flex-col px-6 py-4 text-neutral-800 dark:text-white">
                   <div>
-                    <h2 className="text-lg font-semibold text-white">
-                      Analysis Result
-                    </h2>
+                    <h2 className="text-lg font-semibold">Analysis Result</h2>
                     <div className="space-y-2">
                       <Markdown>{analysisResult}</Markdown>
                     </div>
@@ -186,9 +183,13 @@ const SingleRecordDetail = () => {
                   <button
                     type="button"
                     onClick={processTreatmentPlan}
-                    className="inline-flex items-center gap-x-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800"
+                    className="inline-flex items-center gap-x-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 shadow-sm hover:bg-neutral-100 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800"
                   >
-                    View Treatment Plan <IconChevronRight size={20} />
+                    View Treatment Plan{" "}
+                    <IconChevronRight
+                      className="text-neutral-500 dark:text-neutral-400"
+                      size={20}
+                    />
                     {isProcessing && (
                       <IconProgress
                         size={10}

@@ -60,7 +60,7 @@ const FileUploadModal = ({
       {uploadSuccess && (
         <p className="mt-2 text-green-600">Upload successful!</p>
       )}
-      <span className="text-md text-left text-white">{fileName}</span>
+      <span className="text-md text-left dark:text-white text-black">{fileName}</span>
     </Modal>
   );
 };

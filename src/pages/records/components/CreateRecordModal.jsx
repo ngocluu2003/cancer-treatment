@@ -11,7 +11,7 @@ const CreateRecordModal = ({ isOpen, onClose, onCreate, error, loading }) => {
 
   return (
     <Modal
-      title={"Create Record"}
+      title="Create Record"
       isOpen={isOpen}
       onClose={onClose}
       onAction={handleCreate}
@@ -34,7 +34,7 @@ const CreateRecordModal = ({ isOpen, onClose, onCreate, error, loading }) => {
               value={foldername}
               onChange={(e) => setFoldername(e.target.value)}
               required
-              className="block w-full rounded-lg border-2 px-4 py-3 text-sm focus:border-[#1ec070] focus:outline-none dark:border-neutral-800 dark:bg-[#1c1c24] dark:text-white dark:placeholder-neutral-500"
+              className="block w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-500 focus:border-[#1ec070] focus:outline-none dark:border-neutral-800 dark:focus:border-neutral-600 dark:bg-[#1c1c24] dark:text-white dark:placeholder-neutral-500"
               placeholder="Enter record name"
             />
           </div>

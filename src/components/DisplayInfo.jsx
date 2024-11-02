@@ -23,7 +23,6 @@ const DisplayInfo = () => {
     if (user) {
       fetchUserByEmail(user.emailAddresses[0]?.emailAddress)
         .then(() => {
-          console.log(records);
           const totalFolders = records.length;
           let aiPersonalizedTreatment = 0;
           let totalScreenings = 0;
