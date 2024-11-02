@@ -88,7 +88,7 @@ const SingleRecordDetail = () => {
   };
 
   const processTreatmentPlan = async () => {
-    if (state.kanbanRecords != "test") {
+    if (state.kanbanRecords !== "test") {
       const text = state.kanbanRecords;
       const parsedResponse = JSON.parse(text);
       navigate("/screening-schedules", { state: parsedResponse });
@@ -150,6 +150,7 @@ const SingleRecordDetail = () => {
       <button
         type="button"
         onClick={handleOpenModal}
+        disabled={analysisResult !== "test"}
         className="mt-6 inline-flex items-center gap-x-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-800 shadow-sm hover:bg-neutral-100 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-[#1c1c24] dark:text-white dark:hover:bg-neutral-800"
       >
         <IconFileUpload className="text-[#1ec070] dark:text-[#1dc071]" />
