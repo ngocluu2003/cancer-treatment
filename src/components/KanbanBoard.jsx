@@ -8,6 +8,8 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import ColumnContainer from "./ColumnContainer";
+import { IconPlus } from "@tabler/icons-react";
+import { createPortal } from "react-dom";
 
 const KanbanBoard = ({ state }) => {
   const defaultCols =
