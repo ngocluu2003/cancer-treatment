@@ -27,7 +27,7 @@ const KanbanBoard = ({ state }) => {
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
   const [activeColumn, setActiveColumn] = useState(null);
   const [activeTask, setActiveTask] = useState(null);
-  const sensors = useSensor(
+  const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 10 } }),
   );
 
