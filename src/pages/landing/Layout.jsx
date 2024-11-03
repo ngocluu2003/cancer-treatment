@@ -1,6 +1,7 @@
 import React from "react";
-import Home from "../Landing";
+
 import Header from "./components/Header";
+import Home from ".";
 
 const Layout = () => {
   return (

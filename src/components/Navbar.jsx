@@ -1,14 +1,12 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useState } from "react";
 import { menu, search } from "../assets";
-import CustomButton from "./CustomButton";
-import { IconHeartHandshake, IconLogin } from "@tabler/icons-react";
+import { IconHeartHandshake } from "@tabler/icons-react";
 import { navLinks } from "../constants";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ThemeSwitch from "./ThemeSwitch";
 import {
   SignedIn,
   SignedOut,
-  SignIn,
   SignInButton,
   UserButton,
   useUser,
@@ -48,33 +46,6 @@ const Navbar = () => {
 
       {/* Authentication button */}
       <div className="mr-2 hidden flex-row justify-end sm:flex">
-        {/* {isLoaded ? (
-          user ? (
-            <UserButton
-              appearance={{
-                elements: {
-                  avatarBox: "w-10 h-10",
-                  userButton: {
-                    backgroundColor: "#1ec070",
-                    color: "#fff",
-                  },
-                },
-              }}
-            />
-          ) : (
-            <CustomButton
-              styles="bg-[#1dc071] text-white hover:bg-[#1abc70] border border-[#1dc071]"
-              btnType="button"
-              title="Login"
-              handleClick={handleLogin}
-              icon={IconLogin}
-              iconSize={20}
-              iconStyle="mr-1"
-            />
-          )
-        ) : (
-          <div className="mt-4 h-6 w-6 animate-spin rounded-full border-4 border-t-4 border-white border-t-[#1dc071]"></div>
-        )} */}
         <SignedOut>
           <SignInButton forceRedirectUrl="/dashboard">
             <Button variant="outline">Login</Button>
@@ -99,23 +70,14 @@ const Navbar = () => {
             onClick={() => setToggleDrawer((prev) => !prev)}
           />
           <ThemeSwitch className="m-2 flex h-8 w-8 items-center justify-center rounded-full" />
-
-          {/* optional spinner */}
-          {user ? (
-            <UserButton
-              appearance={{
-                elements: {
-                  avatarBox: "w-8 h-8",
-                  userButton: {
-                    backgroundColor: "#1ec070",
-                    color: "#fff",
-                  },
-                },
-              }}
-            />
-          ) : (
-            <div className="ml-1 h-6 w-6 animate-spin rounded-full border-4 border-t-4 border-[#e9e9e9] border-t-[#1dc071] dark:border-[#2c2f32] dark:border-t-[#1dc071]"></div>
-          )}
+          <SignedOut>
+            <SignInButton forceRedirectUrl="/dashboard">
+              <Button variant="outline">Login</Button>
+            </SignInButton>
+          </SignedOut>
+          <SignedIn>
+            <UserMenu />
+          </SignedIn>
         </div>
 
         {/* Toggle menu sidebar */}
