@@ -28,20 +28,25 @@ const DisplayInfo = () => {
         records.forEach((record) => {
           if (record.kanbanRecords) {
             try {
-              const kanban = JSON.parse(record.kanbanRecords);
-              aiPersonalizedTreatment += kanban.columns.some(
+              let kanban;
+              if (isJSON(record.kanbanRecords)) {
+                kanban = JSON.parse(record.kanbanRecords);
+              } else {
+                kanban = undefined;
+              }
+              aiPersonalizedTreatment += kanban?.columns?.some(
                 (column) => column.title === "AI Personalized Treatment",
               )
                 ? 1
                 : 0;
-              totalScreenings += kanban.tasks.length;
-              completedScreenings += kanban.tasks.filter(
+              totalScreenings += kanban?.tasks?.length;
+              completedScreenings += kanban?.tasks.filter(
                 (task) => task.columnId === "done",
               ).length;
-              pendingScreenings += kanban.tasks.filter(
+              pendingScreenings += kanban?.tasks?.filter(
                 (task) => task.columnId === "doing",
               ).length;
-              overdueScreenings += kanban.tasks.filter(
+              overdueScreenings += kanban?.tasks?.filter(
                 (task) => task.columnId === "overdue",
               ).length;
             } catch (error) {
@@ -83,3 +88,12 @@ const DisplayInfo = () => {
 };
 
 export default DisplayInfo;
+
+function isJSON(str) {
+  try {
+    JSON.parse(str);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
