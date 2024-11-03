@@ -31,10 +31,11 @@ const CreateRecordModal = ({ isOpen, onClose, onCreate, error, loading }) => {
             <input
               type="text"
               id="folder-name"
+              disabled={loading}
               value={foldername}
               onChange={(e) => setFoldername(e.target.value)}
               required
-              className="block w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-500 focus:border-[#1ec070] focus:outline-none dark:border-neutral-800 dark:focus:border-neutral-600 dark:bg-[#1c1c24] dark:text-white dark:placeholder-neutral-500"
+              className="block w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-500 focus:border-[#1ec070] focus:outline-none dark:border-neutral-800 dark:bg-[#1c1c24] dark:text-white dark:placeholder-neutral-500 dark:focus:border-neutral-600"
               placeholder="Enter record name"
             />
           </div>

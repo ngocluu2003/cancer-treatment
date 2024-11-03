@@ -13,20 +13,26 @@ const DisplayInfo = () => {
     pendingScreenings: 0,
     overdueScreenings: 0,
     completedScreenings: 0,
+    upcomingScreenings: 0,
+    followUpsRequired: 0,
+    monitoringTasks: 0,
   });
 
   useEffect(() => {
     if (currentUser) {
       try {
         const totalFolders = records.length;
-        let aiPersonalizedTreatment = 0;
         let totalScreenings = 0;
         let completedScreenings = 0;
         let pendingScreenings = 0;
         let overdueScreenings = 0;
+        let upcomingScreenings = 0;
+        let followUpsRequired = 0;
+        let monitoringTasks = 0;
 
         records.forEach((record) => {
           if (record.kanbanRecords) {
+            console.log(record.kanbanRecords);
             try {
               let kanban;
               if (isJSON(record.kanbanRecords)) {
@@ -34,21 +40,26 @@ const DisplayInfo = () => {
               } else {
                 kanban = undefined;
               }
-              aiPersonalizedTreatment += kanban?.columns?.some(
-                (column) => column.title === "AI Personalized Treatment",
-              )
-                ? 1
-                : 0;
-              totalScreenings += kanban?.tasks?.length;
-              completedScreenings += kanban?.tasks.filter(
-                (task) => task.columnId === "done",
-              ).length;
-              pendingScreenings += kanban?.tasks?.filter(
-                (task) => task.columnId === "doing",
-              ).length;
-              overdueScreenings += kanban?.tasks?.filter(
-                (task) => task.columnId === "overdue",
-              ).length;
+              totalScreenings += kanban?.tasks?.length || 0;
+              completedScreenings +=
+                kanban?.tasks.filter((task) => task.columnId === "done")
+                  .length || 0;
+              pendingScreenings +=
+                kanban?.tasks?.filter((task) => task.columnId === "doing")
+                  .length || 0;
+              overdueScreenings +=
+                kanban?.tasks?.filter((task) => task.columnId === "overdue")
+                  .length || 0;
+              upcomingScreenings +=
+                kanban?.tasks.filter((task) => task.columnId === "upcoming")
+                  .length || 0;
+              followUpsRequired +=
+                kanban?.tasks.filter((task) => task.columnId === "followup")
+                  .length || 0;
+              monitoringTasks +=
+                kanban?.tasks.filter(
+                  (task) => task.columnId === "monitoring", // Count monitoring tasks
+                ).length || 0;
             } catch (error) {
               console.error("Failed to parse kanbanRecords:", error);
             }
@@ -62,6 +73,9 @@ const DisplayInfo = () => {
           completedScreenings,
           pendingScreenings,
           overdueScreenings,
+          upcomingScreenings,
+          followUpsRequired,
+          monitoringTasks,
         });
       } catch (e) {
         console.error(e);
