@@ -68,6 +68,7 @@ const SingleRecordDetail = () => {
       const text = response.text();
 
       setAnalysisResult(text);
+      // state.analysisResults(text);
       await updateRecord({
         documentID: state.id,
         analysisResults: text,
@@ -90,10 +91,14 @@ const SingleRecordDetail = () => {
   const processTreatmentPlan = async () => {
     if (state.kanbanRecords !== "test") {
       const text = state.kanbanRecords;
-      const parsedResponse = JSON.parse(text);
-      navigate("/screening-schedules", { state: parsedResponse });
-      return;
+      try {
+        const parsedResponse = JSON.parse(text);
+        navigate("/screening-schedules", { state: parsedResponse });
+      } catch (error) {
+        alert("Error parsing kanbanRecords:", error);
+      }
     }
+
     setIsProcessing(true);
     const genAI = new GoogleGenerativeAI(geminiApiKey);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
@@ -144,6 +149,8 @@ const SingleRecordDetail = () => {
       setIsProcessing(false);
     }
   };
+
+  console.log(state.kanbanRecords);
 
   return (
     <div className="flex flex-wrap gap-[26px] bg-[#f5f5f5] dark:bg-[#13131a]">

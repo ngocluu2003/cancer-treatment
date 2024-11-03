@@ -12,7 +12,7 @@ const MedicalRecord = () => {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
-  const { user, isLoaded } = useUser();
+  const { user } = useUser();
   const {
     records,
     fetchUserRecords,
@@ -21,12 +21,6 @@ const MedicalRecord = () => {
     loading: contextLoading,
     error: contextError,
   } = useUserStateContext();
-
-  useEffect(() => {
-    if (user) {
-      fetchUserRecords(user.emailAddresses[0].emailAddress);
-    }
-  }, [user]);
 
   useEffect(() => {
     localStorage.setItem("userRecords", JSON.stringify(records));

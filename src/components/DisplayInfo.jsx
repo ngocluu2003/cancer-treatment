@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useMetricsData } from "../lib/utils";
 import MetricsCard from "./MetricsCard";
-import { useNavigate } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
 import { useUserStateContext } from "../context/UserContext";
 
 const DisplayInfo = () => {
-  const navigate = useNavigate();
   const { user } = useUser();
-  const { fetchUserRecords, records, fetchUserByEmail } = useUserStateContext();
+  const { records, fetchUserByEmail } = useUserStateContext();
   const [metrics, setMetrics] = useState({
     totalFolders: 0,
     aiPersonalizedTreatment: 0,
@@ -68,7 +66,7 @@ const DisplayInfo = () => {
           console.error(e);
         });
     }
-  }, [user, fetchUserRecords, records]);
+  }, [user, records]);
 
   const metricsData = useMetricsData(metrics);
 
