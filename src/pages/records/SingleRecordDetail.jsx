@@ -60,7 +60,7 @@ const SingleRecordDetail = () => {
       const imageParts = [
         { inlineData: { data: base64Data, mimeType: fileType } },
       ];
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
       const result = await model.generateContent([
         promptDataDesription,
         ...imageParts,
@@ -108,7 +108,7 @@ const SingleRecordDetail = () => {
 
     setIsProcessing(true);
     const genAI = new GoogleGenerativeAI(geminiApiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     try {
       const prompt = promptDataStructure({ analysisResult });
