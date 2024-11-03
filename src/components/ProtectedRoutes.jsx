@@ -32,7 +32,7 @@ const ProtectedRoutes = ({ children }) => {
           } else if (!currentUser.isOnBoarded) {
             navigate("/onboarding");
           } else if (location.pathname === "/onboarding") {
-            navigate("/");
+            navigate("/dashboard");
           }
         } catch (error) {
           console.error("Error initializing app:", error);

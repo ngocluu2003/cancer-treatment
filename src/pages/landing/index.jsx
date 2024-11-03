@@ -1,7 +1,7 @@
 import Testimonials from "@/components/Testimonials";
-import HowItWorks from "@/components/HowItWorks";
-import Features from "@/components/Features";
-import Description from "@/components/Description";
+import HowItWorks from "@/pages/landing/components/HowItWorks";
+import Features from "@/pages/landing/components/Features";
+import Description from "@/pages/landing/components/Description";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";

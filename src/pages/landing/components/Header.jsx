@@ -1,7 +1,11 @@
 import React from "react";
-import { Button } from "./ui/button";
+import { Button } from "../../../components/ui/button";
 import { PenBox } from "lucide-react";
-import { IconHeartHandshake } from "@tabler/icons-react";
+import {
+  IconDashboard,
+  IconHeartHandshake,
+  IconLayoutDashboard,
+} from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 import { SignedIn, SignedOut, SignInButton } from "@clerk/clerk-react";
 import UserMenu from "./UserMenu";
@@ -14,10 +18,10 @@ const Header = () => {
       </Link>
 
       <div className="flex items-center gap-4">
-        <Link to={"/events?create=true"}>
+        <Link to={"/dashboard"}>
           <Button className="flex items-center gap-2">
-            <PenBox size={18} />
-            Create Event
+            <IconLayoutDashboard size={18} />
+            DashBoard
           </Button>
         </Link>
         <SignedOut>

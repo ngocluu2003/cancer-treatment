@@ -1,4 +1,4 @@
-import { features } from "../lib/data";
+import { features } from "../../../lib/data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const Features = () => {

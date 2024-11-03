@@ -14,22 +14,13 @@ import {
   useUser,
 } from "@clerk/clerk-react";
 import { Button } from "./ui/button";
-import UserMenu from "./UserMenu";
+import UserMenu from "../pages/landing/components/UserMenu";
 
 const Navbar = () => {
   const [toggleDrawer, setToggleDrawer] = useState(false);
   const [isActive, setIsActive] = useState("dashboard");
   const navigate = useNavigate();
-  const { isLoaded, user } = useUser();
-  const [showSignIn, setShowSignIn] = useState(false);
-  const [searchParam] = useSearchParams();
-
-  useEffect(() => {
-    if (searchParam.get("sign-in") === "true") {
-      setShowSignIn(true);
-    }
-  }, [searchParam]);
-
+  const { user } = useUser();
 
   const handleNavigation = (item) => {
     setIsActive(item.name);
@@ -161,13 +152,6 @@ const Navbar = () => {
           </ul>
         </div>
       </div>
-
-      {/* Clerk SignIn Modal
-      {showSignIn && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
-          <SignIn signUpForceRedirectUrl="/" signUpFallbackRedirectUrl="/" />
-        </div>
-      )} */}
     </div>
   );
 };

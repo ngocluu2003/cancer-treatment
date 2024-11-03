@@ -1,73 +1,98 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
-import { Profile, Onboarding } from "./pages";
+import React, { useEffect } from "react";
+import { Route, Routes, useNavigate, useSearchParams } from "react-router-dom";
+import { Profile, Onboarding, Home } from "./pages";
 import MedicalRecord from "./pages/records/MedicalRecord";
 import SingleRecordDetails from "./pages/records/SingleRecordDetail";
 import ScreeningSchedule from "./pages/ScreeningSchedule";
 import { Buffer } from "buffer";
 import ProtectedRoutes from "./components/ProtectedRoutes";
-import Home from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
-import Header from "./components/Header";
-import Layout from "./components/Layout";
+import { SignIn, useUser } from "@clerk/clerk-react";
+import Layout from "./pages/landing/Layout";
 
 if (typeof window !== "undefined" && !window.Buffer) {
   window.Buffer = Buffer;
 }
 
 const App = () => {
+  const [searchParams] = useSearchParams();
+  const { user } = useUser();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const isSignIn = searchParams.get("sign-in") === "true";
+    if (isSignIn && user) {
+      navigate("/dashboard");
+    }
+  }, [searchParams, user, navigate]);
+
+  const isSignIn = searchParams.get("sign-in") === "true";
+
   return (
-    <Routes>
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoutes>
-            <Dashboard />
-          </ProtectedRoutes>
-        }
-      />
-      <Route
-        path="/onboarding"
-        element={
-          <ProtectedRoutes>
-            <Onboarding />
-          </ProtectedRoutes>
-        }
-      />
-      <Route
-        path="/profile"
-        element={
-          <ProtectedRoutes>
-            <Profile />
-          </ProtectedRoutes>
-        }
-      />
-      <Route
-        path="/medical-records"
-        element={
-          <ProtectedRoutes>
-            <MedicalRecord />
-          </ProtectedRoutes>
-        }
-      />
-      <Route
-        path="/medical-records/:id"
-        element={
-          <ProtectedRoutes>
-            <SingleRecordDetails />
-          </ProtectedRoutes>
-        }
-      />
-      <Route
-        path="/screening-schedules"
-        element={
-          <ProtectedRoutes>
-            <ScreeningSchedule />
-          </ProtectedRoutes>
-        }
-      />
-      <Route path="/" element={<Layout />} />
-    </Routes>
+    <div>
+      {!isSignIn ? (
+        <Routes>
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoutes>
+                <Dashboard />
+              </ProtectedRoutes>
+            }
+          />
+          <Route
+            path="/onboarding"
+            element={
+              <ProtectedRoutes>
+                <Onboarding />
+              </ProtectedRoutes>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoutes>
+                <Profile />
+              </ProtectedRoutes>
+            }
+          />
+          <Route
+            path="/medical-records"
+            element={
+              <ProtectedRoutes>
+                <MedicalRecord />
+              </ProtectedRoutes>
+            }
+          />
+          <Route
+            path="/medical-records/:id"
+            element={
+              <ProtectedRoutes>
+                <SingleRecordDetails />
+              </ProtectedRoutes>
+            }
+          />
+          <Route
+            path="/screening-schedules"
+            element={
+              <ProtectedRoutes>
+                <ScreeningSchedule />
+              </ProtectedRoutes>
+            }
+          />
+          <Route path="/" element={<Layout />} />
+        </Routes>
+      ) : (
+        !user && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
+            <SignIn
+              signUpForceRedirectUrl="/dashboard"
+              signUpFallbackRedirectUrl="/dashboard"
+            />
+          </div>
+        )
+      )}
+    </div>
   );
 };
 
