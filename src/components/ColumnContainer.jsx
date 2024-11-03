@@ -54,7 +54,7 @@ function ColumnContainer({
     <div
       ref={setNodeRef}
       style={style}
-      className="flex h-[500px] max-h-[500px] w-[350px] flex-col rounded-xl bg-[#e3e3db] bg-opacity-80 dark:bg-[#1c1c24]"
+      className="flex h-[500px] max-h-[500px] w-[350px] flex-col rounded-2xl bg-[#e3e3db] bg-opacity-80 shadow-lg dark:bg-[#1c1c24]"
     >
       <div
         {...attributes}

@@ -9,8 +9,6 @@ const Onboarding = () => {
   const [location, setLocation] = useState("");
   const {
     createUser,
-    loading: contextLoading,
-    error: contextError,
   } = useUserStateContext();
   const { user } = useUser();
   const navigate = useNavigate();
@@ -20,9 +18,8 @@ const Onboarding = () => {
   const handleOnboarding = async (e) => {
     e.preventDefault();
     setFormLoading(true);
-    setFormError(""); // Reset form error message
+    setFormError("");
 
-    // Validate age
     if (parseInt(age, 10) <= 0) {
       setFormError("Please enter a valid age.");
       setFormLoading(false);
@@ -43,9 +40,9 @@ const Onboarding = () => {
         navigate("/profile");
       }
     } catch (err) {
-      setFormError("Error creating user. Please try again."); // Set form error message
+      setFormError("Error creating user. Please try again."); 
     } finally {
-      setFormLoading(false); // Set form loading state to false regardless of success/failure
+      setFormLoading(false); 
     }
   };
 
@@ -116,7 +113,7 @@ const Onboarding = () => {
           </div>
           <button
             type="submit"
-            disabled={formLoading} // Disable button while form loading
+            disabled={formLoading}
             className={`w-full rounded-lg py-3 font-semibold text-white transition-colors duration-200 ${formLoading ? "bg-gray-400" : "bg-[#1ec070] hover:bg-[#1dc071]"} focus:outline-none focus:ring-2 focus:ring-[#1dc071] dark:bg-[#1dc071] dark:hover:bg-[#1ec070]`}
           >
             {formLoading ? "Loading..." : "Get Started"}

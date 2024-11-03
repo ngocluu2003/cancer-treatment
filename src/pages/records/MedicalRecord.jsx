@@ -13,14 +13,8 @@ const MedicalRecord = () => {
 
   const navigate = useNavigate();
   const { user } = useUser();
-  const {
-    records,
-    fetchUserRecords,
-    createRecord,
-    currentUser,
-    loading: contextLoading,
-    error: contextError,
-  } = useUserStateContext();
+  const { records, fetchUserRecords, createRecord, currentUser } =
+    useUserStateContext();
 
   useEffect(() => {
     if (currentUser) {
@@ -33,7 +27,7 @@ const MedicalRecord = () => {
   };
 
   const handleOpenModal = () => {
-    setError(""); // Clear any previous errors when reopening the modal
+    setError("");
     setIsModalOpen(true);
   };
 
