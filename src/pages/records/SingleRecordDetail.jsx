@@ -96,6 +96,12 @@ const SingleRecordDetail = () => {
         navigate("/screening-schedules", { state: parsedResponse });
       } else {
         alert("create a new record , then try to reuplaod the report");
+        setAnalysisResult("test");
+        await updateRecord({
+          documentID: state.id,
+          analysisResults: "test",
+          kanbanRecords: "",
+        });
         return;
       }
     }
