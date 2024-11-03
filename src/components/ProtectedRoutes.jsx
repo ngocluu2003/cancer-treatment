@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import { useUserStateContext } from "../context/UserContext.jsx";
 import { useUser } from "@clerk/clerk-react";
 import { useNavigate, useLocation } from "react-router-dom";
+import LoadingSpinner from "./LoadingSpinner.jsx";
+import Sidebar from "./Sidebar.jsx";
+import Navbar from "./Navbar.jsx";
 
-const useAuthentication = () => {
+const ProtectedRoutes = ({ children }) => {
   const { currentUser, fetchUserByEmail, fetchUserRecords } =
     useUserStateContext();
   const { isLoaded, user } = useUser();
@@ -33,18 +36,28 @@ const useAuthentication = () => {
           }
         } catch (error) {
           console.error("Error initializing app:", error);
-          alert("Error initializing app:", error);
         } finally {
           fetchUserRecords(email);
           setLoading(false);
         }
       }
     };
-
     initializeApp();
   }, [isLoaded, user, navigate, currentUser, location.pathname]);
-
-  return { loading };
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+  return (
+    <div className="relative flex min-h-screen flex-row bg-[#f5f5f5] p-4 transition-colors duration-300 dark:bg-[#13131a] dark:text-white">
+      <div className="relative mr-10 hidden sm:flex">
+        <Sidebar />
+      </div>
+      <div className="mx-auto w-full max-w-[1280px] flex-1 sm:pr-3">
+        <Navbar />
+        {children}
+      </div>
+    </div>
+  );
 };
 
-export default useAuthentication;
+export default ProtectedRoutes;

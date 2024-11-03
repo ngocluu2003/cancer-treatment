@@ -60,7 +60,7 @@ const DisplayInfo = () => {
                 ).length || 0;
             } catch (error) {
               console.error("Failed to parse kanbanRecords:", error);
-              alert("Failed to parse kanbanRecords:", error);
+              // alert("Failed to parse kanbanRecords:", error);
             }
           }
         });

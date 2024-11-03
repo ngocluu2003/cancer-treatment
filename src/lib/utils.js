@@ -1,3 +1,6 @@
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
 import {
   IconAlertCircle,
   IconCircleDashedCheck,
@@ -136,4 +139,8 @@ export function isJSON(str) {
   } catch (error) {
     return false;
   }
+}
+
+export function cn(...inputs) {
+  return twMerge(clsx(inputs));
 }

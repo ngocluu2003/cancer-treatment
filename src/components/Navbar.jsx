@@ -5,7 +5,16 @@ import { IconHeartHandshake, IconLogin } from "@tabler/icons-react";
 import { navLinks } from "../constants";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import ThemeSwitch from "./ThemeSwitch";
-import { SignIn, UserButton, useUser } from "@clerk/clerk-react";
+import {
+  SignedIn,
+  SignedOut,
+  SignIn,
+  SignInButton,
+  UserButton,
+  useUser,
+} from "@clerk/clerk-react";
+import { Button } from "./ui/button";
+import UserMenu from "./UserMenu";
 
 const Navbar = () => {
   const [toggleDrawer, setToggleDrawer] = useState(false);
@@ -21,9 +30,6 @@ const Navbar = () => {
     }
   }, [searchParam]);
 
-  const handleLogin = useCallback(() => {
-    setShowSignIn(true);
-  }, []);
 
   const handleNavigation = (item) => {
     setIsActive(item.name);
@@ -51,7 +57,7 @@ const Navbar = () => {
 
       {/* Authentication button */}
       <div className="mr-2 hidden flex-row justify-end sm:flex">
-        {isLoaded ? (
+        {/* {isLoaded ? (
           user ? (
             <UserButton
               appearance={{
@@ -77,7 +83,15 @@ const Navbar = () => {
           )
         ) : (
           <div className="mt-4 h-6 w-6 animate-spin rounded-full border-4 border-t-4 border-white border-t-[#1dc071]"></div>
-        )}
+        )} */}
+        <SignedOut>
+          <SignInButton forceRedirectUrl="/dashboard">
+            <Button variant="outline">Login</Button>
+          </SignInButton>
+        </SignedOut>
+        <SignedIn>
+          <UserMenu />
+        </SignedIn>
       </div>
 
       {/* Mobile view */}
@@ -148,12 +162,12 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Clerk SignIn Modal */}
+      {/* Clerk SignIn Modal
       {showSignIn && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
           <SignIn signUpForceRedirectUrl="/" signUpFallbackRedirectUrl="/" />
         </div>
-      )}
+      )} */}
     </div>
   );
 };
