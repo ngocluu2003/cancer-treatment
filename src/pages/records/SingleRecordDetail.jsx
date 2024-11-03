@@ -91,15 +91,11 @@ const SingleRecordDetail = () => {
   const processTreatmentPlan = async () => {
     if (state.kanbanRecords !== "test") {
       const text = state.kanbanRecords;
-      let parsedResponse;
-      try {
-        if (isJSON(text)) {
-          parsedResponse = JSON.parse(text);
-        }
+      if (isJSON(text)) {
+        const parsedResponse = JSON.parse(text);
         navigate("/screening-schedules", { state: parsedResponse });
-      } catch (error) {
-        alert("Error parsing kanbanRecords:", error);
-      } finally {
+      } else {
+        alert("create a new record , then try to reuplaod the report");
         return;
       }
     }
