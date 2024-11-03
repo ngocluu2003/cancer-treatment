@@ -11,7 +11,7 @@ import { useUserStateContext } from "../../context/UserContext";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import Markdown from "markdown-to-jsx";
 import { promptDataDesription } from "../../lib/data";
-import { promptDataStructure } from "../../lib/utils";
+import { isJSON, promptDataStructure } from "../../lib/utils";
 
 const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
@@ -91,11 +91,16 @@ const SingleRecordDetail = () => {
   const processTreatmentPlan = async () => {
     if (state.kanbanRecords !== "test") {
       const text = state.kanbanRecords;
+      let parsedResponse;
       try {
-        const parsedResponse = JSON.parse(text);
+        if (isJSON(text)) {
+          parsedResponse = JSON.parse(text);
+        }
         navigate("/screening-schedules", { state: parsedResponse });
       } catch (error) {
         alert("Error parsing kanbanRecords:", error);
+      } finally {
+        return;
       }
     }
 

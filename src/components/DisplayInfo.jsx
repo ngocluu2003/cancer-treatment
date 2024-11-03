@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useMetricsData } from "../lib/utils";
+import { isJSON, useMetricsData } from "../lib/utils";
 import MetricsCard from "./MetricsCard";
 import { useUserStateContext } from "../context/UserContext";
 
@@ -100,12 +100,3 @@ const DisplayInfo = () => {
 };
 
 export default DisplayInfo;
-
-function isJSON(str) {
-  try {
-    JSON.parse(str);
-    return true;
-  } catch (error) {
-    return false;
-  }
-}
