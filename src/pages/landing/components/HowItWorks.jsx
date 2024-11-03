@@ -1,4 +1,5 @@
 import { howItWorks } from "@/lib/data";
+// i will modify -> task
 const HowItWorks = () => {
   return (
     <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
