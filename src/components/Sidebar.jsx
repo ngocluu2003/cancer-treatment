@@ -26,7 +26,7 @@ const Sidebar = () => {
     <div className="sticky top-5 flex h-[93vh] flex-col items-center justify-between">
       {/* Logo and Home link */}
       <Link
-        to="/"
+        to="/dashboard"
         className="flex items-center justify-center"
         onClick={() => setIsActive("dashboard")}
       >

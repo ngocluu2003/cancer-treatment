@@ -56,11 +56,10 @@ const DisplayInfo = () => {
                   .length || 0;
               monitoringTasks +=
                 kanban?.tasks.filter(
-                  (task) => task.columnId === "monitoring", // Count monitoring tasks
+                  (task) => task.columnId === "monitoring",
                 ).length || 0;
             } catch (error) {
               console.error("Failed to parse kanbanRecords:", error);
-              // alert("Failed to parse kanbanRecords:", error);
             }
           }
         });

@@ -25,7 +25,7 @@ const Description = () => {
           <img
             alt="medical care illustration"
             src="/medical-care.svg"
-            className="rounded-lg object-cover"//
+            className="rounded-lg object-cover" //
           />
         </div>
       </div>
