@@ -7,13 +7,15 @@ const Features = () => {
       {features.map((feature, index) => (
         <Card key={index}>
           <CardHeader>
-            <feature.icon className="mx-auto mb-4 h-12 w-12 text-blue-500" />
-            <CardTitle className="text-center text-blue-600">
+            <feature.icon className="mx-auto mb-4 h-12 w-12 text-green-500" />
+            <CardTitle className="text-center text-gray-800 dark:text-gray-400">
               {feature.title}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-center text-gray-600">{feature.description}</p>
+            <p className="text-center text-gray-600 dark:text-gray-500">
+              {feature.description}
+            </p>
           </CardContent>
         </Card>
       ))}

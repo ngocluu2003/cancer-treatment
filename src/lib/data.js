@@ -2,72 +2,103 @@ export const promptDataDesription = `You are an expert cancer and any disease di
 give a detailed treatment plan for me, make it more readable, clear and easy to understand make it paragraphs to make it more readable
 `;
 
-import { Calendar, Clock, LinkIcon } from "lucide-react";
+import {
+  Calendar,
+  Stethoscope,
+  Activity,
+  BarChart3,
+  MessageCircle,
+  ShieldCheck,
+} from "lucide-react";
 
 export const features = [
   {
     icon: Calendar,
-    title: "Track Appointments",
-    description: "Easily set up and customize patient appointments",
+    title: "Advanced Diagnosis",
+    description:
+      "Leverage AI to assist in diagnosing diseases with high accuracy.",
   },
   {
-    icon: Clock,
-    title: "Manage Availability",
-    description: "Define your availability for patient consultations",
+    icon: Stethoscope,
+    title: "Symptom Monitoring",
+    description:
+      "Track and analyze patient symptoms in real-time for proactive intervention.",
   },
   {
-    icon: LinkIcon,
-    title: "Share Patient Resources",
-    description: "Provide patients with personalized links to access resources",
+    icon: Activity,
+    title: "Personalized Treatment Plans",
+    description:
+      "Generate tailored treatment plans using AI based on patient data.",
+  },
+  {
+    icon: BarChart3,
+    title: "Predictive Health Insights",
+    description:
+      "Utilize AI to predict potential health risks and recommend preventive measures.",
+  },
+  {
+    icon: MessageCircle,
+    title: "Virtual Health Assistant",
+    description: "Provide patients with AI-driven health guidance and support.",
+  },
+  {
+    icon: ShieldCheck, // suggests secure data and privacy
+    title: "Data Security & Compliance",
+    description:
+      "Ensure patient data is protected with secure, compliant AI-driven solutions.",
   },
 ];
 
 export const howItWorks = [
   {
     step: "Sign Up",
-    description: "Create your free medical treatment account",
+    description:
+      "Create a free account to access AI-driven medical treatment tools.",
   },
   {
-    step: "Set Availability",
-    description: "Specify your consultation hours for seamless scheduling",
+    step: "Onboarding",
+    description:
+      "Complete the onboarding process to set up your profile and preferences.",
   },
   {
-    step: "Share Appointment Link",
-    description: "Allow patients to schedule appointments easily",
+    step: "Upload Medical Reports",
+    description:
+      "Easily upload and organize patient medical reports for analysis.",
   },
   {
-    step: "Track Progress",
-    description: "Monitor treatment plans and schedule follow-up appointments",
+    step: "Receive Personalized Treatment",
+    description:
+      "Get AI-generated, personalized treatment plans tailored to individual needs.",
   },
 ];
 
 export const testimonials = [
   {
     name: "Dr. Sarah Johnson",
-    role: "Primary Care Physician",
+    role: "Oncologist",
     content:
-      "This platform has transformed the way I manage my patients' appointments and follow-ups. It's intuitive and saves hours every week!",
+      "CanCure AI has revolutionized patient care in my practice. The personalized treatment recommendations save me time and offer my patients optimized care pathways.",
     image: "https://i.pravatar.cc/150?img=5",
   },
   {
-    name: "Nurse David Lee",
-    role: "Registered Nurse",
+    name: "David Lee",
+    role: "Medical Research Scientist",
     content:
-      "As a nurse, this tool helps me stay organized with patient visits and documentation. Our patients appreciate how easy it is to schedule follow-ups.",
+      "With CanCure AI, I can analyze patient data quickly and more accurately. The AI-driven insights are invaluable for developing targeted treatment plans.",
     image: "https://i.pravatar.cc/150?img=6",
   },
   {
     name: "Emily Chen",
-    role: "Medical Administrator",
+    role: "Healthcare Administrator",
     content:
-      "Managing patient appointments and records is so much easier now. It streamlined our processes and enhanced patient care.",
+      "CanCure AI simplifies patient data management and appointment scheduling. The streamlined workflow has improved patient engagement and care quality in our facility.",
     image: "https://i.pravatar.cc/150?img=7",
   },
   {
     name: "Dr. Michael Brown",
-    role: "Cardiologist",
+    role: "Neurologist",
     content:
-      "This tool has increased the efficiency of my practice. Patients can book appointments without hassle, and I can focus on care.",
+      "The AI recommendations from CanCure AI allow me to deliver tailored treatments to my patients. It’s a game-changer for precision medicine.",
     image: "https://i.pravatar.cc/150?img=8",
   },
 ];

@@ -11,33 +11,38 @@ export default function Home() {
     <main className="container mx-auto px-4 py-16">
       <Description />
       <div className="mb-24">
-        <h2 className="mb-12 text-center text-3xl font-bold text-blue-600">
+        <h2 className="mb-12 text-center text-3xl font-bold text-black dark:text-white md:text-4xl">
           Key Features
         </h2>
         <Features />
       </div>
       <div className="mb-24">
-        <h2 className="mb-12 text-center text-3xl font-bold text-blue-600">
+        <h2 className="mb-12 text-center text-3xl font-bold text-black dark:text-white md:text-4xl">
           What Our Users Say
         </h2>
         <Testimonials />
       </div>
       <div className="mb-24">
-        <h2 className="mb-12 text-center text-3xl font-bold text-blue-600">
+        <h2 className="mb-12 text-center text-3xl font-bold text-black dark:text-white md:text-4xl">
           How It Works
         </h2>
         <HowItWorks />
       </div>
-      <div className="rounded-lg bg-blue-600 p-8 text-center text-white">
-        <h2 className="mb-4 text-3xl font-bold">
-          Ready to Simplify Your Scheduling?
+      <div className="rounded-lg bg-green-200 p-6 text-center text-black dark:bg-green-400 dark:text-white sm:p-8 lg:p-10">
+        <h2 className="mb-4 text-2xl font-bold sm:text-3xl lg:text-4xl">
+          Transform Patient Care with AI
         </h2>
-        <p className="mb-6 text-xl">
-          Join thousands of professionals who trust schedullr for efficient time
-          management.
+        <p className="mb-6 text-lg sm:text-xl">
+          Join countless healthcare professionals leveraging CanCure to enhance
+          patient management and improve treatment outcomes.
         </p>
+
         <Link to={"/dashboard"}>
-          <Button size="lg" variant="secondary" className="text-blue-600">
+          <Button
+            size="lg"
+            variant="secondary"
+            className="text-black dark:text-white"
+          >
             Start For Free <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
         </Link>

@@ -1,14 +1,10 @@
 import React from "react";
 import { Button } from "../../../components/ui/button";
-import { PenBox } from "lucide-react";
-import {
-  IconDashboard,
-  IconHeartHandshake,
-  IconLayoutDashboard,
-} from "@tabler/icons-react";
+import { IconHeartHandshake, IconLayoutDashboard } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 import { SignedIn, SignedOut, SignInButton } from "@clerk/clerk-react";
 import UserMenu from "./UserMenu";
+import ThemeSwitch from "@/components/ThemeSwitch";
 
 const Header = () => {
   return (
@@ -24,6 +20,7 @@ const Header = () => {
             DashBoard
           </Button>
         </Link>
+        <ThemeSwitch className="m-2 flex h-10 w-10 items-center justify-center rounded-full" />
         <SignedOut>
           <SignInButton forceRedirectUrl="/dashboard">
             <Button variant="outline">Login</Button>

@@ -6,10 +6,10 @@ const Description = () => {
   return (
     <div className="mb-24 flex flex-col items-center justify-between gap-12 lg:flex-row">
       <div className="lg:w-1/2">
-        <h1 className="gradient-title pb-6 text-7xl font-extrabold">
+        <h1 className="gradient-title pb-6 text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-gray-100">
           Transform Patient Care with AI
         </h1>
-        <p className="mb-10 text-xl text-gray-600">
+        <p className="mb-10 text-lg md:text-xl text-gray-600 dark:text-gray-400">
           Leverage our platform to streamline patient records, enhance treatment
           tracking, and automate follow-ups—all powered by advanced AI
           technology.
@@ -24,9 +24,8 @@ const Description = () => {
         <div className="relative aspect-square w-full max-w-md">
           <img
             alt="medical care illustration"
-            src="/src/assets/medical_care.jpg" // Replace with an actual medical image path
-            layout="fill"
-            className="object-cover"
+            src="/src/assets/medical_care.jpg" // Ensure this path is correct in production
+            className="object-cover rounded-lg shadow-lg"
           />
         </div>
       </div>
