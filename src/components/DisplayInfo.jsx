@@ -7,7 +7,6 @@ const DisplayInfo = () => {
   const { records, currentUser } = useUserStateContext();
   const [metrics, setMetrics] = useState({
     totalFolders: 0,
-    aiPersonalizedTreatment: 0,
     totalScreenings: 0,
     personalScreenings: 0,
     pendingScreenings: 0,
@@ -32,7 +31,6 @@ const DisplayInfo = () => {
 
         records.forEach((record) => {
           if (record.kanbanRecords) {
-            console.log(record.kanbanRecords);
             try {
               let kanban;
               if (isJSON(record.kanbanRecords)) {
@@ -68,7 +66,6 @@ const DisplayInfo = () => {
 
         setMetrics({
           totalFolders,
-          aiPersonalizedTreatment,
           totalScreenings,
           completedScreenings,
           pendingScreenings,

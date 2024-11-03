@@ -166,8 +166,6 @@ const SingleRecordDetail = () => {
     }
   };
 
-  console.log(state.kanbanRecords);
-
   return (
     <div className="flex flex-wrap gap-[26px] bg-[#f5f5f5] dark:bg-[#13131a]">
       <button
