@@ -24,8 +24,8 @@ const Description = () => {
         <div className="relative aspect-square w-full max-w-md">
           <img
             alt="medical care illustration"
-            src="/src/assets/medical-care.svg"
-            className="rounded-lg object-cover shadow-lg"//
+            src="/medical-care.svg"
+            className="rounded-lg object-cover"//
           />
         </div>
       </div>
