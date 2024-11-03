@@ -23,8 +23,10 @@ const MedicalRecord = () => {
   } = useUserStateContext();
 
   useEffect(() => {
-    localStorage.setItem("userRecords", JSON.stringify(records));
-  }, [records]);
+    if (currentUser) {
+      fetchUserRecords(user.emailAddresses[0].emailAddress);
+    }
+  }, [currentUser]);
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
