@@ -9,19 +9,18 @@ import { db } from "../utils/dbConfig";
 import { Users, Records } from "../utils/schema";
 import { eq } from "drizzle-orm";
 
-// Create the UserStateContext
 const UserStateContext = createContext();
 
-// Provider component
 export const UserStateContextProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
   const [records, setRecords] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
-  const [loading, setLoading] = useState(false); // Loading state
-  const [error, setError] = useState(null); // Error state
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const fetchUsers = useCallback(async () => {
     setLoading(true);
+    setError("");
     try {
       const results = await db.select().from(Users).execute();
       setUsers(results);
@@ -35,6 +34,7 @@ export const UserStateContextProvider = ({ children }) => {
 
   const fetchUserByEmail = useCallback(async (email) => {
     setLoading(true);
+    setError("");
     try {
       const result = await db
         .select()
@@ -53,6 +53,7 @@ export const UserStateContextProvider = ({ children }) => {
 
   const createUser = useCallback(async (userData) => {
     setLoading(true);
+    setError("");
     try {
       const newUser = await db
         .insert(Users)
@@ -74,6 +75,7 @@ export const UserStateContextProvider = ({ children }) => {
 
   const fetchUserRecords = useCallback(async (userEmail) => {
     setLoading(true);
+    setError("");
     try {
       const result = await db
         .select()
@@ -91,6 +93,7 @@ export const UserStateContextProvider = ({ children }) => {
 
   const createRecord = useCallback(async (recordData) => {
     setLoading(true);
+    setError("");
     try {
       const newRecord = await db
         .insert(Records)
@@ -110,6 +113,7 @@ export const UserStateContextProvider = ({ children }) => {
 
   const updateRecord = useCallback(async (recordData) => {
     setLoading(true);
+    setError("");
     try {
       const { documentID, ...dataToUpdate } = recordData;
       const updatedRecords = await db
@@ -150,5 +154,4 @@ export const UserStateContextProvider = ({ children }) => {
   );
 };
 
-// Custom hook to use the UserStateContext
 export const useUserStateContext = () => useContext(UserStateContext);

@@ -33,6 +33,7 @@ const useAuthentication = () => {
           }
         } catch (error) {
           console.error("Error initializing app:", error);
+          alert("Error initializing app:", error);
         } finally {
           fetchUserRecords(email);
           setLoading(false);
