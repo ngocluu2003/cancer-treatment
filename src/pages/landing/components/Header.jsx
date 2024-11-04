@@ -3,7 +3,7 @@ import { Button } from "../../../components/ui/button";
 import { IconHeartHandshake, IconLayoutDashboard } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 import { SignedIn, SignedOut, SignInButton } from "@clerk/clerk-react";
-import UserMenu from "./UserMenu";
+import UserMenu from "../../../components/UserMenu";
 import ThemeSwitch from "@/components/ThemeSwitch";
 
 const Header = () => {

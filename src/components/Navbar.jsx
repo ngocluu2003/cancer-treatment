@@ -4,9 +4,9 @@ import { IconHeartHandshake } from "@tabler/icons-react";
 import { navLinks } from "../constants";
 import { useNavigate } from "react-router-dom";
 import ThemeSwitch from "./ThemeSwitch";
-import { SignedIn, SignedOut, SignInButton, useUser } from "@clerk/clerk-react";
+import { SignedIn, SignedOut, SignInButton } from "@clerk/clerk-react";
 import { Button } from "./ui/button";
-import UserMenu from "../pages/landing/components/UserMenu";
+import UserMenu from "./UserMenu";
 
 const Navbar = () => {
   const [toggleDrawer, setToggleDrawer] = useState(false);

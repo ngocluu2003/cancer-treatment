@@ -1,5 +1,5 @@
 import React from "react";
-import KanbanBoard from "../components/KanbanBoard";
+import KanbanBoard from "../components/kanban-board/KanbanBoard";
 import { useLocation } from "react-router-dom";
 
 const ScreeningSchedule = () => {

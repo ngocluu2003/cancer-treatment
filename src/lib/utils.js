@@ -18,7 +18,7 @@ export const useMetricsData = (metrics) => {
       subtitle: "View Pending",
       value: metrics.pendingScreenings,
       icon: IconHourglassHigh,
-      onClick: () => navigate("/appointments/pending"),
+      onClick: () => navigate("/appointments"),
     },
     {
       title: "Current Treatment Progress",
@@ -32,7 +32,7 @@ export const useMetricsData = (metrics) => {
       subtitle: "Access Records",
       value: metrics.totalFolders,
       icon: IconFolder,
-      onClick: () => navigate("/folders"),
+      onClick: () => navigate("/medical-records"),
     },
     {
       title: "Overall Screenings Conducted",
@@ -46,28 +46,28 @@ export const useMetricsData = (metrics) => {
       subtitle: "Review Completed",
       value: metrics.completedScreenings,
       icon: IconCircleDashedCheck,
-      onClick: () => navigate("/screenings/completed"),
+      onClick: () => navigate("/screenings"),
     },
     {
       title: "Pending Screenings for Review",
       subtitle: "Awaiting Review",
       value: metrics.pendingScreenings,
       icon: IconHourglassHigh,
-      onClick: () => navigate("/screenings/pending"),
+      onClick: () => navigate("/screenings"),
     },
     {
       title: "Overdue Screenings Needing Action",
       subtitle: "Action Required",
       value: metrics.overdueScreenings,
       icon: IconAlertCircle,
-      onClick: () => navigate("/screenings/overdue"),
+      onClick: () => navigate("/screenings"),
     },
     {
       title: "Upcoming Screenings Scheduled",
       subtitle: "Upcoming Appointments",
       value: metrics.upcomingScreenings,
       icon: IconHourglassHigh,
-      onClick: () => navigate("/screenings/upcoming"),
+      onClick: () => navigate("/screenings"),
     },
     {
       title: "Monitoring Tasks in Progress",
@@ -81,7 +81,7 @@ export const useMetricsData = (metrics) => {
       subtitle: "Required Follow-ups",
       value: metrics.followUpsRequired,
       icon: IconAlertCircle,
-      onClick: () => navigate("/appointments/follow-ups"),
+      onClick: () => navigate("/appointments"),
     },
   ];
 };
