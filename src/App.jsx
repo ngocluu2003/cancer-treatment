@@ -16,7 +16,7 @@ import NotFound from "./pages/NotFound";
 
 if (typeof window !== "undefined" && !window.Buffer) {
   window.Buffer = Buffer;
-}
+}//
 
 const App = () => {
   const [searchParams] = useSearchParams();
