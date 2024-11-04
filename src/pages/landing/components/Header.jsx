@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "../../../components/ui/button";
-import { IconHeartHandshake, IconLayoutDashboard } from "@tabler/icons-react";
+import { IconHeartHandshake } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 import { SignedIn, SignedOut, SignInButton } from "@clerk/clerk-react";
 import UserMenu from "../../../components/UserMenu";
@@ -15,8 +15,8 @@ const Header = () => {
 
       <div className="flex items-center gap-4">
         <Link to={"/dashboard"}>
-          <Button className="flex items-center gap-2 ml-2">
-            <IconLayoutDashboard size={22} />
+          <Button className="ml-2 flex items-center gap-2">
+            <img src="/apps.svg" alt="dashboard-logo" className="h-6 w-6" />
             <span className="hidden sm:flex">DashBoard</span>
           </Button>
         </Link>

@@ -14,7 +14,7 @@ import Monitoring from "./pages/Monitoring";
 import Screenings from "./pages/Screenings";
 import Appointments from "./pages/Appointments";
 import NotFound from "./pages/NotFound";
-import Onboarding from "./pages/Onboarding";
+
 
 if (typeof window !== "undefined" && !window.Buffer) {
   window.Buffer = Buffer;
