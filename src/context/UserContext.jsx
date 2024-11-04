@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useState,
-  useMemo,
-} from "react";
+import React, { createContext, useCallback, useContext, useState, useMemo } from "react";
 import { db } from "../utils/dbConfig";
 import { Users, Records } from "../utils/schema";
 import { eq } from "drizzle-orm";
@@ -15,28 +9,17 @@ export const UserStateContextProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
   const [records, setRecords] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const fetchUsers = useCallback(async () => {
-    let loading = true;
-    let error = null;
-
-    try {
-      const results = await db.select().from(Users).execute();
-      setUsers(results);
-    } catch (err) {
-      error = "Error fetching users";
-      console.error(error, err);
-    } finally {
-      loading = false;
-    }
-
-    return { loading, error };
-  }, []);
+  const handleError = (err, customMessage = "An error occurred") => {
+    console.error(customMessage, err);
+    setError(customMessage);
+  };
 
   const fetchUserByEmail = useCallback(async (email) => {
-    let loading = true;
-    let error = null;
-
+    setLoading(true);
+    setError(null);
     try {
       const result = await db
         .select()
@@ -45,19 +28,15 @@ export const UserStateContextProvider = ({ children }) => {
         .execute();
       setCurrentUser(result.length > 0 ? result[0] : "user-not-found");
     } catch (err) {
-      error = "Error fetching user by email";
-      console.error(error, err);
+      handleError(err, "Failed to fetch user by email");
     } finally {
-      loading = false;
+      setLoading(false);
     }
-
-    return { loading, error };
   }, []);
 
   const createUser = useCallback(async (userData) => {
-    let loading = true;
-    let error = null;
-
+    setLoading(true);
+    setError(null);
     try {
       const newUser = await db
         .insert(Users)
@@ -68,16 +47,16 @@ export const UserStateContextProvider = ({ children }) => {
       setCurrentUser(newUser[0]);
       return { user: newUser[0], loading: false, error: null };
     } catch (err) {
-      error = "Error creating user";
-      console.error(error, err);
-      return { user: null, loading: false, error };
+      handleError(err, "Failed to create user");
+      return { user: null, loading: false, error: err };
+    } finally {
+      setLoading(false);
     }
   }, []);
 
   const fetchUserRecords = useCallback(async (userEmail) => {
-    let loading = true;
-    let error = null;
-
+    setLoading(true);
+    setError(null);
     try {
       const result = await db
         .select()
@@ -86,19 +65,15 @@ export const UserStateContextProvider = ({ children }) => {
         .execute();
       setRecords(result);
     } catch (err) {
-      error = "Error fetching user records";
-      console.error(error, err);
+      handleError(err, "Failed to fetch user records");
     } finally {
-      loading = false;
+      setLoading(false);
     }
-
-    return { loading, error };
   }, []);
 
   const createRecord = useCallback(async (recordData) => {
-    let loading = true;
-    let error = null;
-
+    setLoading(true);
+    setError(null);
     try {
       const newRecord = await db
         .insert(Records)
@@ -106,21 +81,21 @@ export const UserStateContextProvider = ({ children }) => {
         .returning({ id: Records.id })
         .execute();
       setRecords((prevRecords) => [...prevRecords, newRecord[0]]);
-      return { record: newRecord[0], loading: false, error: null };
+      return { record: newRecord[0], error: null };
     } catch (err) {
-      error = "Error creating record";
-      console.error(error, err);
-      return { record: null, loading: false, error };
+      handleError(err, "Failed to create record");
+      return { record: null, error: err };
+    } finally {
+      setLoading(false);
     }
   }, []);
 
   const updateRecord = useCallback(async (recordData) => {
-    let loading = true;
-    let error = null;
-
+    setLoading(true);
+    setError(null);
     try {
       const { documentID, ...dataToUpdate } = recordData;
-      const updatedRecords = await db
+      await db
         .update(Records)
         .set(dataToUpdate)
         .where(eq(Records.id, documentID))
@@ -130,11 +105,27 @@ export const UserStateContextProvider = ({ children }) => {
           record.id === documentID ? { ...record, ...dataToUpdate } : record
         )
       );
-      return { success: true, loading: false, error: null };
     } catch (err) {
-      error = "Error updating record";
-      console.error(error, err);
-      return { success: false, loading: false, error };
+      handleError(err, "Failed to update record");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const deleteRecord = useCallback(async (recordID) => {
+    setLoading(true);
+    setError(null);
+    try {
+      await db
+        .delete()
+        .from(Records)
+        .where(eq(Records.id, recordID))
+        .execute();
+      setRecords((prevRecords) => prevRecords.filter((record) => record.id !== recordID));
+    } catch (err) {
+      handleError(err, "Failed to delete record");
+    } finally {
+      setLoading(false);
     }
   }, []);
 
@@ -142,15 +133,17 @@ export const UserStateContextProvider = ({ children }) => {
     () => ({
       users,
       records,
-      fetchUsers,
+      currentUser,
+      loading,
+      error,
       fetchUserByEmail,
       createUser,
       fetchUserRecords,
       createRecord,
-      currentUser,
       updateRecord,
+      deleteRecord,
     }),
-    [users, records, currentUser]
+    [users, records, currentUser, loading, error]
   );
 
   return (
@@ -160,4 +153,10 @@ export const UserStateContextProvider = ({ children }) => {
   );
 };
 
-export const useUserStateContext = () => useContext(UserStateContext);
+export const useUserStateContext = () => {
+  const context = useContext(UserStateContext);
+  if (!context) {
+    throw new Error("useUserStateContext must be used within a UserStateContextProvider");
+  }
+  return context;
+};

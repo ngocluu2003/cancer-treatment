@@ -72,7 +72,7 @@ const SingleRecordDetail = () => {
       await updateRecord({
         documentID: state.id,
         analysisResults: text,
-        kanbanRecords: "",
+        kanbanRecords: "test",
       });
 
       setUploadSuccess(true);
@@ -99,33 +99,33 @@ const SingleRecordDetail = () => {
         await updateRecord({
           documentID: state.id,
           analysisResults: "test",
-          kanbanRecords: "",
+          kanbanRecords: "test",
         });
         return;
       }
-    }
-
-    setIsProcessing(true);
-    const genAI = new GoogleGenerativeAI(geminiApiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
-    try {
-      const prompt = promptDataStructure({ analysisResult });
-      const result = await model.generateContent(prompt);
-      const response = await result.response;
-      const text = response.text();
+    } else {
+      setIsProcessing(true);
+      const genAI = new GoogleGenerativeAI(geminiApiKey);
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
       try {
-        const parsedResponse = JSON.parse(text);
-        await updateRecord({ documentID: state.id, kanbanRecords: text });
-        navigate("/screening-schedules", { state: parsedResponse });
-      } catch (jsonError) {
-        console.error("Failed to parse JSON response:", jsonError);
+        const prompt = promptDataStructure({ analysisResult });
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        const text = response.text();
+
+        try {
+          const parsedResponse = JSON.parse(text);
+          await updateRecord({ documentID: state.id, kanbanRecords: text });
+          navigate("/screening-schedules", { state: parsedResponse });
+        } catch (jsonError) {
+          console.error("Failed to parse JSON response:", jsonError);
+        }
+      } catch (error) {
+        console.error("Error processing treatment plan:", error);
+      } finally {
+        setIsProcessing(false);
       }
-    } catch (error) {
-      console.error("Error processing treatment plan:", error);
-    } finally {
-      setIsProcessing(false);
     }
   };
 
