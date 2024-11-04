@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { navLinks } from "../constants";
+import { navLinks } from "@/lib/data";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IconHeartHandshake } from "@tabler/icons-react";
 import Icon from "./Icon";
@@ -7,18 +7,15 @@ import ThemeSwitch from "./ThemeSwitch";
 
 const Sidebar = () => {
   const navigate = useNavigate();
-  const [isActive, setIsActive] = useState("");
+  const [activeSection, setActiveSection] = useState("");
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const activeLink = navLinks.find((item) => pathname === item.link);
-    if (activeLink) {
-      setIsActive(activeLink.name);
-    }
+    setActiveSection(pathname);
   }, [pathname]);
 
   const handleLinkClick = (item) => {
-    setIsActive(item.name);
+    setActiveSection(item.link);
     navigate(item.link);
   };
 
@@ -28,7 +25,7 @@ const Sidebar = () => {
       <Link
         to="/dashboard"
         className="flex items-center justify-center"
-        onClick={() => setIsActive("dashboard")}
+        onClick={() => setActiveSection("dashboard")}
       >
         <div className="rounded-full bg-[#e3e3db] p-2 transition-transform duration-200 hover:scale-105 dark:bg-[#2c2f32]">
           <IconHeartHandshake size={40} color="#1ec070" />
@@ -43,7 +40,7 @@ const Sidebar = () => {
               key={item.name}
               {...item}
               style={`cursor-pointer`}
-              isActive={isActive}
+              activeSection={activeSection}
               handleClick={() => handleLinkClick(item)}
             />
           ))}

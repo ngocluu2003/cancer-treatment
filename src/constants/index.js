@@ -1,24 +1,3 @@
-import { apps, user, records, screening } from "../assets";
-
-export const navLinks = [
-  {
-    name: "dashboard",
-    imageUrl: apps,
-    link: "/dashboard",
-  },
-  {
-    name: "records",
-    imageUrl: records,
-    link: "/medical-records",
-  },
-  {
-    name: "screenings",
-    imageUrl: screening,
-    link: "/screening-schedules",
-  },
-  {
-    name: "profile",
-    imageUrl: user,
-    link: "/profile",
-  },
-];
+export const PROMPT_DATA_DESCRIPTION = `You are an expert cancer and any disease diagnosis analyst. Use your knowledge base to answer questions about giving personalized recommended treatments.
+give a detailed treatment plan for me, make it more readable, clear and easy to understand make it paragraphs to make it more readable
+`;

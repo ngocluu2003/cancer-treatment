@@ -15,9 +15,9 @@ const Header = () => {
 
       <div className="flex items-center gap-4">
         <Link to={"/dashboard"}>
-          <Button className="flex items-center gap-2">
-            <IconLayoutDashboard size={18} />
-            DashBoard
+          <Button className="flex items-center gap-2 ml-2">
+            <IconLayoutDashboard size={22} />
+            <span className="hidden sm:flex">DashBoard</span>
           </Button>
         </Link>
         <ThemeSwitch className="m-2 flex h-10 w-10 items-center justify-center rounded-full" />

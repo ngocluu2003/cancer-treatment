@@ -28,7 +28,7 @@ export default function Home() {
         </h2>
         <HowItWorks />
       </div>
-      <div className="rounded-lg bg-green-200 p-6 text-center text-gray-800 dark:bg-green-400 dark:text-white sm:p-8 lg:p-10">
+      <div className="rounded-lg bg-green-200 p-6 text-center text-gray-800 dark:bg-green-300 dark:text-white sm:p-8 lg:p-10">
         <h2 className="mb-4 text-2xl font-bold sm:text-3xl lg:text-4xl">
           Transform Patient Care with AI
         </h2>

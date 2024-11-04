@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Route, Routes, useNavigate, useSearchParams } from "react-router-dom";
-import { Profile, Onboarding } from "./pages";
+import Profile from "./pages/Profile";
+import Onboarding from "./pages/Onboarding";
 import MedicalRecord from "./pages/records/MedicalRecord";
 import SingleRecordDetails from "./pages/records/SingleRecordDetail";
 import ScreeningSchedule from "./pages/ScreeningSchedule";
@@ -13,10 +14,11 @@ import Monitoring from "./pages/Monitoring";
 import Screenings from "./pages/Screenings";
 import Appointments from "./pages/Appointments";
 import NotFound from "./pages/NotFound";
+import Onboarding from "./pages/Onboarding";
 
 if (typeof window !== "undefined" && !window.Buffer) {
   window.Buffer = Buffer;
-}//
+}
 
 const App = () => {
   const [searchParams] = useSearchParams();

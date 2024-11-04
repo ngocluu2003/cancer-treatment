@@ -1,7 +1,3 @@
-export const promptDataDesription = `You are an expert cancer and any disease diagnosis analyst. Use your knowledge base to answer questions about giving personalized recommended treatments.
-give a detailed treatment plan for me, make it more readable, clear and easy to understand make it paragraphs to make it more readable
-`;
-
 import {
   Calendar,
   Stethoscope,
@@ -10,6 +6,30 @@ import {
   MessageCircle,
   ShieldCheck,
 } from "lucide-react";
+
+export const navLinks = [
+  { name: "Home", imageUrl: "/home.svg", link: "/" },
+  {
+    name: "dashboard",
+    imageUrl: "/apps.svg",
+    link: "/dashboard",
+  },
+  {
+    name: "records",
+    imageUrl: "/records.svg",
+    link: "/medical-records",
+  },
+  {
+    name: "screenings",
+    imageUrl: "/screening.svg",
+    link: "/screening-schedules",
+  },
+  {
+    name: "profile",
+    imageUrl: "/user.svg",
+    link: "/profile",
+  },
+];
 
 export const features = [
   {

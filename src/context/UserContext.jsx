@@ -15,67 +15,69 @@ export const UserStateContextProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
   const [records, setRecords] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   const fetchUsers = useCallback(async () => {
-    setLoading(true);
-    setError("");
+    let loading = true;
+    let error = null;
+
     try {
       const results = await db.select().from(Users).execute();
       setUsers(results);
-    } catch (error) {
-      setError("Error fetching users");
-      console.error("Error fetching users", error);
+    } catch (err) {
+      error = "Error fetching users";
+      console.error(error, err);
     } finally {
-      setLoading(false);
+      loading = false;
     }
+
+    return { loading, error };
   }, []);
 
   const fetchUserByEmail = useCallback(async (email) => {
-    setLoading(true);
-    setError("");
+    let loading = true;
+    let error = null;
+
     try {
       const result = await db
         .select()
         .from(Users)
         .where(eq(Users.createdBy, email))
         .execute();
-
       setCurrentUser(result.length > 0 ? result[0] : "user-not-found");
-    } catch (error) {
-      setError("Error fetching user by email");
-      console.error("Error fetching user by email", error);
+    } catch (err) {
+      error = "Error fetching user by email";
+      console.error(error, err);
     } finally {
-      setLoading(false);
+      loading = false;
     }
+
+    return { loading, error };
   }, []);
 
   const createUser = useCallback(async (userData) => {
-    setLoading(true);
-    setError("");
+    let loading = true;
+    let error = null;
+
     try {
       const newUser = await db
         .insert(Users)
         .values(userData)
         .returning()
         .execute();
-
       setUsers((prevUsers) => [...prevUsers, newUser[0]]);
       setCurrentUser(newUser[0]);
-      return newUser[0];
-    } catch (error) {
-      setError("Error creating user");
-      console.error("Error creating user", error);
-      return null;
-    } finally {
-      setLoading(false);
+      return { user: newUser[0], loading: false, error: null };
+    } catch (err) {
+      error = "Error creating user";
+      console.error(error, err);
+      return { user: null, loading: false, error };
     }
   }, []);
 
   const fetchUserRecords = useCallback(async (userEmail) => {
-    setLoading(true);
-    setError("");
+    let loading = true;
+    let error = null;
+
     try {
       const result = await db
         .select()
@@ -83,17 +85,20 @@ export const UserStateContextProvider = ({ children }) => {
         .where(eq(Records.createdBy, userEmail))
         .execute();
       setRecords(result);
-    } catch (error) {
-      setError("Error fetching user records");
-      console.error("Error fetching user records", error);
+    } catch (err) {
+      error = "Error fetching user records";
+      console.error(error, err);
     } finally {
-      setLoading(false);
+      loading = false;
     }
+
+    return { loading, error };
   }, []);
 
   const createRecord = useCallback(async (recordData) => {
-    setLoading(true);
-    setError("");
+    let loading = true;
+    let error = null;
+
     try {
       const newRecord = await db
         .insert(Records)
@@ -101,19 +106,18 @@ export const UserStateContextProvider = ({ children }) => {
         .returning({ id: Records.id })
         .execute();
       setRecords((prevRecords) => [...prevRecords, newRecord[0]]);
-      return newRecord[0];
-    } catch (error) {
-      setError("Error creating record");
-      console.error("Error creating record", error);
-      return null;
-    } finally {
-      setLoading(false);
+      return { record: newRecord[0], loading: false, error: null };
+    } catch (err) {
+      error = "Error creating record";
+      console.error(error, err);
+      return { record: null, loading: false, error };
     }
   }, []);
 
   const updateRecord = useCallback(async (recordData) => {
-    setLoading(true);
-    setError("");
+    let loading = true;
+    let error = null;
+
     try {
       const { documentID, ...dataToUpdate } = recordData;
       const updatedRecords = await db
@@ -121,12 +125,16 @@ export const UserStateContextProvider = ({ children }) => {
         .set(dataToUpdate)
         .where(eq(Records.id, documentID))
         .returning();
-    } catch (error) {
-      setError("Error updating record");
-      console.error("Error updating record", error);
-      return null;
-    } finally {
-      setLoading(false);
+      setRecords((prevRecords) =>
+        prevRecords.map((record) =>
+          record.id === documentID ? { ...record, ...dataToUpdate } : record
+        )
+      );
+      return { success: true, loading: false, error: null };
+    } catch (err) {
+      error = "Error updating record";
+      console.error(error, err);
+      return { success: false, loading: false, error };
     }
   }, []);
 
@@ -141,10 +149,8 @@ export const UserStateContextProvider = ({ children }) => {
       createRecord,
       currentUser,
       updateRecord,
-      loading,
-      error,
     }),
-    [users, records, currentUser, loading, error],
+    [users, records, currentUser]
   );
 
   return (

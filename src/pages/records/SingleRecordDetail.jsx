@@ -10,7 +10,7 @@ import FileUploadModal from "./components/FileUploadModal";
 import { useUserStateContext } from "../../context/UserContext";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import Markdown from "markdown-to-jsx";
-import { promptDataDesription } from "../../lib/data";
+import { PROMPT_DATA_DESCRIPTION } from "@/constants";
 import { isJSON, promptDataStructure } from "../../lib/utils";
 
 const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY;
@@ -62,7 +62,7 @@ const SingleRecordDetail = () => {
       ];
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
       const result = await model.generateContent([
-        promptDataDesription,
+        PROMPT_DATA_DESCRIPTION,
         ...imageParts,
       ]);
       const response = await result.response;
@@ -82,7 +82,6 @@ const SingleRecordDetail = () => {
       setFileType("");
     } catch (error) {
       console.error("Error during file upload:", error);
-      // alert(`Error: ${error.message}`);
     } finally {
       setUploading(false);
     }
@@ -122,11 +121,9 @@ const SingleRecordDetail = () => {
         navigate("/screening-schedules", { state: parsedResponse });
       } catch (jsonError) {
         console.error("Failed to parse JSON response:", jsonError);
-        // alert("Failed to parse response from the AI. Please try again.");
       }
     } catch (error) {
       console.error("Error processing treatment plan:", error);
-      // alert(`Error: ${error.message}`);
     } finally {
       setIsProcessing(false);
     }

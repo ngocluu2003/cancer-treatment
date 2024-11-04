@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { menu, search } from "../assets";
+import React, { useEffect, useState } from "react";
 import { IconHeartHandshake } from "@tabler/icons-react";
-import { navLinks } from "../constants";
-import { useNavigate } from "react-router-dom";
+import { navLinks } from "@/lib/data";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import ThemeSwitch from "./ThemeSwitch";
 import { SignedIn, SignedOut, SignInButton } from "@clerk/clerk-react";
 import { Button } from "./ui/button";
@@ -10,11 +9,16 @@ import UserMenu from "./UserMenu";
 
 const Navbar = () => {
   const [toggleDrawer, setToggleDrawer] = useState(false);
-  const [isActive, setIsActive] = useState("dashboard");
+  const [activeSection, setActiveSection] = useState("");
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    setActiveSection(pathname);
+  }, [pathname]);
 
   const handleNavigation = (item) => {
-    setIsActive(item.name);
+    setActiveSection(item.link);
     setToggleDrawer(false);
     navigate(item.link);
   };
@@ -30,7 +34,7 @@ const Navbar = () => {
         />
         <button className="flex h-full w-[72px] cursor-pointer items-center justify-center rounded-[20px] bg-[#1ec070] dark:bg-[#1dc071]">
           <img
-            src={search}
+            src="/search.svg"
             alt="Search"
             className="h-[15px] w-[15px] object-contain"
           />
@@ -51,18 +55,20 @@ const Navbar = () => {
 
       {/* Mobile view */}
       <div className="relative flex items-center justify-between sm:hidden">
-        <div className="flex h-[40px] cursor-pointer items-center justify-center rounded-[10px] bg-[#e3e3db] dark:bg-[#2c2f32]">
-          <IconHeartHandshake size={40} color="#1ec070" className="p-2" />
-        </div>
+        <Link to={"/dashboard"}>
+          <div className="flex cursor-pointer items-center justify-center rounded-full bg-[#e3e3db] dark:bg-[#2c2f32]">
+            <IconHeartHandshake size={50} color="#1ec070" className="p-2" />
+          </div>
+        </Link>
 
         <div className="flex items-center">
           <img
-            src={menu}
+            src="/menu.svg"
             alt="Menu"
-            className="h-[34px] w-[34px] cursor-pointer object-contain"
+            className="h-[38px] w-[38px] cursor-pointer object-contain"
             onClick={() => setToggleDrawer((prev) => !prev)}
           />
-          <ThemeSwitch className="m-2 flex h-8 w-8 items-center justify-center rounded-full" />
+          <ThemeSwitch className="m-3 flex h-10 w-10 items-center justify-center rounded-full" />
           <SignedOut>
             <SignInButton forceRedirectUrl="/dashboard">
               <Button variant="outline">Login</Button>
@@ -84,7 +90,9 @@ const Navbar = () => {
               <li
                 key={item.name}
                 className={`flex cursor-pointer p-4 ${
-                  isActive === item.name ? "bg-[#e3e3db] dark:bg-[#3a3a43]" : ""
+                  activeSection === item.link
+                    ? "bg-[#e3e3db] dark:bg-[#3a3a43]"
+                    : ""
                 }`}
                 onClick={() => handleNavigation(item)}
               >
@@ -92,12 +100,14 @@ const Navbar = () => {
                   src={item.imageUrl}
                   alt={item.name}
                   className={`h-[24px] w-[24px] object-contain ${
-                    isActive === item.name ? "grayscale-0" : "grayscale"
+                    activeSection === item.link ? "grayscale-0" : "grayscale"
                   }`}
                 />
                 <p
                   className={`ml-[20px] font-epilogue text-[14px] font-semibold ${
-                    isActive === item.name ? "text-[#1dc071]" : "text-[#808191]"
+                    activeSection === item.link
+                      ? "text-[#1dc071]"
+                      : "text-[#808191]"
                   }`}
                 >
                   {item.name}
