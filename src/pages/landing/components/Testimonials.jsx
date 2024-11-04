@@ -28,7 +28,7 @@ const Testimonials = () => {
           <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
             <Card className="h-full">
               <CardContent className="flex h-full flex-col justify-between p-6">
-                <p className="mb-4 text-gray-600 dark:text-gray-500">
+                <p className="mb-4 text-gray-600 dark:text-gray-400">
                   &quot;{testimonial.content}&quot;
                 </p>
                 <div className="mt-4 flex items-center">
@@ -43,7 +43,7 @@ const Testimonials = () => {
                   </Avatar>
                   <div>
                     <p className="font-semibold">{testimonial.name}</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <p className="text-sm text-gray-500 dark:text-gray-300">
                       {testimonial.role}
                     </p>
                   </div>

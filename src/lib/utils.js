@@ -25,7 +25,7 @@ export const useMetricsData = (metrics) => {
       subtitle: "Progress Overview",
       value: `${metrics.completedScreenings} of ${metrics.totalScreenings}`,
       icon: IconCircleDashedCheck,
-      onClick: () => navigate("/treatment/progress"),
+      onClick: () => navigate("/treatment-progress"),
     },
     {
       title: "Total Patient Records",

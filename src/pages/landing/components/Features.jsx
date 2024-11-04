@@ -8,12 +8,12 @@ const Features = () => {
         <Card key={index}>
           <CardHeader>
             <feature.icon className="mx-auto mb-4 h-12 w-12 text-green-500" />
-            <CardTitle className="text-center text-gray-800 dark:text-gray-400">
+            <CardTitle className="text-center text-gray-800 dark:text-gray-300">
               {feature.title}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-center text-gray-600 dark:text-gray-500">
+            <p className="text-center text-gray-600 dark:text-gray-400">
               {feature.description}
             </p>
           </CardContent>

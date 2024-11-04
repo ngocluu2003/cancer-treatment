@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Route, Routes, useNavigate, useSearchParams } from "react-router-dom";
-import { Profile, Onboarding, Home } from "./pages";
+import { Profile, Onboarding } from "./pages";
 import MedicalRecord from "./pages/records/MedicalRecord";
 import SingleRecordDetails from "./pages/records/SingleRecordDetail";
 import ScreeningSchedule from "./pages/ScreeningSchedule";
@@ -9,6 +9,9 @@ import ProtectedRoutes from "./components/ProtectedRoutes";
 import Dashboard from "./pages/Dashboard";
 import { SignIn, useUser } from "@clerk/clerk-react";
 import Layout from "./pages/landing/Layout";
+import Monitoring from "./pages/Monitoring";
+import Screenings from "./pages/Screenings";
+import Appointments from "./pages/Appointments";
 
 if (typeof window !== "undefined" && !window.Buffer) {
   window.Buffer = Buffer;
@@ -81,6 +84,30 @@ const App = () => {
             }
           />
           <Route path="/" element={<Layout />} />
+          <Route
+            path="/appointments"
+            element={
+              <ProtectedRoutes>
+                <Appointments />
+              </ProtectedRoutes>
+            }
+          />
+          <Route
+            path="/screenings"
+            element={
+              <ProtectedRoutes>
+                <Screenings />
+              </ProtectedRoutes>
+            }
+          />
+          <Route
+            path="/monitoring"
+            element={
+              <ProtectedRoutes>
+                <Monitoring />
+              </ProtectedRoutes>
+            }
+          />
         </Routes>
       ) : (
         !user && (
