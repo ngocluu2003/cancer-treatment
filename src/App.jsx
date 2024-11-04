@@ -12,6 +12,7 @@ import Layout from "./pages/landing/Layout";
 import Monitoring from "./pages/Monitoring";
 import Screenings from "./pages/Screenings";
 import Appointments from "./pages/Appointments";
+import NotFound from "./pages/NotFound";
 
 if (typeof window !== "undefined" && !window.Buffer) {
   window.Buffer = Buffer;
@@ -108,6 +109,8 @@ const App = () => {
               </ProtectedRoutes>
             }
           />
+          {/* Catch-all route for undefined paths */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       ) : (
         !user && (
