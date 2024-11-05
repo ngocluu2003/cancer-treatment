@@ -5,6 +5,8 @@ import CreateRecordModal from "./components/CreateRecordModal";
 import { useNavigate } from "react-router-dom";
 import { useUserStateContext } from "../../context/UserContext";
 import { useUser } from "@clerk/clerk-react";
+import { useFetch } from "@/hooks/useFetch";
+import { BarLoader } from "react-spinners";
 
 const MedicalRecord = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -13,7 +15,7 @@ const MedicalRecord = () => {
 
   const navigate = useNavigate();
   const { user } = useUser();
-  const { records, fetchUserRecords, createRecord, currentUser } =
+  const { deleteRecord, records, fetchUserRecords, createRecord, currentUser } =
     useUserStateContext();
 
   useEffect(() => {
@@ -63,8 +65,21 @@ const MedicalRecord = () => {
     navigate(`/medical-records/${name}`, { state: filteredRecords[0] });
   };
 
+  const {
+    data,
+    error: deleteError,
+    fetchData,
+    loading: deleteLoading,
+  } = useFetch(deleteRecord);
+  const handleDeleteRecord = async (recordID) => {
+    await deleteRecord(recordID);
+  };
+
   return (
     <div className="flex flex-wrap gap-[26px] bg-[#f5f5f5] dark:bg-[#13131a]">
+      {deleteLoading && (
+        <BarLoader className="mb-4" width={"100%"} color="36d7b7" />
+      )}
       {/* Folder Creation Button */}
       {true && (
         <button
@@ -88,7 +103,13 @@ const MedicalRecord = () => {
       {/* Records List */}
       <div className="grid w-full gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
         {records.map((record, index) => (
-          <RecordCard key={index} record={record} onNavigate={handleNavigate} />
+          <RecordCard
+            key={index}
+            handleDeleteRecord={fetchData}
+            loading={deleteLoading}
+            record={record}
+            onNavigate={handleNavigate}
+          />
         ))}
       </div>
     </div>

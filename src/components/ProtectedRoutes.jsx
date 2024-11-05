@@ -11,7 +11,7 @@ const ProtectedRoutes = ({ children }) => {
     useUserStateContext();
   const { isLoaded, user } = useUser();
   const navigate = useNavigate();
-  const location = useLocation();
+  const { pathname } = useLocation();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const ProtectedRoutes = ({ children }) => {
             navigate("/onboarding");
           } else if (!currentUser.isOnBoarded) {
             navigate("/onboarding");
-          } else if (location.pathname === "/onboarding") {
+          } else if (pathname === "/onboarding") {
             navigate("/dashboard");
           }
         } catch (error) {
@@ -43,7 +43,8 @@ const ProtectedRoutes = ({ children }) => {
       }
     };
     initializeApp();
-  }, [isLoaded, user, navigate, currentUser, location.pathname]);
+  }, [isLoaded, user, navigate, currentUser, pathname]);
+
   if (loading) {
     return <LoadingSpinner />;
   }

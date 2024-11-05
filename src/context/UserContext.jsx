@@ -1,4 +1,10 @@
-import React, { createContext, useCallback, useContext, useState, useMemo } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useState,
+  useMemo,
+} from "react";
 import { db } from "../utils/dbConfig";
 import { Users, Records } from "../utils/schema";
 import { eq } from "drizzle-orm";
@@ -102,8 +108,8 @@ export const UserStateContextProvider = ({ children }) => {
         .returning();
       setRecords((prevRecords) =>
         prevRecords.map((record) =>
-          record.id === documentID ? { ...record, ...dataToUpdate } : record
-        )
+          record.id === documentID ? { ...record, ...dataToUpdate } : record,
+        ),
       );
     } catch (err) {
       handleError(err, "Failed to update record");
@@ -116,12 +122,10 @@ export const UserStateContextProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      await db
-        .delete()
-        .from(Records)
-        .where(eq(Records.id, recordID))
-        .execute();
-      setRecords((prevRecords) => prevRecords.filter((record) => record.id !== recordID));
+      await db.delete(Records).where(eq(Records.id, recordID));
+      setRecords((prevRecords) =>
+        prevRecords.filter((record) => record.id !== recordID),
+      );
     } catch (err) {
       handleError(err, "Failed to delete record");
     } finally {
@@ -143,7 +147,7 @@ export const UserStateContextProvider = ({ children }) => {
       updateRecord,
       deleteRecord,
     }),
-    [users, records, currentUser, loading, error]
+    [users, records, currentUser, loading, error],
   );
 
   return (
@@ -156,7 +160,9 @@ export const UserStateContextProvider = ({ children }) => {
 export const useUserStateContext = () => {
   const context = useContext(UserStateContext);
   if (!context) {
-    throw new Error("useUserStateContext must be used within a UserStateContextProvider");
+    throw new Error(
+      "useUserStateContext must be used within a UserStateContextProvider",
+    );
   }
   return context;
 };
