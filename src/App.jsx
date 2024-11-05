@@ -8,13 +8,14 @@ import ScreeningSchedule from "./pages/ScreeningSchedule";
 import { Buffer } from "buffer";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import Dashboard from "./pages/Dashboard";
-import { SignIn, useUser } from "@clerk/clerk-react";
+import { useUser } from "@clerk/clerk-react";
 import Layout from "./pages/landing/Layout";
 import Monitoring from "./pages/Monitoring";
 import Screenings from "./pages/Screenings";
 import Appointments from "./pages/Appointments";
 import NotFound from "./pages/NotFound";
 import { useUserStateContext } from "./context/UserContext";
+import SignIn from "./pages/SignIn";
 
 if (typeof window !== "undefined" && !window.Buffer) {
   window.Buffer = Buffer;
@@ -125,14 +126,7 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       ) : (
-        !user && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
-            <SignIn
-              signUpForceRedirectUrl="/dashboard"
-              signUpFallbackRedirectUrl="/dashboard"
-            />
-          </div>
-        )
+        !user && <SignIn />
       )}
     </div>
   );
