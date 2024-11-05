@@ -52,7 +52,7 @@ const MedicalRecord = () => {
         }
       }
     } catch (error) {
-      setError("Error creating folder. Please try again.");
+      setError(error.message);
     } finally {
       setLoading(false);
     }
@@ -71,9 +71,6 @@ const MedicalRecord = () => {
     fetchData,
     loading: deleteLoading,
   } = useFetch(deleteRecord);
-  const handleDeleteRecord = async (recordID) => {
-    await deleteRecord(recordID);
-  };
 
   return (
     <div className="flex flex-wrap gap-[26px] bg-[#f5f5f5] dark:bg-[#13131a]">

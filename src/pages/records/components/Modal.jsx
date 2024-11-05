@@ -1,5 +1,5 @@
 import React from "react";
-import { IconX } from "@tabler/icons-react";
+import { IconProgress, IconX } from "@tabler/icons-react";
 
 const Modal = ({
   title,
@@ -22,9 +22,6 @@ const Modal = ({
               {title}
             </h2>
           </div>
-          {loading && (
-            <div className="mt-4 text-center text-green-500">Loading....</div>
-          )}
 
           {error && !loading && (
             <div className="mt-4 text-center text-red-600">{error}</div>
@@ -40,7 +37,14 @@ const Modal = ({
               disabled={loading} // Disable button while loading
               className="inline-flex w-full items-center justify-center gap-x-2 rounded-lg border border-transparent bg-[#1ec070] px-4 py-2 text-sm font-semibold text-white hover:bg-[#1dc060] disabled:pointer-events-none disabled:opacity-50"
             >
-              {loading ? "Creating" : actionLabel}
+              {loading ? (
+                <IconProgress
+                  size={10}
+                  className="mr-3 h-5 w-5 animate-spin text-black dark:text-white"
+                />
+              ) : (
+                actionLabel
+              )}
             </button>
           </div>
         </div>

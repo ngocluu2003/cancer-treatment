@@ -15,17 +15,12 @@ export const UserStateContextProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
   const [records, setRecords] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   const handleError = (err, customMessage = "An error occurred") => {
-    console.error(customMessage, err);
-    setError(customMessage);
+    console.error(`${customMessage}: ${err.message}`);
   };
 
   const fetchUserByEmail = useCallback(async (email) => {
-    setLoading(true);
-    setError(null);
     try {
       const result = await db
         .select()
@@ -34,35 +29,40 @@ export const UserStateContextProvider = ({ children }) => {
         .execute();
       setCurrentUser(result.length > 0 ? result[0] : "user-not-found");
     } catch (err) {
-      handleError(err, "Failed to fetch user by email");
-    } finally {
-      setLoading(false);
+      handleError(err);
     }
   }, []);
 
   const createUser = useCallback(async (userData) => {
-    setLoading(true);
-    setError(null);
+    const existingUsers = await db
+      .select()
+      .from(Users)
+      .where(eq(Users.username, userData.username))
+      .execute();
+
+    const isUsernameTaken = existingUsers.some(
+      (user) => user.createdBy !== userData.createdBy,
+    );
+    if (isUsernameTaken) {
+      throw new Error("Username is already taken. Please choose another.");
+    }
+
     try {
       const newUser = await db
         .insert(Users)
         .values(userData)
         .returning()
         .execute();
+
       setUsers((prevUsers) => [...prevUsers, newUser[0]]);
       setCurrentUser(newUser[0]);
-      return { user: newUser[0], loading: false, error: null };
+      return newUser[0];
     } catch (err) {
-      handleError(err, "Failed to create user");
-      return { user: null, loading: false, error: err };
-    } finally {
-      setLoading(false);
+      handleError(err, err.message || "Failed to create user");
     }
   }, []);
 
   const fetchUserRecords = useCallback(async (userEmail) => {
-    setLoading(true);
-    setError(null);
     try {
       const result = await db
         .select()
@@ -72,14 +72,22 @@ export const UserStateContextProvider = ({ children }) => {
       setRecords(result);
     } catch (err) {
       handleError(err, "Failed to fetch user records");
-    } finally {
-      setLoading(false);
     }
   }, []);
 
   const createRecord = useCallback(async (recordData) => {
-    setLoading(true);
-    setError(null);
+    const existingRecords = await db
+      .select()
+      .from(Records)
+      .where(eq(Records.createdBy, recordData.createdBy))
+      .execute();
+
+    const isRecordExist = existingRecords.some(
+      (record) => record.recordName === recordData.recordName,
+    );
+    if (isRecordExist) {
+      throw new Error("Record name is already taken. Please choose another.");
+    }
     try {
       const newRecord = await db
         .insert(Records)
@@ -87,18 +95,13 @@ export const UserStateContextProvider = ({ children }) => {
         .returning({ id: Records.id })
         .execute();
       setRecords((prevRecords) => [...prevRecords, newRecord[0]]);
-      return { record: newRecord[0], error: null };
+      return newRecord[0];
     } catch (err) {
       handleError(err, "Failed to create record");
-      return { record: null, error: err };
-    } finally {
-      setLoading(false);
     }
   }, []);
 
   const updateRecord = useCallback(async (recordData) => {
-    setLoading(true);
-    setError(null);
     try {
       const { documentID, ...dataToUpdate } = recordData;
       await db
@@ -113,14 +116,10 @@ export const UserStateContextProvider = ({ children }) => {
       );
     } catch (err) {
       handleError(err, "Failed to update record");
-    } finally {
-      setLoading(false);
     }
   }, []);
 
   const deleteRecord = useCallback(async (recordID) => {
-    setLoading(true);
-    setError(null);
     try {
       await db.delete(Records).where(eq(Records.id, recordID));
       setRecords((prevRecords) =>
@@ -128,8 +127,6 @@ export const UserStateContextProvider = ({ children }) => {
       );
     } catch (err) {
       handleError(err, "Failed to delete record");
-    } finally {
-      setLoading(false);
     }
   }, []);
 
@@ -138,8 +135,6 @@ export const UserStateContextProvider = ({ children }) => {
       users,
       records,
       currentUser,
-      loading,
-      error,
       fetchUserByEmail,
       createUser,
       fetchUserRecords,
@@ -147,7 +142,7 @@ export const UserStateContextProvider = ({ children }) => {
       updateRecord,
       deleteRecord,
     }),
-    [users, records, currentUser, loading, error],
+    [users, records, currentUser],
   );
 
   return (

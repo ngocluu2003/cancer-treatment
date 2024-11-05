@@ -58,7 +58,7 @@ const FileUploadModal = ({
       )}
 
       {uploadSuccess && (
-        <p className="mt-2 text-green-600">Upload successful!</p>
+        <p className="mt-2 text-green-600">Uploaded successful!</p>
       )}
       <span className="text-md text-left text-black dark:text-white">
         {fileName}

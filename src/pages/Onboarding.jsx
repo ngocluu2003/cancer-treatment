@@ -2,27 +2,30 @@ import React, { useState } from "react";
 import { useUserStateContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
+import { useFetch } from "@/hooks/useFetch";
+import { BarLoader } from "react-spinners";
+import { IconProgress } from "@tabler/icons-react";
 
 const Onboarding = () => {
   const [username, setUsername] = useState("");
   const [age, setAge] = useState("");
   const [location, setLocation] = useState("");
-  const {
-    createUser,
-  } = useUserStateContext();
+  const { createUser } = useUserStateContext();
   const { user } = useUser();
-  const navigate = useNavigate();
-  const [formLoading, setFormLoading] = useState(false);
   const [formError, setFormError] = useState("");
+  const [userError, setUserError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleOnboarding = async (e) => {
-    e.preventDefault();
-    setFormLoading(true);
+    setLoading(true);
     setFormError("");
+    setUserError("");
+
+    e.preventDefault();
 
     if (parseInt(age, 10) <= 0) {
       setFormError("Please enter a valid age.");
-      setFormLoading(false);
+      setLoading(false);
       return;
     }
 
@@ -30,26 +33,21 @@ const Onboarding = () => {
       username,
       age: parseInt(age, 10),
       location,
-      createdBy: user.emailAddresses[0]?.emailAddress,
+      createdBy: user?.emailAddresses[0]?.emailAddress,
       isOnBoarded: true,
     };
 
     try {
-      const newUser = await createUser(userData);
-      if (newUser) {
-        navigate("/profile");
-      }
-    } catch (err) {
-      setFormError("Error creating user. Please try again."); 
+      await createUser(userData);
+    } catch (error) {
+      setUserError(error.message);
     } finally {
-      setFormLoading(false); 
+      setLoading(false);
     }
   };
 
-
-
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#f5f5f5] dark:bg-[#13131a]">
+    <div className="-mt-12 flex min-h-screen items-center justify-center bg-[#f5f5f5] dark:bg-[#13131a]">
       <div className="w-full max-w-md rounded-2xl bg-[#e9e9e9] p-8 shadow-lg dark:bg-[#1c1c24]">
         <h2 className="mb-2 text-center text-5xl font-bold text-[#1ec070] dark:text-[#1dc071]">
           👋
@@ -62,6 +60,9 @@ const Onboarding = () => {
           {formError && (
             <div className="mb-4 text-center text-red-600">{formError}</div>
           )}{" "}
+          {userError && (
+            <div className="mb-4 text-center text-red-600">{userError}</div>
+          )}
           {/* Display form error message */}
           <div className="mb-4">
             <label
@@ -113,10 +114,22 @@ const Onboarding = () => {
           </div>
           <button
             type="submit"
-            disabled={formLoading}
-            className={`w-full rounded-lg py-3 font-semibold text-white transition-colors duration-200 ${formLoading ? "bg-gray-400" : "bg-[#1ec070] hover:bg-[#1dc071]"} focus:outline-none focus:ring-2 focus:ring-[#1dc071] dark:bg-[#1dc071] dark:hover:bg-[#1ec070]`}
+            disabled={loading}
+            className={`flex w-full items-center justify-center rounded-lg py-3 font-semibold text-white transition-colors duration-200 ${loading ? "bg-gray-300 dark:bg-gray-600" : "bg-[#1ec070] hover:bg-[#1dc071]"} focus:outline-none focus:ring-2 focus:ring-[#1dc071] dark:bg-[#1dc071] dark:hover:bg-[#1ec070]`}
           >
-            {formLoading ? "Loading..." : "Get Started"}
+            {loading ? (
+              <IconProgress
+                size={15}
+                className="h-5 w-5 animate-spin text-black dark:text-white"
+              />
+            ) : (
+              "Submit"
+            )}
+            {loading && (
+              <span className="ml-2 text-black dark:text-white">
+                Submitting...
+              </span>
+            )}
           </button>
         </form>
       </div>
