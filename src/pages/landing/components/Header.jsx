@@ -23,7 +23,9 @@ const Header = () => {
         <ThemeSwitch className="m-2 flex h-10 w-10 items-center justify-center rounded-full" />
         <SignedOut>
           <SignInButton forceRedirectUrl="/dashboard">
-            <Button variant="outline">Login</Button>
+            <Button variant="outline" className="px-6 py-4 text-md">
+              Login
+            </Button>
           </SignInButton>
         </SignedOut>
         <SignedIn>
