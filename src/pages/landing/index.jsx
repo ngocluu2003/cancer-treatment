@@ -8,7 +8,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function Home() {
   return (
-    <main className="container mx-auto px-4 py-16">
+    <main className="container mx-auto px-6 py-16">
       <Description />
       <div className="mb-24">
         <h2 className="mb-12 text-center text-3xl font-bold text-black dark:text-white md:text-4xl">

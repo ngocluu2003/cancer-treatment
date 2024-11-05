@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "../../../components/ui/button";
 import { IconHeartHandshake } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
-import { SignedIn, SignedOut, SignInButton } from "@clerk/clerk-react";
+import { SignedIn, SignedOut } from "@clerk/clerk-react";
 import UserMenu from "../../../components/UserMenu";
 import ThemeSwitch from "@/components/ThemeSwitch";
+import SignIn from "@/pages/SignIn";
 
 const Header = () => {
+  const [showSignIn, setShowSignIn] = useState(false);
+  if (showSignIn) {
+    return <SignIn />;
+  }
   return (
     <nav className="mx-auto flex items-center justify-between border-b-2 px-4 py-2 shadow-md">
       <Link to={"/"} className="flex items-center">
@@ -22,11 +27,13 @@ const Header = () => {
         </Link>
         <ThemeSwitch className="m-2 flex h-10 w-10 items-center justify-center rounded-full" />
         <SignedOut>
-          <SignInButton forceRedirectUrl="/dashboard">
-            <Button variant="outline" className="px-6 py-4 text-md">
-              Login
-            </Button>
-          </SignInButton>
+          <Button
+            variant="outline"
+            onClick={() => setShowSignIn((prev) => !prev)}
+            className="text-md px-6 py-4"
+          >
+            Login
+          </Button>
         </SignedOut>
         <SignedIn>
           <UserMenu />
