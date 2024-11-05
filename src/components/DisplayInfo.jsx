@@ -55,9 +55,8 @@ const DisplayInfo = () => {
                 kanban?.tasks.filter((task) => task.columnId === "followup")
                   .length || 0;
               monitoringTasks +=
-                kanban?.tasks.filter(
-                  (task) => task.columnId === "monitoring",
-                ).length || 0;
+                kanban?.tasks.filter((task) => task.columnId === "monitoring")
+                  .length || 0;
             } catch (error) {
               console.error("Failed to parse kanbanRecords:", error);
             }
@@ -78,7 +77,7 @@ const DisplayInfo = () => {
         console.error(e);
       }
     }
-  }, [records]);
+  }, [records, currentUser]);
 
   const metricsData = useMetricsData(metrics);
 

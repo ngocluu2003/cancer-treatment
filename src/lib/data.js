@@ -8,7 +8,6 @@ import {
 } from "lucide-react";
 
 export const navLinks = [
-  { name: "Home", imageUrl: "/home.svg", link: "/" },
   {
     name: "dashboard",
     imageUrl: "/apps.svg",
@@ -29,6 +28,7 @@ export const navLinks = [
     imageUrl: "/user.svg",
     link: "/profile",
   },
+  { name: "Home", imageUrl: "/home.svg", link: "/" },
 ];
 
 export const features = [

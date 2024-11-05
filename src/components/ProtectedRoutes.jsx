@@ -30,6 +30,7 @@ const ProtectedRoutes = ({ children }) => {
           } else if (currentUser === "user-not-found") {
             navigate("/onboarding");
           } else if (!currentUser.isOnBoarded) {
+            // it is not necessary usually but when we play with database the useful only
             navigate("/onboarding");
           } else if (pathname === "/onboarding") {
             navigate("/dashboard");
@@ -37,7 +38,6 @@ const ProtectedRoutes = ({ children }) => {
         } catch (error) {
           console.error("Error initializing app:", error);
         } finally {
-          fetchUserRecords(email);
           setLoading(false);
         }
       }

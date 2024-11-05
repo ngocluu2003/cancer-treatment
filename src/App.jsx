@@ -14,7 +14,7 @@ import Monitoring from "./pages/Monitoring";
 import Screenings from "./pages/Screenings";
 import Appointments from "./pages/Appointments";
 import NotFound from "./pages/NotFound";
-
+import { useUserStateContext } from "./context/UserContext";
 
 if (typeof window !== "undefined" && !window.Buffer) {
   window.Buffer = Buffer;
@@ -22,15 +22,25 @@ if (typeof window !== "undefined" && !window.Buffer) {
 
 const App = () => {
   const [searchParams] = useSearchParams();
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
   const navigate = useNavigate();
+  const { fetchUserRecords } = useUserStateContext();
 
   useEffect(() => {
     const isSignIn = searchParams.get("sign-in") === "true";
-    if (isSignIn && user) {
+    if (isLoaded && isSignIn && user) {
       navigate("/dashboard");
     }
-  }, [searchParams, user, navigate]);
+  }, [searchParams, user, navigate, isLoaded]);
+
+  useEffect(() => {
+    if (isLoaded && user) {
+      const fetchingRecords = async () => {
+        await fetchUserRecords(user.emailAddresses[0].emailAddress);
+      };
+      fetchingRecords();
+    }
+  }, [user, isLoaded]);
 
   const isSignIn = searchParams.get("sign-in") === "true";
 
