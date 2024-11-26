@@ -86,32 +86,13 @@ const App = () => {
         }
       />
       <Route path="/" element={<Layout />} />
-      <Route
-        path="/appointments"
-        element={
-          <ProtectedRoutes>
-            <Appointments />
-          </ProtectedRoutes>
-        }
-      />
-      <Route
-        path="/screenings"
-        element={
-          <ProtectedRoutes>
-            <Screenings />
-          </ProtectedRoutes>
-        }
-      />
-      <Route
-        path="/monitoring"
-        element={
-          <ProtectedRoutes>
-            <Monitoring />
-          </ProtectedRoutes>
-        }
-      />
+      <Route path="/appointments" element={<Appointments />} />
+      <Route path="/screenings" element={<Screenings />} />
+      <Route path="/monitoring" element={<Monitoring />} />
+      <Route path="/treatment-progress" element={<Monitoring />} />
       <Route path="/sign-in" element={<SignIn />} />
       <Route path="/sign-up" element={<SignUp />} />
+
       {/* Catch-all route for undefined paths */}
       <Route path="*" element={<NotFound />} />
     </Routes>
