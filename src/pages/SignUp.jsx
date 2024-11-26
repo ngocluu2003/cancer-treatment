@@ -1,10 +1,11 @@
 import React from "react";
-import { SignUp as ClerkSignUp, useUser } from "@clerk/clerk-react";
 import Header from "./landing/components/Header";
+import { SignUp as ClerkSignUp } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "@clerk/clerk-react";
 import LoadingSpinner from "@/components/LoadingSpinner";
 
-const SignUp = () => {
+const SignUpPage = () => {
   const navigate = useNavigate();
   const { user, isLoaded } = useUser();
 
@@ -13,47 +14,58 @@ const SignUp = () => {
   }
 
   if (isLoaded && user) {
-    return navigate("/dashboard");
+    navigate("/dashboard");
   }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-100 to-white dark:from-[#0D1117] dark:to-[#161C22]">
       <Header />
 
-      <div className="flex flex-grow items-center justify-center px-4 sm:px-6 lg:px-8">
-        <div className="container mx-auto flex flex-col items-center justify-center lg:flex-row lg:space-x-10">
-          {/* Left Section */}
-          <div className="flex w-full flex-col items-center space-y-6 text-center lg:w-1/2 lg:items-start lg:text-left">
-            <h2 className="text-4xl font-bold text-gray-800 dark:text-white">
-              Create Your Account
-            </h2>
-            <p className="text-lg leading-relaxed text-gray-600 dark:text-gray-300">
-              Join us and start managing your life effortlessly. Signing up is
-              quick and easy!
+      {/* SignUp Section */}
+      <main className="flex items-center justify-center px-4 py-16 sm:px-8 md:px-16">
+        <div className="grid w-full max-w-6xl grid-cols-1 gap-4 lg:grid-cols-2">
+          {/* Left Side: Description */}
+          <div className="mx-auto flex flex-col justify-center space-y-6 text-center lg:max-w-lg lg:text-left">
+            <h1 className="text-4xl font-extrabold text-gray-800 dark:text-white">
+              Join Our Platform
+            </h1>
+            <p className="text-lg text-gray-600 dark:text-gray-300">
+              Sign up to get started with personalized treatment plans and a dashboard tailored to your health journey.
             </p>
-            <button
-              className="text-sm text-gray-500 dark:text-gray-400 hover:underline"
-              onClick={() => navigate("/sign-in")}
-            >
-              Already have an account? Sign in to continue your journey.
-            </button>
-          </div>
-
-          {/* Right Section */}
-          <div className="flex w-full flex-col items-center p-6 lg:w-1/2">
-            <div className="w-full max-w-md p-8">
-              <ClerkSignUp
-                appearance={{
-                  elements: {
-                    footer: "hidden",
-                  },
-                }}
-              />
+            <div className="flex justify-center lg:justify-start">
+              <button
+                onClick={() => navigate("/sign-in")}
+                className="text-md inline-block font-semibold text-green-600 transition-all duration-300 hover:text-green-800 dark:text-green-400 dark:hover:text-green-600"
+              >
+                Already have an account?{" "}
+                <span className="hover:underline">Sign in.</span>
+              </button>
             </div>
           </div>
+
+          {/* Right Side: Sign-Up Component */}
+          <div className="flex items-center justify-center p-6">
+            <ClerkSignUp
+              appearance={{
+                elements: {
+                  footer: "hidden",
+                },
+              }}
+              signInForceRedirectUrl="/dashboard"
+              signInFallbackRedirectUrl="/dashboard"
+            />
+          </div>
         </div>
-      </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-green-100 py-8 dark:bg-[#0D1117]">
+        <div className="container mx-auto px-4 text-center text-black dark:text-white">
+          <p>Made with ❤️ by Vinay Chhabra</p>
+        </div>
+      </footer>
     </div>
   );
 };
 
-export default SignUp;
+export default SignUpPage;

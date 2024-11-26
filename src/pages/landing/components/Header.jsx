@@ -13,7 +13,7 @@ const Header = () => {
     <nav className="mx-auto flex items-center justify-between border-b-2 px-4 py-2 shadow-md">
       <Link to={"/"} className="flex items-center space-x-3">
         <IconHeartHandshake size={40} color="#1ec070" />
-        <span className="text-2xl font-semibold text-[#1ec070] dark:text-[#1dc070]">
+        <span className="text-2xl font-semibold hidden sm:flex text-[#1ec070] dark:text-[#1dc070]">
           Cancure AI
         </span>
       </Link>
