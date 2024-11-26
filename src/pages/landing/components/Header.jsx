@@ -31,7 +31,7 @@ const Header = () => {
         </Link>
         <SignedOut>
           <Button
-            onClick={() => navigate("/?sign-in=true")}
+            onClick={() => navigate("/sign-in")}
             className="flex items-center gap-2"
           >
             <LogInIcon className="text-[#1ec070] sm:hidden" size={24} />

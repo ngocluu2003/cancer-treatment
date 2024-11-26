@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { useUserStateContext } from "../context/UserContext";
-import { useNavigate } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
-import { useFetch } from "@/hooks/useFetch";
-import { BarLoader } from "react-spinners";
 import { IconProgress } from "@tabler/icons-react";
 
 const Onboarding = () => {

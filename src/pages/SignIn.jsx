@@ -1,61 +1,44 @@
-import React, { useState } from "react";
-import {
-  SignIn as ClerkSignIn,
-  SignUp as ClerkSignUp,
-} from "@clerk/clerk-react";
+import React from "react";
+import { SignIn as ClerkSignIn } from "@clerk/clerk-react";
+import Header from "./landing/components/Header";
 import { useNavigate } from "react-router-dom";
-import { useThemeContext } from "@/context/ThemeContext";
+import { useUser } from "@clerk/clerk-react";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const SignIn = () => {
-  const [showSignUp, setShowSignUp] = useState(false);
   const navigate = useNavigate();
-  const { theme } = useThemeContext();
+  const { user, isLoaded } = useUser();
 
-  const handleOverlayClick = () => {
-    navigate("/");
-  };
+  if (!isLoaded) {
+    return <LoadingSpinner />;
+  }
+
+  if (isLoaded && user) {
+    return navigate("/dashboard");
+  }
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-cover bg-center"
-      style={{
-        backgroundImage:
-          theme === "light" ? "url('/bg-white.png')" : "url('/bg-black.png')",
-      }}
-      onClick={handleOverlayClick}
-    >
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+    <div className="min-h-screen bg-gradient-to-b from-gray-100 to-white dark:from-[#0D1117] dark:to-[#161C22]">
+      <Header />
 
-      <div
-        className="relative z-10 mx-4 w-full max-w-md rounded-lg bg-[#403D76] p-6 shadow-2xl sm:mx-auto"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="mb-4 flex justify-center text-sm text-gray-200">
-          <span>
-            {showSignUp
-              ? "Already have an account? "
-              : "Don't have an account? "}
-            <strong
-              onClick={() => setShowSignUp((prev) => !prev)}
-              className="cursor-pointer text-[#1ec070] hover:underline"
-            >
-              {showSignUp ? "Sign In" : "Sign Up"}
-            </strong>
-          </span>
+      <div className="container mx-auto flex flex-col items-center justify-center px-4 py-16 sm:px-6 lg:flex-row lg:space-x-10 lg:px-8">
+        {/* Left Section */}
+        <div className="flex w-full flex-col items-center space-y-6 text-center lg:w-1/2 lg:items-start lg:text-left">
+          <h2 className="text-4xl font-bold text-gray-800 dark:text-white">
+            Welcome Back!
+          </h2>
+          <p className="text-lg leading-relaxed text-gray-600 dark:text-gray-300">
+            Access your account or sign up to start your journey with us. Our
+            platform is designed to help you manage your life effortlessly.
+          </p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            Join us and explore the possibilities today!
+          </p>
         </div>
 
-        <div className="mb-4">
-          {showSignUp ? (
-            <ClerkSignUp
-              appearance={{
-                elements: {
-                  footer: "hidden",
-                },
-              }}
-              signUpForceRedirectUrl="/dashboard"
-              signUpFallbackRedirectUrl="/dashboard"
-            />
-          ) : (
+        {/* Right Section */}
+        <div className="flex w-full flex-col items-center p-6 lg:w-1/2">
+          <div className="w-full max-w-md p-8">
             <ClerkSignIn
               appearance={{
                 elements: {
@@ -65,7 +48,13 @@ const SignIn = () => {
               signUpForceRedirectUrl="/dashboard"
               signUpFallbackRedirectUrl="/dashboard"
             />
-          )}
+            <button
+              onClick={() => navigate("/sign-up")}
+              className="mt-6 w-full text-sm font-medium text-[#1ec070] hover:underline focus:outline-none dark:text-[#1dc071]"
+            >
+              Don't have an account? Sign Up
+            </button>
+          </div>
         </div>
       </div>
     </div>

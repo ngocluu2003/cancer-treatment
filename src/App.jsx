@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Routes, useNavigate, useSearchParams } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Profile from "./pages/Profile";
 import Onboarding from "./pages/Onboarding";
 import MedicalRecord from "./pages/records/MedicalRecord";
@@ -16,23 +16,15 @@ import Appointments from "./pages/Appointments";
 import NotFound from "./pages/NotFound";
 import { useUserStateContext } from "./context/UserContext";
 import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 
 if (typeof window !== "undefined" && !window.Buffer) {
   window.Buffer = Buffer;
 }
 
 const App = () => {
-  const [searchParams] = useSearchParams();
   const { user, isLoaded } = useUser();
-  const navigate = useNavigate();
   const { fetchUserRecords } = useUserStateContext();
-
-  useEffect(() => {
-    const isSignIn = searchParams.get("sign-in") === "true";
-    if (isLoaded && isSignIn && user) {
-      navigate("/dashboard");
-    }
-  }, [searchParams, user, navigate, isLoaded]);
 
   useEffect(() => {
     if (isLoaded && user) {
@@ -43,92 +35,86 @@ const App = () => {
     }
   }, [user, isLoaded]);
 
-  const isSignIn = searchParams.get("sign-in") === "true";
-
   return (
-    <div>
-      {!isSignIn ? (
-        <Routes>
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoutes>
-                <Dashboard />
-              </ProtectedRoutes>
-            }
-          />
-          <Route
-            path="/onboarding"
-            element={
-              <ProtectedRoutes>
-                <Onboarding />
-              </ProtectedRoutes>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoutes>
-                <Profile />
-              </ProtectedRoutes>
-            }
-          />
-          <Route
-            path="/medical-records"
-            element={
-              <ProtectedRoutes>
-                <MedicalRecord />
-              </ProtectedRoutes>
-            }
-          />
-          <Route
-            path="/medical-records/:id"
-            element={
-              <ProtectedRoutes>
-                <SingleRecordDetails />
-              </ProtectedRoutes>
-            }
-          />
-          <Route
-            path="/screening-schedules"
-            element={
-              <ProtectedRoutes>
-                <ScreeningSchedule />
-              </ProtectedRoutes>
-            }
-          />
-          <Route path="/" element={<Layout />} />
-          <Route
-            path="/appointments"
-            element={
-              <ProtectedRoutes>
-                <Appointments />
-              </ProtectedRoutes>
-            }
-          />
-          <Route
-            path="/screenings"
-            element={
-              <ProtectedRoutes>
-                <Screenings />
-              </ProtectedRoutes>
-            }
-          />
-          <Route
-            path="/monitoring"
-            element={
-              <ProtectedRoutes>
-                <Monitoring />
-              </ProtectedRoutes>
-            }
-          />
-          {/* Catch-all route for undefined paths */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      ) : (
-        !user && <SignIn />
-      )}
-    </div>
+    <Routes>
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoutes>
+            <Dashboard />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/onboarding"
+        element={
+          <ProtectedRoutes>
+            <Onboarding />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoutes>
+            <Profile />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/medical-records"
+        element={
+          <ProtectedRoutes>
+            <MedicalRecord />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/medical-records/:id"
+        element={
+          <ProtectedRoutes>
+            <SingleRecordDetails />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/screening-schedules"
+        element={
+          <ProtectedRoutes>
+            <ScreeningSchedule />
+          </ProtectedRoutes>
+        }
+      />
+      <Route path="/" element={<Layout />} />
+      <Route
+        path="/appointments"
+        element={
+          <ProtectedRoutes>
+            <Appointments />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/screenings"
+        element={
+          <ProtectedRoutes>
+            <Screenings />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/monitoring"
+        element={
+          <ProtectedRoutes>
+            <Monitoring />
+          </ProtectedRoutes>
+        }
+      />
+      <Route path="/sign-in" element={<SignIn />} />
+      <Route path="/sign-up" element={<SignUp />} />
+      {/* Catch-all route for undefined paths */}
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 };
 

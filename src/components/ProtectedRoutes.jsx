@@ -18,7 +18,7 @@ const ProtectedRoutes = ({ children }) => {
     const initializeApp = async () => {
       if (isLoaded) {
         if (!user) {
-          navigate("/?sign-in=true");
+          navigate("/sign-in");
           setLoading(false);
           return;
         }
