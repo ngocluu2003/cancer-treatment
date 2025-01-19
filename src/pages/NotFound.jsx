@@ -31,13 +31,13 @@ const NotFound = () => {
 
         {/* Subtitle */}
         <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-300 mb-4">
-          Page Not Found
+          Không Tìm Thấy Trang
         </h2>
 
         {/* Description */}
         <p className="text-lg text-gray-600 dark:text-gray-400 mb-6">
-          The page you’re looking for doesn’t exist. It may have been removed,
-          or it might be temporarily unavailable.
+          Trang bạn đang tìm kiếm không tồn tại. Có thể nó đã bị xóa
+          hoặc tạm thời không khả dụng.
         </p>
 
         {/* Button to go back to Home */}
@@ -45,7 +45,7 @@ const NotFound = () => {
           onClick={() => navigate("/")}
           className="inline-block text-md bg-green-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 transition-all duration-300"
         >
-          Go Back to Home
+          Trở Về Trang Chủ
         </button>
       </div>
     </div>

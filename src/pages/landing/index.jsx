@@ -12,29 +12,29 @@ export default function Home() {
       <Description />
       <div className="mb-24">
         <h2 className="mb-12 text-center text-3xl font-bold text-black dark:text-white md:text-4xl">
-          Key Features
+          Tính Năng Chính
         </h2>
         <Features />
       </div>
       <div className="mb-24">
         <h2 className="mb-12 text-center text-3xl font-bold text-black dark:text-white md:text-4xl">
-          What Our Users Say
+          Người Dùng Nói Gì
         </h2>
         <Testimonials />
       </div>
       <div className="mb-24">
         <h2 className="mb-12 text-center text-3xl font-bold text-black dark:text-white md:text-4xl">
-          How It Works
+          Cách Thức Hoạt Động
         </h2>
         <HowItWorks />
       </div>
       <div className="rounded-lg bg-green-200 p-6 text-center text-gray-800 dark:bg-green-300 dark:text-white sm:p-8 lg:p-10">
         <h2 className="mb-4 text-2xl font-bold sm:text-3xl lg:text-4xl">
-          Transform Patient Care with AI
+          Chuyển Đổi Chăm Sóc Bệnh Nhân với AI
         </h2>
         <p className="mb-6 text-lg text-gray-600 dark:text-white/90 sm:text-xl">
-          Join countless healthcare professionals leveraging CanCure to enhance
-          patient management and improve treatment outcomes.
+          Tham gia cùng vô số chuyên gia y tế sử dụng CanCure để nâng cao
+          quản lý bệnh nhân và cải thiện kết quả điều trị.
         </p>
 
         <Link to={"/dashboard"}>
@@ -43,7 +43,7 @@ export default function Home() {
             variant="secondary"
             className="text-gray-800 dark:text-white/90"
           >
-            Start For Free <ArrowRight className="ml-2 h-5 w-5" />
+            Bắt Đầu Miễn Phí <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
         </Link>
       </div>

@@ -16,7 +16,7 @@ export const UserStateContextProvider = ({ children }) => {
   const [records, setRecords] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
 
-  const handleError = (err, customMessage = "An error occurred") => {
+  const handleError = (err, customMessage = "Đã xảy ra lỗi") => {
     console.error(`${customMessage}: ${err.message}`);
   };
 
@@ -44,7 +44,7 @@ export const UserStateContextProvider = ({ children }) => {
       (user) => user.createdBy !== userData.createdBy,
     );
     if (isUsernameTaken) {
-      throw new Error("Username is already taken. Please choose another.");
+      throw new Error("Tên người dùng đã được sử dụng. Vui lòng chọn tên khác.");
     }
 
     try {
@@ -58,7 +58,7 @@ export const UserStateContextProvider = ({ children }) => {
       setCurrentUser(newUser[0]);
       return newUser[0];
     } catch (err) {
-      handleError(err, err.message || "Failed to create user");
+      handleError(err, err.message || "Không thể tạo người dùng");
     }
   }, []);
 
@@ -71,7 +71,7 @@ export const UserStateContextProvider = ({ children }) => {
         .execute();
       setRecords(result);
     } catch (err) {
-      handleError(err, "Failed to fetch user records");
+      handleError(err, "Không thể lấy thông tin hồ sơ người dùng");
     }
   }, []);
 
@@ -86,7 +86,7 @@ export const UserStateContextProvider = ({ children }) => {
       (record) => record.recordName === recordData.recordName,
     );
     if (isRecordExist) {
-      throw new Error("Record name is already taken. Please choose another.");
+      throw new Error("Tên hồ sơ đã được sử dụng. Vui lòng chọn tên khác.");
     }
     try {
       const newRecord = await db
@@ -97,7 +97,7 @@ export const UserStateContextProvider = ({ children }) => {
       setRecords((prevRecords) => [...prevRecords, newRecord[0]]);
       return newRecord[0];
     } catch (err) {
-      handleError(err, "Failed to create record");
+      handleError(err, "Không thể tạo hồ sơ");
     }
   }, []);
 
@@ -115,7 +115,7 @@ export const UserStateContextProvider = ({ children }) => {
         ),
       );
     } catch (err) {
-      handleError(err, "Failed to update record");
+      handleError(err, "Không thể cập nhật hồ sơ");
     }
   }, []);
 
@@ -126,7 +126,7 @@ export const UserStateContextProvider = ({ children }) => {
         prevRecords.filter((record) => record.id !== recordID),
       );
     } catch (err) {
-      handleError(err, "Failed to delete record");
+      handleError(err, "Không thể xóa hồ sơ");
     }
   }, []);
 
@@ -156,7 +156,7 @@ export const useUserStateContext = () => {
   const context = useContext(UserStateContext);
   if (!context) {
     throw new Error(
-      "useUserStateContext must be used within a UserStateContextProvider",
+      "useUserStateContext phải được sử dụng trong UserStateContextProvider",
     );
   }
   return context;

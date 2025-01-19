@@ -11,11 +11,11 @@ const CreateRecordModal = ({ isOpen, onClose, onCreate, error, loading }) => {
 
   return (
     <Modal
-      title="Create Record"
+      title="Tạo Hồ Sơ"
       isOpen={isOpen}
       onClose={onClose}
       onAction={handleCreate}
-      actionLabel="Create Folder"
+      actionLabel="Tạo Thư Mục"
       error={error}
       loading={loading}
     >
@@ -25,7 +25,7 @@ const CreateRecordModal = ({ isOpen, onClose, onCreate, error, loading }) => {
             htmlFor="folder-name"
             className="mb-2 block text-sm text-gray-800 dark:text-white"
           >
-            Record Name
+            Tên Hồ Sơ
           </label>
           <div className="relative">
             <input
@@ -36,7 +36,7 @@ const CreateRecordModal = ({ isOpen, onClose, onCreate, error, loading }) => {
               onChange={(e) => setFoldername(e.target.value)}
               required
               className="block w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-500 focus:border-[#1ec070] focus:outline-none dark:border-neutral-800 dark:bg-[#1c1c24] dark:text-white dark:placeholder-neutral-500 dark:focus:border-neutral-600"
-              placeholder="Enter record name"
+              placeholder="Nhập tên hồ sơ"
             />
           </div>
         </div>
@@ -46,4 +46,3 @@ const CreateRecordModal = ({ isOpen, onClose, onCreate, error, loading }) => {
 };
 
 export default CreateRecordModal;
-//

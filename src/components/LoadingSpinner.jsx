@@ -12,7 +12,7 @@ const LoadingSpinner = () => {
         </div>
         {/* Loading Text */}
         <span className="mt-4 text-center text-lg font-semibold text-neutral-800 dark:text-neutral-200">
-          We're assessing your medical history for optimal care...
+          Chúng tôi đang đánh giá lịch sử y tế của bạn để chăm sóc tối ưu...
         </span>
       </div>
     </div>

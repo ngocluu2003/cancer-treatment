@@ -13,7 +13,7 @@ const Profile = () => {
     if (isLoaded && user) {
       setName(user.fullName);
       setLastSignIn(
-        new Date(user.lastSignInAt).toLocaleDateString("en-US", {
+        new Date(user.lastSignInAt).toLocaleDateString("vi-VN", {
           weekday: "short",
           year: "numeric",
           month: "short",
@@ -31,7 +31,7 @@ const Profile = () => {
   if (!currentUser) {
     return (
       <div className="flex h-screen items-center justify-center">
-        <div className="text-lg text-gray-500">Loading...</div>
+        <div className="text-lg text-gray-500">Đang tải...</div>
       </div>
     );
   }
@@ -43,7 +43,7 @@ const Profile = () => {
           {imageUrl ? (
             <img
               src={imageUrl}
-              alt="Profile"
+              alt="Hồ sơ cá nhân"
               className="h-full w-full rounded-full object-cover transition-transform duration-200 hover:scale-105"
             />
           ) : (
@@ -53,11 +53,11 @@ const Profile = () => {
           )}
         </div>
         <h1 className="mb-2 text-3xl font-semibold text-black dark:text-white">
-          {name || "User Profile"}
+          {name || "Hồ Sơ Người Dùng"}
         </h1>
         <div className="mt-4 w-full">
           <p className="mb-1 text-sm text-gray-700 dark:text-gray-400">
-            Last Sign-In:
+            Lần Đăng Nhập Gần Nhất:
           </p>
           <p className="mb-4 text-lg font-semibold text-black dark:text-white">
             {lastSignIn}
@@ -71,19 +71,19 @@ const Profile = () => {
           </p>
 
           <p className="mb-1 text-sm text-gray-700 dark:text-gray-400">
-            Username:
+            Tên Người Dùng:
           </p>
           <p className="mb-4 text-lg font-semibold text-black dark:text-white">
             {currentUser.username}
           </p>
 
-          <p className="mb-1 text-sm text-gray-700 dark:text-gray-400">Age:</p>
+          <p className="mb-1 text-sm text-gray-700 dark:text-gray-400">Tuổi:</p>
           <p className="mb-4 text-lg font-semibold text-black dark:text-white">
             {currentUser.age}
           </p>
 
           <p className="mb-1 text-sm text-gray-700 dark:text-gray-400">
-            Location:
+            Địa Điểm:
           </p>
           <p className="text-lg font-semibold text-black dark:text-white">
             {currentUser.location}

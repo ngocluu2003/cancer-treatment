@@ -7,7 +7,7 @@ const UnderConstruction = () => {
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="text-center p-8 lg:p-16 bg-white dark:bg-[#1C2126] rounded-xl shadow-lg">
-        {/* Icon */}
+        {/* Biểu tượng */}  
         <div className="mb-6">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -25,11 +25,11 @@ const UnderConstruction = () => {
         </div>
 
         <h1 className="text-3xl font-extrabold text-gray-800 dark:text-white mb-2">
-          We're Building This Page
+          Trang Đang Được Xây Dựng
         </h1>
 
         <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-          Our team is working hard to bring this page live. Stay tuned!
+          Đội ngũ của chúng tôi đang làm việc chăm chỉ để đưa trang này vào hoạt động. Vui lòng chờ đợi!
         </p>
 
         <div>
@@ -37,7 +37,7 @@ const UnderConstruction = () => {
             onClick={() => navigate("/dashboard")}
             className="inline-block text-md bg-green-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 transition-all duration-300"
           >
-            Back to Dashboard
+            Quay lại Trang Chính
           </button>
         </div>
       </div>

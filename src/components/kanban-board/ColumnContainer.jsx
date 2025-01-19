@@ -112,7 +112,7 @@ function ColumnContainer({
         }}
       >
         <IconPlus />
-        Add task
+        Thêm công việc
       </button>
     </div>
   );

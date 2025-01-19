@@ -85,7 +85,7 @@ const MedicalRecord = () => {
           onClick={handleOpenModal}
         >
           <IconCirclePlus className="text-[#1ec070] dark:text-[#1dc071]" />
-          Create Record
+          Tạo Hồ Sơ
         </button>
       )}
 

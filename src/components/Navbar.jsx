@@ -25,27 +25,27 @@ const Navbar = () => {
 
   return (
     <div className="mb-[35px] flex flex-col-reverse justify-between gap-6 sm:flex-row">
-      {/* Search bar component */}
+      {/* Thành phần thanh tìm kiếm */}
       <div className="flex h-[52px] w-full flex-row rounded-[100px] bg-[#e9e9e9] py-2 pl-4 pr-2 dark:bg-[#1c1c24] sm:max-w-[498px] lg:flex-1">
         <input
           type="text"
-          placeholder="Search for records"
+          placeholder="Tìm kiếm hồ sơ"
           className="flex w-full bg-transparent font-epilogue text-[14px] font-normal text-[#13131a] placeholder-gray-500 outline-none dark:text-white dark:placeholder:text-[#4b5264]"
         />
         <button className="flex h-full w-[72px] cursor-pointer items-center justify-center rounded-[20px] bg-[#1ec070] dark:bg-[#1dc071]">
           <img
             src="/search.svg"
-            alt="Search"
+            alt="Tìm kiếm"
             className="h-[15px] w-[15px] object-contain"
           />
         </button>
       </div>
 
-      {/* Authentication button */}
+      {/* Nút đăng nhập */}
       <div className="mr-2 hidden flex-row justify-end sm:flex">
         <SignedOut>
           <SignInButton forceRedirectUrl="/dashboard">
-            <Button variant="outline">Login</Button>
+            <Button variant="outline">Đăng nhập</Button>
           </SignInButton>
         </SignedOut>
         <SignedIn>
@@ -53,7 +53,7 @@ const Navbar = () => {
         </SignedIn>
       </div>
 
-      {/* Mobile view */}
+      {/* Hiển thị trên di động */}
       <div className="relative flex items-center justify-between sm:hidden">
         <Link to={"/dashboard"}>
           <div className="flex cursor-pointer items-center justify-center rounded-full bg-[#e3e3db] dark:bg-[#2c2f32]">
@@ -71,7 +71,7 @@ const Navbar = () => {
           <ThemeSwitch className="m-3 flex h-10 w-10 items-center justify-center rounded-full" />
           <SignedOut>
             <SignInButton forceRedirectUrl="/dashboard">
-              <Button variant="outline">Login</Button>
+              <Button variant="outline">Đăng nhập</Button>
             </SignInButton>
           </SignedOut>
           <SignedIn>
@@ -79,7 +79,7 @@ const Navbar = () => {
           </SignedIn>
         </div>
 
-        {/* Toggle menu sidebar */}
+        {/* Menu phụ */}
         <div
           className={`absolute left-0 right-0 top-[60px] z-10 bg-[#f5f5f5] py-4 shadow-secondary dark:bg-[#13131a] ${
             !toggleDrawer ? "-translate-y-[100vh]" : "translate-y-0"

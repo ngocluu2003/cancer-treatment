@@ -21,7 +21,7 @@ const Onboarding = () => {
     e.preventDefault();
 
     if (parseInt(age, 10) <= 0) {
-      setFormError("Please enter a valid age.");
+      setFormError("Vui lòng nhập tuổi hợp lệ.");
       setLoading(false);
       return;
     }
@@ -50,23 +50,22 @@ const Onboarding = () => {
           👋
         </h2>
         <h2 className="mb-6 text-center text-2xl font-bold text-[#13131a] dark:text-white">
-          Welcome! Let's get started
+          Chào mừng! Bắt đầu nào
         </h2>
 
         <form onSubmit={handleOnboarding}>
           {formError && (
             <div className="mb-4 text-center text-red-600">{formError}</div>
-          )}{" "}
+          )}
           {userError && (
             <div className="mb-4 text-center text-red-600">{userError}</div>
           )}
-          {/* Display form error message */}
           <div className="mb-4">
             <label
               htmlFor="username"
               className="mb-2 block text-sm font-medium text-[#4b5264] dark:text-gray-400"
             >
-              Username
+              Tên Người Dùng
             </label>
             <input
               type="text"
@@ -82,7 +81,7 @@ const Onboarding = () => {
               htmlFor="age"
               className="mb-2 block text-sm font-medium text-[#4b5264] dark:text-gray-400"
             >
-              Age
+              Tuổi
             </label>
             <input
               type="number"
@@ -98,7 +97,7 @@ const Onboarding = () => {
               htmlFor="location"
               className="mb-2 block text-sm font-medium text-[#4b5264] dark:text-gray-400"
             >
-              Location
+              Địa Điểm
             </label>
             <input
               type="text"
@@ -120,11 +119,11 @@ const Onboarding = () => {
                 className="h-5 w-5 animate-spin text-black dark:text-white"
               />
             ) : (
-              "Submit"
+              "Gửi"
             )}
             {loading && (
               <span className="ml-2 text-black dark:text-white">
-                Submitting...
+                Đang gửi...
               </span>
             )}
           </button>

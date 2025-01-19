@@ -12,11 +12,11 @@ const FileUploadModal = ({
 }) => {
   return (
     <Modal
-      title={"Upload Reports"}
+      title={"Tải Lên Báo Cáo"}
       isOpen={isOpen}
       onClose={onClose}
       onAction={onFileUpload}
-      actionLabel={"Upload and Analyze"}
+      actionLabel={"Tải Lên và Phân Tích"}
     >
       <div className="flex w-full flex-col items-center justify-center gap-2 rounded-xl border-dashed border-slate-700 p-8 text-slate-300">
         <svg
@@ -44,11 +44,11 @@ const FileUploadModal = ({
               aria-describedby="validFileFormats"
               onChange={onFileChange}
             />
-            Browse{" "}
+            Chọn Tệp{" "}
           </label>
-          or drag and drop here
+          hoặc kéo và thả tệp vào đây
         </div>
-        <small id="validFileFormats">PNG, PDF, JPEG - Max 5MB</small>
+        <small id="validFileFormats">PNG, PDF, JPEG - Tối đa 5MB</small>
       </div>
       {uploading && (
         <IconProgress
@@ -58,7 +58,7 @@ const FileUploadModal = ({
       )}
 
       {uploadSuccess && (
-        <p className="mt-2 text-green-600">Uploaded successful!</p>
+        <p className="mt-2 text-green-600">Tải lên thành công!</p>
       )}
       <span className="text-md text-left text-black dark:text-white">
         {fileName}

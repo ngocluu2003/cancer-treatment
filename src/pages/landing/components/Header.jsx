@@ -39,7 +39,7 @@ const Header = () => {
               className="mr-2 hidden text-[#1ec070] sm:flex"
               size={24}
             />
-            <span className="hidden text-base font-medium sm:flex">Login</span>
+            <span className="hidden text-base font-medium sm:flex">Đăng nhập</span>
           </Button>
         </SignedOut>
         <SignedIn>

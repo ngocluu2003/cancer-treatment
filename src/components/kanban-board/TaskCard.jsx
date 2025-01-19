@@ -56,7 +56,7 @@ function TaskCard({ task, deleteTask, updateTask }) {
           className="scrollable h-[90%] w-full resize-none rounded border-none bg-transparent text-black dark:text-white focus:outline-none"
           value={task.content}
           autoFocus
-          placeholder="Task content here"
+          placeholder="Nội dung công việc"
           onBlur={toggleEditMode}
           onKeyDown={(e) => {
             if (e.key === "Enter" && e.shiftKey) {

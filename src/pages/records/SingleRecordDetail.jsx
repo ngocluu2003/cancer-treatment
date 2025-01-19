@@ -44,7 +44,7 @@ const SingleRecordDetail = () => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => resolve(reader.result.split(",")[1]);
-      reader.onerror = () => reject(new Error("Failed to read file"));
+      reader.onerror = () => reject(new Error("Không thể đọc file"));
       reader.readAsDataURL(file);
     });
   };
@@ -81,7 +81,7 @@ const SingleRecordDetail = () => {
       setFile(null);
       setFileType("");
     } catch (error) {
-      console.error("Error during file upload:", error);
+      console.error("Lỗi khi tải file:", error);
     } finally {
       setUploading(false);
     }
@@ -94,7 +94,7 @@ const SingleRecordDetail = () => {
         const parsedResponse = JSON.parse(text);
         navigate("/screening-schedules", { state: parsedResponse });
       } else {
-        alert("create a new record , then try to reuplaod the report");
+        alert("Tạo một bản ghi mới, sau đó thử tải lại báo cáo");
         setAnalysisResult("test");
         await updateRecord({
           documentID: state.id,
@@ -119,10 +119,10 @@ const SingleRecordDetail = () => {
           await updateRecord({ documentID: state.id, kanbanRecords: text });
           navigate("/screening-schedules", { state: parsedResponse });
         } catch (jsonError) {
-          console.error("Failed to parse JSON response:", jsonError);
+          console.error("Không thể phân tích cú pháp JSON:", jsonError);
         }
       } catch (error) {
-        console.error("Error processing treatment plan:", error);
+        console.error("Lỗi khi xử lý kế hoạch điều trị:", error);
       } finally {
         setIsProcessing(false);
       }
@@ -138,7 +138,7 @@ const SingleRecordDetail = () => {
         className="mt-6 inline-flex items-center gap-x-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-800 shadow-sm hover:bg-neutral-100 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-[#1c1c24] dark:text-white dark:hover:bg-neutral-800"
       >
         <IconFileUpload className="text-[#1ec070] dark:text-[#1dc071]" />
-        Upload Reports
+        Tải Báo Cáo
       </button>
       <FileUploadModal
         isOpen={isModalOpen}
@@ -157,15 +157,15 @@ const SingleRecordDetail = () => {
               <div className="overflow-hidden rounded-xl border border-neutral-300 bg-white shadow-sm dark:border-neutral-700 dark:bg-[#13131a]">
                 <div className="border-b border-neutral-300 px-6 py-4 dark:border-neutral-700">
                   <h2 className="text-xl font-semibold text-neutral-800 dark:text-neutral-200">
-                    Personalized AI-Driven Treatment Plan
+                    Kế Hoạch Điều Trị Cá Nhân Hóa Dựa Trên AI
                   </h2>
                   <p className="text-sm text-neutral-500 dark:text-neutral-400">
-                    A tailored medical strategy leveraging advanced AI insights.
+                    Chiến lược y tế cá nhân hóa tận dụng những hiểu biết sâu sắc từ AI.
                   </p>
                 </div>
                 <div className="flex w-full flex-col px-6 py-4 text-neutral-800 dark:text-white">
                   <div>
-                    <h2 className="text-lg font-semibold">Analysis Result</h2>
+                    <h2 className="text-lg font-semibold">Kết Quả Phân Tích</h2>
                     <div className="space-y-2">
                       <Markdown>{analysisResult}</Markdown>
                     </div>
@@ -178,7 +178,7 @@ const SingleRecordDetail = () => {
                     disabled={analysisResult === "test"}
                     className="inline-flex items-center gap-x-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 shadow-sm hover:bg-neutral-100 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800"
                   >
-                    View Treatment Plan{" "}
+                    Xem Kế Hoạch Điều Trị{" "}
                     <IconChevronRight
                       className="text-neutral-500 dark:text-neutral-400"
                       size={20}

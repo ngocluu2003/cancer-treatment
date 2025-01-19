@@ -66,7 +66,7 @@ function KanbanBoard({ state }) {
             className="flex h-[60px] w-[350px] min-w-[350px] cursor-pointer gap-2 rounded-lg border-2 bg-[#f5f5f5] p-4 font-medium text-black ring-green-500 hover:ring-2 dark:border-columnBackgroundColor dark:bg-mainBackgroundColor dark:text-white"
           >
             <IconPlus />
-            Add Column
+            Thêm cột
           </button>
         </div>
         {createPortal(
@@ -102,7 +102,7 @@ function KanbanBoard({ state }) {
     const newTask = {
       id: generateId(),
       columnId,
-      content: `Task ${tasks.length + 1}`,
+      content: `Công việc ${tasks.length + 1}`,
     };
     setTasks([...tasks, newTask]);
   }
@@ -122,7 +122,7 @@ function KanbanBoard({ state }) {
   function createNewColumn() {
     const newColumn = {
       id: generateId(),
-      title: `Column ${columns.length + 1}`,
+      title: `Cột ${columns.length + 1}`,
     };
     setColumns([...columns, newColumn]);
   }
